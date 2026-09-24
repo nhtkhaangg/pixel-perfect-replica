@@ -24,8 +24,11 @@ import { Route as UiNavigationRouteImport } from './routes/ui-navigation'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as CustomerIndexRouteImport } from './routes/customer/index'
 import { Route as ManagerIndexRouteImport } from './routes/manager/index'
+import { Route as PackagesIndexRouteImport } from './routes/packages/index'
+import { Route as PackagesIdRouteImport } from './routes/packages/$id'
 import { Route as StaffIndexRouteImport } from './routes/staff/index'
 import { Route as TrainerIndexRouteImport } from './routes/trainer/index'
+import { Route as TrainersIndexRouteImport } from './routes/trainers/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -102,6 +105,16 @@ const ManagerIndexRoute = ManagerIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ManagerRouteRoute,
 } as any)
+const PackagesIndexRoute = PackagesIndexRouteImport.update({
+  id: '/packages/',
+  path: '/packages/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PackagesIdRoute = PackagesIdRouteImport.update({
+  id: '/packages/$id',
+  path: '/packages/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StaffIndexRoute = StaffIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -111,6 +124,11 @@ const TrainerIndexRoute = TrainerIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => TrainerRouteRoute,
+} as any)
+const TrainersIndexRoute = TrainersIndexRouteImport.update({
+  id: '/trainers/',
+  path: '/trainers/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -126,11 +144,14 @@ export interface FileRoutesByFullPath {
   '/register-trainer': typeof RegisterTrainerRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/packages/$id': typeof PackagesIdRoute
   '/admin/': typeof AdminIndexRoute
   '/customer/': typeof CustomerIndexRoute
   '/manager/': typeof ManagerIndexRoute
+  '/packages/': typeof PackagesIndexRoute
   '/staff/': typeof StaffIndexRoute
   '/trainer/': typeof TrainerIndexRoute
+  '/trainers/': typeof TrainersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -140,11 +161,14 @@ export interface FileRoutesByTo {
   '/register-trainer': typeof RegisterTrainerRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/packages/$id': typeof PackagesIdRoute
   '/admin': typeof AdminIndexRoute
   '/customer': typeof CustomerIndexRoute
   '/manager': typeof ManagerIndexRoute
+  '/packages': typeof PackagesIndexRoute
   '/staff': typeof StaffIndexRoute
   '/trainer': typeof TrainerIndexRoute
+  '/trainers': typeof TrainersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -160,11 +184,14 @@ export interface FileRoutesById {
   '/register-trainer': typeof RegisterTrainerRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/packages/$id': typeof PackagesIdRoute
   '/admin/': typeof AdminIndexRoute
   '/customer/': typeof CustomerIndexRoute
   '/manager/': typeof ManagerIndexRoute
+  '/packages/': typeof PackagesIndexRoute
   '/staff/': typeof StaffIndexRoute
   '/trainer/': typeof TrainerIndexRoute
+  '/trainers/': typeof TrainersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -181,11 +208,14 @@ export interface FileRouteTypes {
     | '/register-trainer'
     | '/reset-password'
     | '/ui-navigation'
+    | '/packages/$id'
     | '/admin/'
     | '/customer/'
     | '/manager/'
+    | '/packages/'
     | '/staff/'
     | '/trainer/'
+    | '/trainers/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -195,11 +225,14 @@ export interface FileRouteTypes {
     | '/register-trainer'
     | '/reset-password'
     | '/ui-navigation'
+    | '/packages/$id'
     | '/admin'
     | '/customer'
     | '/manager'
+    | '/packages'
     | '/staff'
     | '/trainer'
+    | '/trainers'
   id:
     | '__root__'
     | '/'
@@ -214,11 +247,14 @@ export interface FileRouteTypes {
     | '/register-trainer'
     | '/reset-password'
     | '/ui-navigation'
+    | '/packages/$id'
     | '/admin/'
     | '/customer/'
     | '/manager/'
+    | '/packages/'
     | '/staff/'
     | '/trainer/'
+    | '/trainers/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -234,6 +270,9 @@ export interface RootRouteChildren {
   RegisterTrainerRoute: typeof RegisterTrainerRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   UiNavigationRoute: typeof UiNavigationRoute
+  PackagesIdRoute: typeof PackagesIdRoute
+  PackagesIndexRoute: typeof PackagesIndexRoute
+  TrainersIndexRoute: typeof TrainersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -343,6 +382,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ManagerIndexRouteImport
       parentRoute: typeof ManagerRouteRoute
     }
+    '/packages/': {
+      id: '/packages/'
+      path: '/packages'
+      fullPath: '/packages/'
+      preLoaderRoute: typeof PackagesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/packages/$id': {
+      id: '/packages/$id'
+      path: '/packages/$id'
+      fullPath: '/packages/$id'
+      preLoaderRoute: typeof PackagesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/staff/': {
       id: '/staff/'
       path: '/'
@@ -356,6 +409,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/trainer/'
       preLoaderRoute: typeof TrainerIndexRouteImport
       parentRoute: typeof TrainerRouteRoute
+    }
+    '/trainers/': {
+      id: '/trainers/'
+      path: '/trainers'
+      fullPath: '/trainers/'
+      preLoaderRoute: typeof TrainersIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -433,6 +493,9 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterTrainerRoute: RegisterTrainerRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   UiNavigationRoute: UiNavigationRoute,
+  PackagesIdRoute: PackagesIdRoute,
+  PackagesIndexRoute: PackagesIndexRoute,
+  TrainersIndexRoute: TrainersIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
