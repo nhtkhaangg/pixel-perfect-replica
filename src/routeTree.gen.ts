@@ -10,13 +10,33 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
+import { Route as CustomerRouteRouteImport } from './routes/customer/route'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ManagerRouteRouteImport } from './routes/manager/route'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as StaffRouteRouteImport } from './routes/staff/route'
+import { Route as TrainerRouteRouteImport } from './routes/trainer/route'
 import { Route as UiNavigationRouteImport } from './routes/ui-navigation'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as CustomerIndexRouteImport } from './routes/customer/index'
+import { Route as ManagerIndexRouteImport } from './routes/manager/index'
+import { Route as StaffIndexRouteImport } from './routes/staff/index'
+import { Route as TrainerIndexRouteImport } from './routes/trainer/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerRouteRoute = CustomerRouteRouteImport.update({
+  id: '/customer',
+  path: '/customer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -24,9 +44,24 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ManagerRouteRoute = ManagerRouteRouteImport.update({
+  id: '/manager',
+  path: '/manager',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaffRouteRoute = StaffRouteRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrainerRouteRoute = TrainerRouteRouteImport.update({
+  id: '/trainer',
+  path: '/trainer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UiNavigationRoute = UiNavigationRouteImport.update({
@@ -34,36 +69,129 @@ const UiNavigationRoute = UiNavigationRouteImport.update({
   path: '/ui-navigation',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const CustomerIndexRoute = CustomerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const ManagerIndexRoute = ManagerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ManagerRouteRoute,
+} as any)
+const StaffIndexRoute = StaffIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StaffRouteRoute,
+} as any)
+const TrainerIndexRoute = TrainerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TrainerRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/customer': typeof CustomerRouteRouteWithChildren
+  '/manager': typeof ManagerRouteRouteWithChildren
+  '/staff': typeof StaffRouteRouteWithChildren
+  '/trainer': typeof TrainerRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/admin/': typeof AdminIndexRoute
+  '/customer/': typeof CustomerIndexRoute
+  '/manager/': typeof ManagerIndexRoute
+  '/staff/': typeof StaffIndexRoute
+  '/trainer/': typeof TrainerIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/admin': typeof AdminIndexRoute
+  '/customer': typeof CustomerIndexRoute
+  '/manager': typeof ManagerIndexRoute
+  '/staff': typeof StaffIndexRoute
+  '/trainer': typeof TrainerIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/customer': typeof CustomerRouteRouteWithChildren
+  '/manager': typeof ManagerRouteRouteWithChildren
+  '/staff': typeof StaffRouteRouteWithChildren
+  '/trainer': typeof TrainerRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/admin/': typeof AdminIndexRoute
+  '/customer/': typeof CustomerIndexRoute
+  '/manager/': typeof ManagerIndexRoute
+  '/staff/': typeof StaffIndexRoute
+  '/trainer/': typeof TrainerIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/register' | '/ui-navigation'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/customer'
+    | '/manager'
+    | '/staff'
+    | '/trainer'
+    | '/login'
+    | '/register'
+    | '/ui-navigation'
+    | '/admin/'
+    | '/customer/'
+    | '/manager/'
+    | '/staff/'
+    | '/trainer/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register' | '/ui-navigation'
-  id: '__root__' | '/' | '/login' | '/register' | '/ui-navigation'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/ui-navigation'
+    | '/admin'
+    | '/customer'
+    | '/manager'
+    | '/staff'
+    | '/trainer'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/customer'
+    | '/manager'
+    | '/staff'
+    | '/trainer'
+    | '/login'
+    | '/register'
+    | '/ui-navigation'
+    | '/admin/'
+    | '/customer/'
+    | '/manager/'
+    | '/staff/'
+    | '/trainer/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
+  CustomerRouteRoute: typeof CustomerRouteRouteWithChildren
+  ManagerRouteRoute: typeof ManagerRouteRouteWithChildren
+  StaffRouteRoute: typeof StaffRouteRouteWithChildren
+  TrainerRouteRoute: typeof TrainerRouteRouteWithChildren
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   UiNavigationRoute: typeof UiNavigationRoute
@@ -78,11 +206,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer': {
+      id: '/customer'
+      path: '/customer'
+      fullPath: '/customer'
+      preLoaderRoute: typeof CustomerRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/manager': {
+      id: '/manager'
+      path: '/manager'
+      fullPath: '/manager'
+      preLoaderRoute: typeof ManagerRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/register': {
@@ -92,6 +241,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/staff': {
+      id: '/staff'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof StaffRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trainer': {
+      id: '/trainer'
+      path: '/trainer'
+      fullPath: '/trainer'
+      preLoaderRoute: typeof TrainerRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ui-navigation': {
       id: '/ui-navigation'
       path: '/ui-navigation'
@@ -99,11 +262,111 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UiNavigationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/customer/': {
+      id: '/customer/'
+      path: '/'
+      fullPath: '/customer/'
+      preLoaderRoute: typeof CustomerIndexRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/manager/': {
+      id: '/manager/'
+      path: '/'
+      fullPath: '/manager/'
+      preLoaderRoute: typeof ManagerIndexRouteImport
+      parentRoute: typeof ManagerRouteRoute
+    }
+    '/staff/': {
+      id: '/staff/'
+      path: '/'
+      fullPath: '/staff/'
+      preLoaderRoute: typeof StaffIndexRouteImport
+      parentRoute: typeof StaffRouteRoute
+    }
+    '/trainer/': {
+      id: '/trainer/'
+      path: '/'
+      fullPath: '/trainer/'
+      preLoaderRoute: typeof TrainerIndexRouteImport
+      parentRoute: typeof TrainerRouteRoute
+    }
   }
 }
 
+interface AdminRouteRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
+interface CustomerRouteRouteChildren {
+  CustomerIndexRoute: typeof CustomerIndexRoute
+}
+
+const CustomerRouteRouteChildren: CustomerRouteRouteChildren = {
+  CustomerIndexRoute: CustomerIndexRoute,
+}
+
+const CustomerRouteRouteWithChildren = CustomerRouteRoute._addFileChildren(
+  CustomerRouteRouteChildren,
+)
+
+interface ManagerRouteRouteChildren {
+  ManagerIndexRoute: typeof ManagerIndexRoute
+}
+
+const ManagerRouteRouteChildren: ManagerRouteRouteChildren = {
+  ManagerIndexRoute: ManagerIndexRoute,
+}
+
+const ManagerRouteRouteWithChildren = ManagerRouteRoute._addFileChildren(
+  ManagerRouteRouteChildren,
+)
+
+interface StaffRouteRouteChildren {
+  StaffIndexRoute: typeof StaffIndexRoute
+}
+
+const StaffRouteRouteChildren: StaffRouteRouteChildren = {
+  StaffIndexRoute: StaffIndexRoute,
+}
+
+const StaffRouteRouteWithChildren = StaffRouteRoute._addFileChildren(
+  StaffRouteRouteChildren,
+)
+
+interface TrainerRouteRouteChildren {
+  TrainerIndexRoute: typeof TrainerIndexRoute
+}
+
+const TrainerRouteRouteChildren: TrainerRouteRouteChildren = {
+  TrainerIndexRoute: TrainerIndexRoute,
+}
+
+const TrainerRouteRouteWithChildren = TrainerRouteRoute._addFileChildren(
+  TrainerRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
+  CustomerRouteRoute: CustomerRouteRouteWithChildren,
+  ManagerRouteRoute: ManagerRouteRouteWithChildren,
+  StaffRouteRoute: StaffRouteRouteWithChildren,
+  TrainerRouteRoute: TrainerRouteRouteWithChildren,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   UiNavigationRoute: UiNavigationRoute,
