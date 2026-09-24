@@ -184,18 +184,19 @@ export const ROLE_AREAS: Record<RoleKey, RoleArea> = {
       {
         title: "Hệ thống",
         items: [
-          { label: "Tổng quan", to: "/admin", icon: LayoutDashboard },
+          { label: "Tổng quan", to: "/admin/dashboard", icon: LayoutDashboard },
           { label: "Người dùng", to: "/admin/users", icon: Users },
-          { label: "Phân quyền", to: "/admin/roles", icon: ShieldCheck },
-          { label: "Nhật ký hoạt động", to: "/admin/audit-log", icon: ClipboardList },
+          { label: "Quản lý", to: "/admin/managers", icon: ShieldCheck },
+          { label: "Thông báo", to: "/admin/notifications", icon: Bell },
         ],
       },
       {
-        title: "Cấu hình",
+        title: "Cấu hình phòng gym",
         items: [
-          { label: "Thông tin phòng tập", to: "/admin/gym-profile", icon: Dumbbell },
-          { label: "Thông báo", to: "/admin/notifications", icon: Bell },
-          { label: "Cài đặt hệ thống", to: "/admin/settings", icon: Settings },
+          { label: "Thông tin phòng gym", to: "/admin/gym-information", icon: Dumbbell },
+          { label: "Gói hội viên", to: "/admin/membership-packages", icon: Package },
+          { label: "Gói PT", to: "/admin/trainer-packages", icon: ClipboardList },
+          { label: "Hoàn tiền", to: "/admin/refunds", icon: Wallet },
         ],
       },
     ],
@@ -326,9 +327,33 @@ export const MANAGER_PAGES: { label: string; to: string }[] = [
   { label: "Thông báo", to: "/manager/notifications" },
 ];
 
+export const ADMIN_PAGES: { label: string; to: string }[] = [
+  { label: "Tổng quan quản trị", to: "/admin/dashboard" },
+  { label: "Thông tin phòng gym", to: "/admin/gym-information" },
+  { label: "Thêm thông tin phòng gym", to: "/admin/gym-information/create" },
+  { label: "Cập nhật thông tin phòng gym", to: "/admin/gym-information/edit" },
+  { label: "Danh sách gói PT", to: "/admin/trainer-packages" },
+  { label: "Tạo gói PT", to: "/admin/trainer-packages/create" },
+  { label: "Chi tiết gói PT", to: "/admin/trainer-packages/t1" },
+  { label: "Cập nhật gói PT", to: "/admin/trainer-packages/t1/edit" },
+  { label: "Danh sách gói hội viên", to: "/admin/membership-packages" },
+  { label: "Tạo gói hội viên", to: "/admin/membership-packages/create" },
+  { label: "Chi tiết gói hội viên", to: "/admin/membership-packages/m1" },
+  { label: "Cập nhật gói hội viên", to: "/admin/membership-packages/m1/edit" },
+  { label: "Danh sách giao dịch hoàn tiền", to: "/admin/refunds" },
+  { label: "Xử lý thanh toán hoàn tiền", to: "/admin/refunds/rf3/process" },
+  { label: "Danh sách quản lý", to: "/admin/managers" },
+  { label: "Tạo tài khoản quản lý", to: "/admin/managers/create" },
+  { label: "Chi tiết quản lý", to: "/admin/managers/mg1" },
+  { label: "Cập nhật quản lý", to: "/admin/managers/mg1/edit" },
+  { label: "Quản lý người dùng", to: "/admin/users" },
+  { label: "Thông báo", to: "/admin/notifications" },
+];
+
 export const ROLE_PAGES: Partial<Record<RoleKey, { label: string; to: string }[]>> = {
   customer: CUSTOMER_PAGES,
   trainer: TRAINER_PAGES,
   staff: STAFF_PAGES,
   manager: MANAGER_PAGES,
+  admin: ADMIN_PAGES,
 };

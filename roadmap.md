@@ -1,4 +1,3 @@
 # Roadmap
-- [x] Trainer portal /trainer/*
-- [x] Staff area /staff/*
-- [x] Manager area /manager/*
+- [x] Admin area /admin/*
+- [x] Final site audit

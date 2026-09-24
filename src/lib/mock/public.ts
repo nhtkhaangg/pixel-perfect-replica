@@ -405,7 +405,7 @@ export const REVIEWS: Review[] = [
 ];
 
 export const GYM_INFO = {
-  name: "GymCore Nguyễn Thị Minh Khai",
+  name: "GymCore",
   address: "128 Nguyễn Thị Minh Khai, Phường Võ Thị Sáu, Quận 3, TP. Hồ Chí Minh",
   phone: "028 3925 1188",
   hotline: "0909 128 128",
