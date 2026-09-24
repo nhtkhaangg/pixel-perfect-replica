@@ -27,7 +27,7 @@ const ROLE_VI: Record<string, string> = { CUSTOMER: "Hội viên", TRAINER: "Hu�
 type User = { id: string; name: string; email: string; phone: string; role: keyof typeof ROLE_VI; status: AccStatus; created: string; lastLogin: string };
 const USERS: User[] = [
   ["Nguyễn Minh Hoàng", "CUSTOMER", "ACTIVE"], ["Nguyễn Thu Hà", "CUSTOMER", "ACTIVE"], ["Bùi Đức Trí", "CUSTOMER", "LOCKED"], ["Ngô Khánh Vy", "CUSTOMER", "UNVERIFIED"],
-  ["Trần Minh Khang", "TRAINER", "ACTIVE"], ["Đinh Quang Hiếu", "TRAINER", "UNVERIFIED"], ["Lê Mai Phương", "STAFF", "ACTIVE"], ["Hồ Minh Tuấn", "STAFF", "LOCKED"],
+  ["Trần Minh Khang", "TRAINER", "ACTIVE"], ["Đinh Quang Hiếu", "TRAINER", "UNVERIFIED"], ["Lâm Quốc Việt", "STAFF", "ACTIVE"], ["Hồ Minh Tuấn", "STAFF", "LOCKED"],
   ["Phạm Quốc Bảo", "MANAGER", "ACTIVE"], ["Vũ Thị Ngân", "MANAGER", "ACTIVE"], ["Đặng Trần Minh", "ADMIN", "ACTIVE"], ["Lý Thanh Tâm", "CUSTOMER", "ACTIVE"],
 ].map(([name, role, status], i) => ({
   id: `u${i + 1}`, name: name!, role: role as User["role"], status: status as AccStatus,

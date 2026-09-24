@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 const MOCK_USERS: Record<RoleKey, string> = {
   customer: "Nguyễn Minh Hoàng",
   trainer: "Trần Minh Khang",
-  staff: "Lê Mai Phương",
+  staff: "Lâm Quốc Việt",
   manager: "Phạm Quốc Bảo",
   admin: "Đặng Trần Minh",
 };
