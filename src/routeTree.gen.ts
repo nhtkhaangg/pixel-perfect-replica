@@ -13,22 +13,28 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as CustomerRouteRouteImport } from './routes/customer/route'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as GymInfoRouteImport } from './routes/gym-info'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ManagerRouteRouteImport } from './routes/manager/route'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as RegisterTrainerRouteImport } from './routes/register-trainer'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as StaffRouteRouteImport } from './routes/staff/route'
 import { Route as TrainerRouteRouteImport } from './routes/trainer/route'
 import { Route as UiNavigationRouteImport } from './routes/ui-navigation'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as ArticlesIndexRouteImport } from './routes/articles/index'
+import { Route as ArticlesIdRouteImport } from './routes/articles/$id'
 import { Route as CustomerIndexRouteImport } from './routes/customer/index'
 import { Route as ManagerIndexRouteImport } from './routes/manager/index'
 import { Route as PackagesIndexRouteImport } from './routes/packages/index'
 import { Route as PackagesIdRouteImport } from './routes/packages/$id'
 import { Route as StaffIndexRouteImport } from './routes/staff/index'
+import { Route as ToolsFitnessCalculatorRouteImport } from './routes/tools/fitness-calculator'
 import { Route as TrainerIndexRouteImport } from './routes/trainer/index'
 import { Route as TrainersIndexRouteImport } from './routes/trainers/index'
+import { Route as TrainersIdRouteImport } from './routes/trainers/$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -48,6 +54,11 @@ const CustomerRouteRoute = CustomerRouteRouteImport.update({
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   id: '/forgot-password',
   path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GymInfoRoute = GymInfoRouteImport.update({
+  id: '/gym-info',
+  path: '/gym-info',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -75,6 +86,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StaffRouteRoute = StaffRouteRouteImport.update({
   id: '/staff',
   path: '/staff',
@@ -94,6 +110,16 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRouteRoute,
+} as any)
+const ArticlesIndexRoute = ArticlesIndexRouteImport.update({
+  id: '/articles/',
+  path: '/articles/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesIdRoute = ArticlesIdRouteImport.update({
+  id: '/articles/$id',
+  path: '/articles/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const CustomerIndexRoute = CustomerIndexRouteImport.update({
   id: '/',
@@ -120,6 +146,11 @@ const StaffIndexRoute = StaffIndexRouteImport.update({
   path: '/',
   getParentRoute: () => StaffRouteRoute,
 } as any)
+const ToolsFitnessCalculatorRoute = ToolsFitnessCalculatorRouteImport.update({
+  id: '/tools/fitness-calculator',
+  path: '/tools/fitness-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrainerIndexRoute = TrainerIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -128,6 +159,11 @@ const TrainerIndexRoute = TrainerIndexRouteImport.update({
 const TrainersIndexRoute = TrainersIndexRouteImport.update({
   id: '/trainers/',
   path: '/trainers/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrainersIdRoute = TrainersIdRouteImport.update({
+  id: '/trainers/$id',
+  path: '/trainers/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -139,13 +175,19 @@ export interface FileRoutesByFullPath {
   '/staff': typeof StaffRouteRouteWithChildren
   '/trainer': typeof TrainerRouteRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
+  '/gym-info': typeof GymInfoRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/register-trainer': typeof RegisterTrainerRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/reviews': typeof ReviewsRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/articles/$id': typeof ArticlesIdRoute
   '/packages/$id': typeof PackagesIdRoute
+  '/tools/fitness-calculator': typeof ToolsFitnessCalculatorRoute
+  '/trainers/$id': typeof TrainersIdRoute
   '/admin/': typeof AdminIndexRoute
+  '/articles/': typeof ArticlesIndexRoute
   '/customer/': typeof CustomerIndexRoute
   '/manager/': typeof ManagerIndexRoute
   '/packages/': typeof PackagesIndexRoute
@@ -156,13 +198,19 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/gym-info': typeof GymInfoRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/register-trainer': typeof RegisterTrainerRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/reviews': typeof ReviewsRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/articles/$id': typeof ArticlesIdRoute
   '/packages/$id': typeof PackagesIdRoute
+  '/tools/fitness-calculator': typeof ToolsFitnessCalculatorRoute
+  '/trainers/$id': typeof TrainersIdRoute
   '/admin': typeof AdminIndexRoute
+  '/articles': typeof ArticlesIndexRoute
   '/customer': typeof CustomerIndexRoute
   '/manager': typeof ManagerIndexRoute
   '/packages': typeof PackagesIndexRoute
@@ -179,13 +227,19 @@ export interface FileRoutesById {
   '/staff': typeof StaffRouteRouteWithChildren
   '/trainer': typeof TrainerRouteRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
+  '/gym-info': typeof GymInfoRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/register-trainer': typeof RegisterTrainerRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/reviews': typeof ReviewsRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/articles/$id': typeof ArticlesIdRoute
   '/packages/$id': typeof PackagesIdRoute
+  '/tools/fitness-calculator': typeof ToolsFitnessCalculatorRoute
+  '/trainers/$id': typeof TrainersIdRoute
   '/admin/': typeof AdminIndexRoute
+  '/articles/': typeof ArticlesIndexRoute
   '/customer/': typeof CustomerIndexRoute
   '/manager/': typeof ManagerIndexRoute
   '/packages/': typeof PackagesIndexRoute
@@ -203,13 +257,19 @@ export interface FileRouteTypes {
     | '/staff'
     | '/trainer'
     | '/forgot-password'
+    | '/gym-info'
     | '/login'
     | '/register'
     | '/register-trainer'
     | '/reset-password'
+    | '/reviews'
     | '/ui-navigation'
+    | '/articles/$id'
     | '/packages/$id'
+    | '/tools/fitness-calculator'
+    | '/trainers/$id'
     | '/admin/'
+    | '/articles/'
     | '/customer/'
     | '/manager/'
     | '/packages/'
@@ -220,13 +280,19 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/forgot-password'
+    | '/gym-info'
     | '/login'
     | '/register'
     | '/register-trainer'
     | '/reset-password'
+    | '/reviews'
     | '/ui-navigation'
+    | '/articles/$id'
     | '/packages/$id'
+    | '/tools/fitness-calculator'
+    | '/trainers/$id'
     | '/admin'
+    | '/articles'
     | '/customer'
     | '/manager'
     | '/packages'
@@ -242,13 +308,19 @@ export interface FileRouteTypes {
     | '/staff'
     | '/trainer'
     | '/forgot-password'
+    | '/gym-info'
     | '/login'
     | '/register'
     | '/register-trainer'
     | '/reset-password'
+    | '/reviews'
     | '/ui-navigation'
+    | '/articles/$id'
     | '/packages/$id'
+    | '/tools/fitness-calculator'
+    | '/trainers/$id'
     | '/admin/'
+    | '/articles/'
     | '/customer/'
     | '/manager/'
     | '/packages/'
@@ -265,12 +337,18 @@ export interface RootRouteChildren {
   StaffRouteRoute: typeof StaffRouteRouteWithChildren
   TrainerRouteRoute: typeof TrainerRouteRouteWithChildren
   ForgotPasswordRoute: typeof ForgotPasswordRoute
+  GymInfoRoute: typeof GymInfoRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   RegisterTrainerRoute: typeof RegisterTrainerRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  ReviewsRoute: typeof ReviewsRoute
   UiNavigationRoute: typeof UiNavigationRoute
+  ArticlesIdRoute: typeof ArticlesIdRoute
   PackagesIdRoute: typeof PackagesIdRoute
+  ToolsFitnessCalculatorRoute: typeof ToolsFitnessCalculatorRoute
+  TrainersIdRoute: typeof TrainersIdRoute
+  ArticlesIndexRoute: typeof ArticlesIndexRoute
   PackagesIndexRoute: typeof PackagesIndexRoute
   TrainersIndexRoute: typeof TrainersIndexRoute
 }
@@ -303,6 +381,13 @@ declare module '@tanstack/react-router' {
       path: '/forgot-password'
       fullPath: '/forgot-password'
       preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gym-info': {
+      id: '/gym-info'
+      path: '/gym-info'
+      fullPath: '/gym-info'
+      preLoaderRoute: typeof GymInfoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -340,6 +425,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/staff': {
       id: '/staff'
       path: '/staff'
@@ -367,6 +459,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRouteRoute
+    }
+    '/articles/': {
+      id: '/articles/'
+      path: '/articles'
+      fullPath: '/articles/'
+      preLoaderRoute: typeof ArticlesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/$id': {
+      id: '/articles/$id'
+      path: '/articles/$id'
+      fullPath: '/articles/$id'
+      preLoaderRoute: typeof ArticlesIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/customer/': {
       id: '/customer/'
@@ -403,6 +509,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StaffIndexRouteImport
       parentRoute: typeof StaffRouteRoute
     }
+    '/tools/fitness-calculator': {
+      id: '/tools/fitness-calculator'
+      path: '/tools/fitness-calculator'
+      fullPath: '/tools/fitness-calculator'
+      preLoaderRoute: typeof ToolsFitnessCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trainer/': {
       id: '/trainer/'
       path: '/'
@@ -415,6 +528,13 @@ declare module '@tanstack/react-router' {
       path: '/trainers'
       fullPath: '/trainers/'
       preLoaderRoute: typeof TrainersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trainers/$id': {
+      id: '/trainers/$id'
+      path: '/trainers/$id'
+      fullPath: '/trainers/$id'
+      preLoaderRoute: typeof TrainersIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -488,12 +608,18 @@ const rootRouteChildren: RootRouteChildren = {
   StaffRouteRoute: StaffRouteRouteWithChildren,
   TrainerRouteRoute: TrainerRouteRouteWithChildren,
   ForgotPasswordRoute: ForgotPasswordRoute,
+  GymInfoRoute: GymInfoRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   RegisterTrainerRoute: RegisterTrainerRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  ReviewsRoute: ReviewsRoute,
   UiNavigationRoute: UiNavigationRoute,
+  ArticlesIdRoute: ArticlesIdRoute,
   PackagesIdRoute: PackagesIdRoute,
+  ToolsFitnessCalculatorRoute: ToolsFitnessCalculatorRoute,
+  TrainersIdRoute: TrainersIdRoute,
+  ArticlesIndexRoute: ArticlesIndexRoute,
   PackagesIndexRoute: PackagesIndexRoute,
   TrainersIndexRoute: TrainersIndexRoute,
 }

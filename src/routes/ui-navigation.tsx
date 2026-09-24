@@ -26,9 +26,21 @@ export const Route = createFileRoute("/ui-navigation")({
 });
 
 const PUBLIC_LINKS = [
-  { label: "Trang giới thiệu phòng tập", to: "/" },
+  { label: "Trang chủ", to: "/" },
   { label: "Đăng nhập", to: "/login" },
-  { label: "Đăng ký", to: "/register" },
+  { label: "Đăng ký tài khoản", to: "/register" },
+  { label: "Quên mật khẩu", to: "/forgot-password" },
+  { label: "Đặt lại mật khẩu", to: "/reset-password" },
+  { label: "Đăng ký trở thành huấn luyện viên", to: "/register-trainer" },
+  { label: "Danh sách gói tập", to: "/packages" },
+  { label: "Chi tiết gói tập", to: "/packages/membership-6m" },
+  { label: "Danh sách huấn luyện viên", to: "/trainers" },
+  { label: "Hồ sơ huấn luyện viên", to: "/trainers/tran-anh-khoa" },
+  { label: "Công cụ tính chỉ số thể chất", to: "/tools/fitness-calculator" },
+  { label: "Kiến thức thể hình", to: "/articles" },
+  { label: "Chi tiết bài viết", to: "/articles/lich-tap-3-buoi-moi-tuan" },
+  { label: "Đánh giá phòng gym", to: "/reviews" },
+  { label: "Thông tin phòng gym", to: "/gym-info" },
 ];
 
 function LinkRow({ label, to }: { label: string; to: string }) {
@@ -63,7 +75,7 @@ function UiNavigationPage() {
 
       <section className="mt-8 space-y-3">
         <h2 className="flex items-center gap-2 text-lg font-semibold">
-          <Compass size={18} className="text-primary" /> Trang công khai
+          <Compass size={18} className="text-primary" /> Khách vãng lai / Trang công khai
         </h2>
         <div className="grid gap-2 md:grid-cols-2">
           {PUBLIC_LINKS.map((item) => (
