@@ -24,6 +24,9 @@ import { Route as StaffRouteRouteImport } from './routes/staff/route'
 import { Route as TrainerRouteRouteImport } from './routes/trainer/route'
 import { Route as UiNavigationRouteImport } from './routes/ui-navigation'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as AdminNotificationsRouteImport } from './routes/admin/notifications'
+import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as ArticlesIndexRouteImport } from './routes/articles/index'
 import { Route as ArticlesIdRouteImport } from './routes/articles/$id'
 import { Route as CustomerIndexRouteImport } from './routes/customer/index'
@@ -67,6 +70,16 @@ import { Route as TrainerNotificationsRouteImport } from './routes/trainer/notif
 import { Route as TrainerProgressRouteImport } from './routes/trainer/progress'
 import { Route as TrainersIndexRouteImport } from './routes/trainers/index'
 import { Route as TrainersIdRouteImport } from './routes/trainers/$id'
+import { Route as AdminGymInformationIndexRouteImport } from './routes/admin/gym-information/index'
+import { Route as AdminGymInformationCreateRouteImport } from './routes/admin/gym-information/create'
+import { Route as AdminGymInformationEditRouteImport } from './routes/admin/gym-information/edit'
+import { Route as AdminManagersIndexRouteImport } from './routes/admin/managers/index'
+import { Route as AdminManagersCreateRouteImport } from './routes/admin/managers/create'
+import { Route as AdminMembershipPackagesIndexRouteImport } from './routes/admin/membership-packages/index'
+import { Route as AdminMembershipPackagesCreateRouteImport } from './routes/admin/membership-packages/create'
+import { Route as AdminRefundsIndexRouteImport } from './routes/admin/refunds/index'
+import { Route as AdminTrainerPackagesIndexRouteImport } from './routes/admin/trainer-packages/index'
+import { Route as AdminTrainerPackagesCreateRouteImport } from './routes/admin/trainer-packages/create'
 import { Route as CustomerNotificationsIndexRouteImport } from './routes/customer/notifications.index'
 import { Route as CustomerNotificationsIdRouteImport } from './routes/customer/notifications.$id'
 import { Route as CustomerProfileIndexRouteImport } from './routes/customer/profile.index'
@@ -114,6 +127,13 @@ import { Route as TrainerRescheduleCreateRouteImport } from './routes/trainer/re
 import { Route as TrainerRescheduleRequestsRouteImport } from './routes/trainer/reschedule/requests'
 import { Route as TrainerReviewsIndexRouteImport } from './routes/trainer/reviews/index'
 import { Route as TrainerReviewsIdRouteImport } from './routes/trainer/reviews/$id'
+import { Route as AdminManagersIdIndexRouteImport } from './routes/admin/managers/$id/index'
+import { Route as AdminManagersIdEditRouteImport } from './routes/admin/managers/$id/edit'
+import { Route as AdminMembershipPackagesIdIndexRouteImport } from './routes/admin/membership-packages/$id/index'
+import { Route as AdminMembershipPackagesIdEditRouteImport } from './routes/admin/membership-packages/$id/edit'
+import { Route as AdminRefundsIdProcessRouteImport } from './routes/admin/refunds/$id/process'
+import { Route as AdminTrainerPackagesIdIndexRouteImport } from './routes/admin/trainer-packages/$id/index'
+import { Route as AdminTrainerPackagesIdEditRouteImport } from './routes/admin/trainer-packages/$id/edit'
 import { Route as ManagerFacilitiesIdIndexRouteImport } from './routes/manager/facilities/$id/index'
 import { Route as ManagerFacilitiesIdEditRouteImport } from './routes/manager/facilities/$id/edit'
 import { Route as ManagerStaffIdIndexRouteImport } from './routes/manager/staff/$id/index'
@@ -209,6 +229,21 @@ const UiNavigationRoute = UiNavigationRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 const ArticlesIndexRoute = ArticlesIndexRouteImport.update({
@@ -429,6 +464,62 @@ const TrainersIdRoute = TrainersIdRouteImport.update({
   path: '/trainers/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminGymInformationIndexRoute =
+  AdminGymInformationIndexRouteImport.update({
+    id: '/gym-information/',
+    path: '/gym-information/',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
+const AdminGymInformationCreateRoute =
+  AdminGymInformationCreateRouteImport.update({
+    id: '/gym-information/create',
+    path: '/gym-information/create',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
+const AdminGymInformationEditRoute = AdminGymInformationEditRouteImport.update({
+  id: '/gym-information/edit',
+  path: '/gym-information/edit',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminManagersIndexRoute = AdminManagersIndexRouteImport.update({
+  id: '/managers/',
+  path: '/managers/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminManagersCreateRoute = AdminManagersCreateRouteImport.update({
+  id: '/managers/create',
+  path: '/managers/create',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminMembershipPackagesIndexRoute =
+  AdminMembershipPackagesIndexRouteImport.update({
+    id: '/membership-packages/',
+    path: '/membership-packages/',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
+const AdminMembershipPackagesCreateRoute =
+  AdminMembershipPackagesCreateRouteImport.update({
+    id: '/membership-packages/create',
+    path: '/membership-packages/create',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
+const AdminRefundsIndexRoute = AdminRefundsIndexRouteImport.update({
+  id: '/refunds/',
+  path: '/refunds/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminTrainerPackagesIndexRoute =
+  AdminTrainerPackagesIndexRouteImport.update({
+    id: '/trainer-packages/',
+    path: '/trainer-packages/',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
+const AdminTrainerPackagesCreateRoute =
+  AdminTrainerPackagesCreateRouteImport.update({
+    id: '/trainer-packages/create',
+    path: '/trainer-packages/create',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
 const CustomerNotificationsIndexRoute =
   CustomerNotificationsIndexRouteImport.update({
     id: '/notifications/',
@@ -677,6 +768,45 @@ const TrainerReviewsIdRoute = TrainerReviewsIdRouteImport.update({
   path: '/reviews/$id',
   getParentRoute: () => TrainerRouteRoute,
 } as any)
+const AdminManagersIdIndexRoute = AdminManagersIdIndexRouteImport.update({
+  id: '/managers/$id/',
+  path: '/managers/$id/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminManagersIdEditRoute = AdminManagersIdEditRouteImport.update({
+  id: '/managers/$id/edit',
+  path: '/managers/$id/edit',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminMembershipPackagesIdIndexRoute =
+  AdminMembershipPackagesIdIndexRouteImport.update({
+    id: '/membership-packages/$id/',
+    path: '/membership-packages/$id/',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
+const AdminMembershipPackagesIdEditRoute =
+  AdminMembershipPackagesIdEditRouteImport.update({
+    id: '/membership-packages/$id/edit',
+    path: '/membership-packages/$id/edit',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
+const AdminRefundsIdProcessRoute = AdminRefundsIdProcessRouteImport.update({
+  id: '/refunds/$id/process',
+  path: '/refunds/$id/process',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminTrainerPackagesIdIndexRoute =
+  AdminTrainerPackagesIdIndexRouteImport.update({
+    id: '/trainer-packages/$id/',
+    path: '/trainer-packages/$id/',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
+const AdminTrainerPackagesIdEditRoute =
+  AdminTrainerPackagesIdEditRouteImport.update({
+    id: '/trainer-packages/$id/edit',
+    path: '/trainer-packages/$id/edit',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
 const ManagerFacilitiesIdIndexRoute =
   ManagerFacilitiesIdIndexRouteImport.update({
     id: '/facilities/$id/',
@@ -807,6 +937,9 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/reviews': typeof ReviewsRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/articles/$id': typeof ArticlesIdRoute
   '/customer/availability': typeof CustomerAvailabilityRoute
   '/customer/body-metrics': typeof CustomerBodyMetricsRoute
@@ -851,6 +984,11 @@ export interface FileRoutesByFullPath {
   '/staff/': typeof StaffIndexRoute
   '/trainer/': typeof TrainerIndexRoute
   '/trainers/': typeof TrainersIndexRoute
+  '/admin/gym-information/create': typeof AdminGymInformationCreateRoute
+  '/admin/gym-information/edit': typeof AdminGymInformationEditRoute
+  '/admin/managers/create': typeof AdminManagersCreateRoute
+  '/admin/membership-packages/create': typeof AdminMembershipPackagesCreateRoute
+  '/admin/trainer-packages/create': typeof AdminTrainerPackagesCreateRoute
   '/customer/notifications/$id': typeof CustomerNotificationsIdRoute
   '/customer/profile/edit': typeof CustomerProfileEditRoute
   '/customer/refunds/create': typeof CustomerRefundsCreateRoute
@@ -879,6 +1017,11 @@ export interface FileRoutesByFullPath {
   '/trainer/reschedule/create': typeof TrainerRescheduleCreateRoute
   '/trainer/reschedule/requests': typeof TrainerRescheduleRequestsRoute
   '/trainer/reviews/$id': typeof TrainerReviewsIdRoute
+  '/admin/gym-information/': typeof AdminGymInformationIndexRoute
+  '/admin/managers/': typeof AdminManagersIndexRoute
+  '/admin/membership-packages/': typeof AdminMembershipPackagesIndexRoute
+  '/admin/refunds/': typeof AdminRefundsIndexRoute
+  '/admin/trainer-packages/': typeof AdminTrainerPackagesIndexRoute
   '/customer/notifications/': typeof CustomerNotificationsIndexRoute
   '/customer/profile/': typeof CustomerProfileIndexRoute
   '/manager/exercises/': typeof ManagerExercisesIndexRoute
@@ -898,6 +1041,10 @@ export interface FileRoutesByFullPath {
   '/trainer/lesson-plans/': typeof TrainerLessonPlansIndexRoute
   '/trainer/profile/': typeof TrainerProfileIndexRoute
   '/trainer/reviews/': typeof TrainerReviewsIndexRoute
+  '/admin/managers/$id/edit': typeof AdminManagersIdEditRoute
+  '/admin/membership-packages/$id/edit': typeof AdminMembershipPackagesIdEditRoute
+  '/admin/refunds/$id/process': typeof AdminRefundsIdProcessRoute
+  '/admin/trainer-packages/$id/edit': typeof AdminTrainerPackagesIdEditRoute
   '/manager/facilities/$id/edit': typeof ManagerFacilitiesIdEditRoute
   '/manager/staff/$id/edit': typeof ManagerStaffIdEditRoute
   '/manager/trainers/$id/certificates': typeof ManagerTrainersIdCertificatesRoute
@@ -913,6 +1060,9 @@ export interface FileRoutesByFullPath {
   '/trainer/plans/$id/versions': typeof TrainerPlansIdVersionsRoute
   '/trainer/sessions/$id/feedback': typeof TrainerSessionsIdFeedbackRoute
   '/trainer/sessions/$id/verify': typeof TrainerSessionsIdVerifyRoute
+  '/admin/managers/$id/': typeof AdminManagersIdIndexRoute
+  '/admin/membership-packages/$id/': typeof AdminMembershipPackagesIdIndexRoute
+  '/admin/trainer-packages/$id/': typeof AdminTrainerPackagesIdIndexRoute
   '/manager/facilities/$id/': typeof ManagerFacilitiesIdIndexRoute
   '/manager/staff/$id/': typeof ManagerStaffIdIndexRoute
   '/manager/trainers/$id/': typeof ManagerTrainersIdIndexRoute
@@ -930,6 +1080,9 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/reviews': typeof ReviewsRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/articles/$id': typeof ArticlesIdRoute
   '/customer/availability': typeof CustomerAvailabilityRoute
   '/customer/body-metrics': typeof CustomerBodyMetricsRoute
@@ -974,6 +1127,11 @@ export interface FileRoutesByTo {
   '/staff': typeof StaffIndexRoute
   '/trainer': typeof TrainerIndexRoute
   '/trainers': typeof TrainersIndexRoute
+  '/admin/gym-information/create': typeof AdminGymInformationCreateRoute
+  '/admin/gym-information/edit': typeof AdminGymInformationEditRoute
+  '/admin/managers/create': typeof AdminManagersCreateRoute
+  '/admin/membership-packages/create': typeof AdminMembershipPackagesCreateRoute
+  '/admin/trainer-packages/create': typeof AdminTrainerPackagesCreateRoute
   '/customer/notifications/$id': typeof CustomerNotificationsIdRoute
   '/customer/profile/edit': typeof CustomerProfileEditRoute
   '/customer/refunds/create': typeof CustomerRefundsCreateRoute
@@ -1002,6 +1160,11 @@ export interface FileRoutesByTo {
   '/trainer/reschedule/create': typeof TrainerRescheduleCreateRoute
   '/trainer/reschedule/requests': typeof TrainerRescheduleRequestsRoute
   '/trainer/reviews/$id': typeof TrainerReviewsIdRoute
+  '/admin/gym-information': typeof AdminGymInformationIndexRoute
+  '/admin/managers': typeof AdminManagersIndexRoute
+  '/admin/membership-packages': typeof AdminMembershipPackagesIndexRoute
+  '/admin/refunds': typeof AdminRefundsIndexRoute
+  '/admin/trainer-packages': typeof AdminTrainerPackagesIndexRoute
   '/customer/notifications': typeof CustomerNotificationsIndexRoute
   '/customer/profile': typeof CustomerProfileIndexRoute
   '/manager/exercises': typeof ManagerExercisesIndexRoute
@@ -1021,6 +1184,10 @@ export interface FileRoutesByTo {
   '/trainer/lesson-plans': typeof TrainerLessonPlansIndexRoute
   '/trainer/profile': typeof TrainerProfileIndexRoute
   '/trainer/reviews': typeof TrainerReviewsIndexRoute
+  '/admin/managers/$id/edit': typeof AdminManagersIdEditRoute
+  '/admin/membership-packages/$id/edit': typeof AdminMembershipPackagesIdEditRoute
+  '/admin/refunds/$id/process': typeof AdminRefundsIdProcessRoute
+  '/admin/trainer-packages/$id/edit': typeof AdminTrainerPackagesIdEditRoute
   '/manager/facilities/$id/edit': typeof ManagerFacilitiesIdEditRoute
   '/manager/staff/$id/edit': typeof ManagerStaffIdEditRoute
   '/manager/trainers/$id/certificates': typeof ManagerTrainersIdCertificatesRoute
@@ -1036,6 +1203,9 @@ export interface FileRoutesByTo {
   '/trainer/plans/$id/versions': typeof TrainerPlansIdVersionsRoute
   '/trainer/sessions/$id/feedback': typeof TrainerSessionsIdFeedbackRoute
   '/trainer/sessions/$id/verify': typeof TrainerSessionsIdVerifyRoute
+  '/admin/managers/$id': typeof AdminManagersIdIndexRoute
+  '/admin/membership-packages/$id': typeof AdminMembershipPackagesIdIndexRoute
+  '/admin/trainer-packages/$id': typeof AdminTrainerPackagesIdIndexRoute
   '/manager/facilities/$id': typeof ManagerFacilitiesIdIndexRoute
   '/manager/staff/$id': typeof ManagerStaffIdIndexRoute
   '/manager/trainers/$id': typeof ManagerTrainersIdIndexRoute
@@ -1059,6 +1229,9 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/reviews': typeof ReviewsRoute
   '/ui-navigation': typeof UiNavigationRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/articles/$id': typeof ArticlesIdRoute
   '/customer/availability': typeof CustomerAvailabilityRoute
   '/customer/body-metrics': typeof CustomerBodyMetricsRoute
@@ -1103,6 +1276,11 @@ export interface FileRoutesById {
   '/staff/': typeof StaffIndexRoute
   '/trainer/': typeof TrainerIndexRoute
   '/trainers/': typeof TrainersIndexRoute
+  '/admin/gym-information/create': typeof AdminGymInformationCreateRoute
+  '/admin/gym-information/edit': typeof AdminGymInformationEditRoute
+  '/admin/managers/create': typeof AdminManagersCreateRoute
+  '/admin/membership-packages/create': typeof AdminMembershipPackagesCreateRoute
+  '/admin/trainer-packages/create': typeof AdminTrainerPackagesCreateRoute
   '/customer/notifications/$id': typeof CustomerNotificationsIdRoute
   '/customer/profile/edit': typeof CustomerProfileEditRoute
   '/customer/refunds/create': typeof CustomerRefundsCreateRoute
@@ -1131,6 +1309,11 @@ export interface FileRoutesById {
   '/trainer/reschedule/create': typeof TrainerRescheduleCreateRoute
   '/trainer/reschedule/requests': typeof TrainerRescheduleRequestsRoute
   '/trainer/reviews/$id': typeof TrainerReviewsIdRoute
+  '/admin/gym-information/': typeof AdminGymInformationIndexRoute
+  '/admin/managers/': typeof AdminManagersIndexRoute
+  '/admin/membership-packages/': typeof AdminMembershipPackagesIndexRoute
+  '/admin/refunds/': typeof AdminRefundsIndexRoute
+  '/admin/trainer-packages/': typeof AdminTrainerPackagesIndexRoute
   '/customer/notifications/': typeof CustomerNotificationsIndexRoute
   '/customer/profile/': typeof CustomerProfileIndexRoute
   '/manager/exercises/': typeof ManagerExercisesIndexRoute
@@ -1150,6 +1333,10 @@ export interface FileRoutesById {
   '/trainer/lesson-plans/': typeof TrainerLessonPlansIndexRoute
   '/trainer/profile/': typeof TrainerProfileIndexRoute
   '/trainer/reviews/': typeof TrainerReviewsIndexRoute
+  '/admin/managers/$id/edit': typeof AdminManagersIdEditRoute
+  '/admin/membership-packages/$id/edit': typeof AdminMembershipPackagesIdEditRoute
+  '/admin/refunds/$id/process': typeof AdminRefundsIdProcessRoute
+  '/admin/trainer-packages/$id/edit': typeof AdminTrainerPackagesIdEditRoute
   '/manager/facilities/$id/edit': typeof ManagerFacilitiesIdEditRoute
   '/manager/staff/$id/edit': typeof ManagerStaffIdEditRoute
   '/manager/trainers/$id/certificates': typeof ManagerTrainersIdCertificatesRoute
@@ -1165,6 +1352,9 @@ export interface FileRoutesById {
   '/trainer/plans/$id/versions': typeof TrainerPlansIdVersionsRoute
   '/trainer/sessions/$id/feedback': typeof TrainerSessionsIdFeedbackRoute
   '/trainer/sessions/$id/verify': typeof TrainerSessionsIdVerifyRoute
+  '/admin/managers/$id/': typeof AdminManagersIdIndexRoute
+  '/admin/membership-packages/$id/': typeof AdminMembershipPackagesIdIndexRoute
+  '/admin/trainer-packages/$id/': typeof AdminTrainerPackagesIdIndexRoute
   '/manager/facilities/$id/': typeof ManagerFacilitiesIdIndexRoute
   '/manager/staff/$id/': typeof ManagerStaffIdIndexRoute
   '/manager/trainers/$id/': typeof ManagerTrainersIdIndexRoute
@@ -1189,6 +1379,9 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/reviews'
     | '/ui-navigation'
+    | '/admin/dashboard'
+    | '/admin/notifications'
+    | '/admin/users'
     | '/articles/$id'
     | '/customer/availability'
     | '/customer/body-metrics'
@@ -1233,6 +1426,11 @@ export interface FileRouteTypes {
     | '/staff/'
     | '/trainer/'
     | '/trainers/'
+    | '/admin/gym-information/create'
+    | '/admin/gym-information/edit'
+    | '/admin/managers/create'
+    | '/admin/membership-packages/create'
+    | '/admin/trainer-packages/create'
     | '/customer/notifications/$id'
     | '/customer/profile/edit'
     | '/customer/refunds/create'
@@ -1261,6 +1459,11 @@ export interface FileRouteTypes {
     | '/trainer/reschedule/create'
     | '/trainer/reschedule/requests'
     | '/trainer/reviews/$id'
+    | '/admin/gym-information/'
+    | '/admin/managers/'
+    | '/admin/membership-packages/'
+    | '/admin/refunds/'
+    | '/admin/trainer-packages/'
     | '/customer/notifications/'
     | '/customer/profile/'
     | '/manager/exercises/'
@@ -1280,6 +1483,10 @@ export interface FileRouteTypes {
     | '/trainer/lesson-plans/'
     | '/trainer/profile/'
     | '/trainer/reviews/'
+    | '/admin/managers/$id/edit'
+    | '/admin/membership-packages/$id/edit'
+    | '/admin/refunds/$id/process'
+    | '/admin/trainer-packages/$id/edit'
     | '/manager/facilities/$id/edit'
     | '/manager/staff/$id/edit'
     | '/manager/trainers/$id/certificates'
@@ -1295,6 +1502,9 @@ export interface FileRouteTypes {
     | '/trainer/plans/$id/versions'
     | '/trainer/sessions/$id/feedback'
     | '/trainer/sessions/$id/verify'
+    | '/admin/managers/$id/'
+    | '/admin/membership-packages/$id/'
+    | '/admin/trainer-packages/$id/'
     | '/manager/facilities/$id/'
     | '/manager/staff/$id/'
     | '/manager/trainers/$id/'
@@ -1312,6 +1522,9 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/reviews'
     | '/ui-navigation'
+    | '/admin/dashboard'
+    | '/admin/notifications'
+    | '/admin/users'
     | '/articles/$id'
     | '/customer/availability'
     | '/customer/body-metrics'
@@ -1356,6 +1569,11 @@ export interface FileRouteTypes {
     | '/staff'
     | '/trainer'
     | '/trainers'
+    | '/admin/gym-information/create'
+    | '/admin/gym-information/edit'
+    | '/admin/managers/create'
+    | '/admin/membership-packages/create'
+    | '/admin/trainer-packages/create'
     | '/customer/notifications/$id'
     | '/customer/profile/edit'
     | '/customer/refunds/create'
@@ -1384,6 +1602,11 @@ export interface FileRouteTypes {
     | '/trainer/reschedule/create'
     | '/trainer/reschedule/requests'
     | '/trainer/reviews/$id'
+    | '/admin/gym-information'
+    | '/admin/managers'
+    | '/admin/membership-packages'
+    | '/admin/refunds'
+    | '/admin/trainer-packages'
     | '/customer/notifications'
     | '/customer/profile'
     | '/manager/exercises'
@@ -1403,6 +1626,10 @@ export interface FileRouteTypes {
     | '/trainer/lesson-plans'
     | '/trainer/profile'
     | '/trainer/reviews'
+    | '/admin/managers/$id/edit'
+    | '/admin/membership-packages/$id/edit'
+    | '/admin/refunds/$id/process'
+    | '/admin/trainer-packages/$id/edit'
     | '/manager/facilities/$id/edit'
     | '/manager/staff/$id/edit'
     | '/manager/trainers/$id/certificates'
@@ -1418,6 +1645,9 @@ export interface FileRouteTypes {
     | '/trainer/plans/$id/versions'
     | '/trainer/sessions/$id/feedback'
     | '/trainer/sessions/$id/verify'
+    | '/admin/managers/$id'
+    | '/admin/membership-packages/$id'
+    | '/admin/trainer-packages/$id'
     | '/manager/facilities/$id'
     | '/manager/staff/$id'
     | '/manager/trainers/$id'
@@ -1440,6 +1670,9 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/reviews'
     | '/ui-navigation'
+    | '/admin/dashboard'
+    | '/admin/notifications'
+    | '/admin/users'
     | '/articles/$id'
     | '/customer/availability'
     | '/customer/body-metrics'
@@ -1484,6 +1717,11 @@ export interface FileRouteTypes {
     | '/staff/'
     | '/trainer/'
     | '/trainers/'
+    | '/admin/gym-information/create'
+    | '/admin/gym-information/edit'
+    | '/admin/managers/create'
+    | '/admin/membership-packages/create'
+    | '/admin/trainer-packages/create'
     | '/customer/notifications/$id'
     | '/customer/profile/edit'
     | '/customer/refunds/create'
@@ -1512,6 +1750,11 @@ export interface FileRouteTypes {
     | '/trainer/reschedule/create'
     | '/trainer/reschedule/requests'
     | '/trainer/reviews/$id'
+    | '/admin/gym-information/'
+    | '/admin/managers/'
+    | '/admin/membership-packages/'
+    | '/admin/refunds/'
+    | '/admin/trainer-packages/'
     | '/customer/notifications/'
     | '/customer/profile/'
     | '/manager/exercises/'
@@ -1531,6 +1774,10 @@ export interface FileRouteTypes {
     | '/trainer/lesson-plans/'
     | '/trainer/profile/'
     | '/trainer/reviews/'
+    | '/admin/managers/$id/edit'
+    | '/admin/membership-packages/$id/edit'
+    | '/admin/refunds/$id/process'
+    | '/admin/trainer-packages/$id/edit'
     | '/manager/facilities/$id/edit'
     | '/manager/staff/$id/edit'
     | '/manager/trainers/$id/certificates'
@@ -1546,6 +1793,9 @@ export interface FileRouteTypes {
     | '/trainer/plans/$id/versions'
     | '/trainer/sessions/$id/feedback'
     | '/trainer/sessions/$id/verify'
+    | '/admin/managers/$id/'
+    | '/admin/membership-packages/$id/'
+    | '/admin/trainer-packages/$id/'
     | '/manager/facilities/$id/'
     | '/manager/staff/$id/'
     | '/manager/trainers/$id/'
@@ -1683,6 +1933,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/notifications': {
+      id: '/admin/notifications'
+      path: '/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AdminNotificationsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof AdminRouteRoute
     }
     '/articles/': {
@@ -1985,6 +2256,76 @@ declare module '@tanstack/react-router' {
       fullPath: '/trainers/$id'
       preLoaderRoute: typeof TrainersIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/gym-information/': {
+      id: '/admin/gym-information/'
+      path: '/gym-information'
+      fullPath: '/admin/gym-information/'
+      preLoaderRoute: typeof AdminGymInformationIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/gym-information/create': {
+      id: '/admin/gym-information/create'
+      path: '/gym-information/create'
+      fullPath: '/admin/gym-information/create'
+      preLoaderRoute: typeof AdminGymInformationCreateRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/gym-information/edit': {
+      id: '/admin/gym-information/edit'
+      path: '/gym-information/edit'
+      fullPath: '/admin/gym-information/edit'
+      preLoaderRoute: typeof AdminGymInformationEditRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/managers/': {
+      id: '/admin/managers/'
+      path: '/managers'
+      fullPath: '/admin/managers/'
+      preLoaderRoute: typeof AdminManagersIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/managers/create': {
+      id: '/admin/managers/create'
+      path: '/managers/create'
+      fullPath: '/admin/managers/create'
+      preLoaderRoute: typeof AdminManagersCreateRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/membership-packages/': {
+      id: '/admin/membership-packages/'
+      path: '/membership-packages'
+      fullPath: '/admin/membership-packages/'
+      preLoaderRoute: typeof AdminMembershipPackagesIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/membership-packages/create': {
+      id: '/admin/membership-packages/create'
+      path: '/membership-packages/create'
+      fullPath: '/admin/membership-packages/create'
+      preLoaderRoute: typeof AdminMembershipPackagesCreateRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/refunds/': {
+      id: '/admin/refunds/'
+      path: '/refunds'
+      fullPath: '/admin/refunds/'
+      preLoaderRoute: typeof AdminRefundsIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/trainer-packages/': {
+      id: '/admin/trainer-packages/'
+      path: '/trainer-packages'
+      fullPath: '/admin/trainer-packages/'
+      preLoaderRoute: typeof AdminTrainerPackagesIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/trainer-packages/create': {
+      id: '/admin/trainer-packages/create'
+      path: '/trainer-packages/create'
+      fullPath: '/admin/trainer-packages/create'
+      preLoaderRoute: typeof AdminTrainerPackagesCreateRouteImport
+      parentRoute: typeof AdminRouteRoute
     }
     '/customer/notifications/': {
       id: '/customer/notifications/'
@@ -2315,6 +2656,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrainerReviewsIdRouteImport
       parentRoute: typeof TrainerRouteRoute
     }
+    '/admin/managers/$id/': {
+      id: '/admin/managers/$id/'
+      path: '/managers/$id'
+      fullPath: '/admin/managers/$id/'
+      preLoaderRoute: typeof AdminManagersIdIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/managers/$id/edit': {
+      id: '/admin/managers/$id/edit'
+      path: '/managers/$id/edit'
+      fullPath: '/admin/managers/$id/edit'
+      preLoaderRoute: typeof AdminManagersIdEditRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/membership-packages/$id/': {
+      id: '/admin/membership-packages/$id/'
+      path: '/membership-packages/$id'
+      fullPath: '/admin/membership-packages/$id/'
+      preLoaderRoute: typeof AdminMembershipPackagesIdIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/membership-packages/$id/edit': {
+      id: '/admin/membership-packages/$id/edit'
+      path: '/membership-packages/$id/edit'
+      fullPath: '/admin/membership-packages/$id/edit'
+      preLoaderRoute: typeof AdminMembershipPackagesIdEditRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/refunds/$id/process': {
+      id: '/admin/refunds/$id/process'
+      path: '/refunds/$id/process'
+      fullPath: '/admin/refunds/$id/process'
+      preLoaderRoute: typeof AdminRefundsIdProcessRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/trainer-packages/$id/': {
+      id: '/admin/trainer-packages/$id/'
+      path: '/trainer-packages/$id'
+      fullPath: '/admin/trainer-packages/$id/'
+      preLoaderRoute: typeof AdminTrainerPackagesIdIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/trainer-packages/$id/edit': {
+      id: '/admin/trainer-packages/$id/edit'
+      path: '/trainer-packages/$id/edit'
+      fullPath: '/admin/trainer-packages/$id/edit'
+      preLoaderRoute: typeof AdminTrainerPackagesIdEditRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/manager/facilities/$id/': {
       id: '/manager/facilities/$id/'
       path: '/facilities/$id'
@@ -2466,11 +2856,51 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteRouteChildren {
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminNotificationsRoute: typeof AdminNotificationsRoute
+  AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminGymInformationCreateRoute: typeof AdminGymInformationCreateRoute
+  AdminGymInformationEditRoute: typeof AdminGymInformationEditRoute
+  AdminManagersCreateRoute: typeof AdminManagersCreateRoute
+  AdminMembershipPackagesCreateRoute: typeof AdminMembershipPackagesCreateRoute
+  AdminTrainerPackagesCreateRoute: typeof AdminTrainerPackagesCreateRoute
+  AdminGymInformationIndexRoute: typeof AdminGymInformationIndexRoute
+  AdminManagersIndexRoute: typeof AdminManagersIndexRoute
+  AdminMembershipPackagesIndexRoute: typeof AdminMembershipPackagesIndexRoute
+  AdminRefundsIndexRoute: typeof AdminRefundsIndexRoute
+  AdminTrainerPackagesIndexRoute: typeof AdminTrainerPackagesIndexRoute
+  AdminManagersIdEditRoute: typeof AdminManagersIdEditRoute
+  AdminMembershipPackagesIdEditRoute: typeof AdminMembershipPackagesIdEditRoute
+  AdminRefundsIdProcessRoute: typeof AdminRefundsIdProcessRoute
+  AdminTrainerPackagesIdEditRoute: typeof AdminTrainerPackagesIdEditRoute
+  AdminManagersIdIndexRoute: typeof AdminManagersIdIndexRoute
+  AdminMembershipPackagesIdIndexRoute: typeof AdminMembershipPackagesIdIndexRoute
+  AdminTrainerPackagesIdIndexRoute: typeof AdminTrainerPackagesIdIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminNotificationsRoute: AdminNotificationsRoute,
+  AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminGymInformationCreateRoute: AdminGymInformationCreateRoute,
+  AdminGymInformationEditRoute: AdminGymInformationEditRoute,
+  AdminManagersCreateRoute: AdminManagersCreateRoute,
+  AdminMembershipPackagesCreateRoute: AdminMembershipPackagesCreateRoute,
+  AdminTrainerPackagesCreateRoute: AdminTrainerPackagesCreateRoute,
+  AdminGymInformationIndexRoute: AdminGymInformationIndexRoute,
+  AdminManagersIndexRoute: AdminManagersIndexRoute,
+  AdminMembershipPackagesIndexRoute: AdminMembershipPackagesIndexRoute,
+  AdminRefundsIndexRoute: AdminRefundsIndexRoute,
+  AdminTrainerPackagesIndexRoute: AdminTrainerPackagesIndexRoute,
+  AdminManagersIdEditRoute: AdminManagersIdEditRoute,
+  AdminMembershipPackagesIdEditRoute: AdminMembershipPackagesIdEditRoute,
+  AdminRefundsIdProcessRoute: AdminRefundsIdProcessRoute,
+  AdminTrainerPackagesIdEditRoute: AdminTrainerPackagesIdEditRoute,
+  AdminManagersIdIndexRoute: AdminManagersIdIndexRoute,
+  AdminMembershipPackagesIdIndexRoute: AdminMembershipPackagesIdIndexRoute,
+  AdminTrainerPackagesIdIndexRoute: AdminTrainerPackagesIdIndexRoute,
 }
 
 const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
