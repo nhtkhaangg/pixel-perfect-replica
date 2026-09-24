@@ -60,7 +60,7 @@ function GymInfoPage() {
             onSubmit={(e) => {
               e.preventDefault();
               const f = new FormData(e.currentTarget);
-              if (!String(f.get("name")).trim() || !/^0\d{9}$/.test(String(f.get("phone")))) return toast.error("Vui lòng nhập họ tên và số điện thoại hợp lệ.");
+              if (!String(f.get("name")).trim() || !/^0\d{9}$/.test(String(f.get("phone")))) { toast.error("Vui lòng nhập họ tên và số điện thoại hợp lệ."); return; }
               setSent(true);
               toast.success("Đã gửi yêu cầu. Chúng tôi sẽ gọi lại trong 24 giờ (dữ liệu mẫu).");
             }}

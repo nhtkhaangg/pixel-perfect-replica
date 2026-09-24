@@ -58,7 +58,7 @@ function ReviewsPage() {
             className="card-surface space-y-3 p-6"
             onSubmit={(e) => {
               e.preventDefault();
-              if (text.trim().length < 10) return toast.error("Nội dung đánh giá cần ít nhất 10 ký tự.");
+              if (text.trim().length < 10) { toast.error("Nội dung đánh giá cần ít nhất 10 ký tự."); return; }
               setText("");
               toast.success("Cảm ơn bạn! Đánh giá sẽ hiển thị sau khi được duyệt (dữ liệu mẫu).");
             }}

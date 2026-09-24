@@ -58,7 +58,7 @@ function ForgotPasswordPage() {
           onSubmit={(e) => {
             e.preventDefault();
             const email = String(new FormData(e.currentTarget).get("email") ?? "").trim();
-            if (!/^\S+@\S+\.\S+$/.test(email)) return setError("Vui lòng nhập email hợp lệ.");
+            if (!/^\S+@\S+\.\S+$/.test(email)) { setError("Vui lòng nhập email hợp lệ."); return; }
             setError(undefined);
             setSentTo(email);
           }}
