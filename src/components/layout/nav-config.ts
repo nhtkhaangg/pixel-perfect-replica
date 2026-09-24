@@ -267,3 +267,8 @@ export const TRAINER_PAGES: { label: string; to: string }[] = [
   { label: "Trò chuyện với hội viên", to: "/trainer/chat" },
   { label: "Thông báo", to: "/trainer/notifications" },
 ];
+
+export const ROLE_PAGES: Partial<Record<RoleKey, { label: string; to: string }[]>> = {
+  customer: CUSTOMER_PAGES,
+  trainer: TRAINER_PAGES,
+};
