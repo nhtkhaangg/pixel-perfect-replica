@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { getTrainerAvatar } from "@/lib/trainer-avatars";
 
 export { Field, Panel };
 
@@ -73,9 +74,10 @@ export function Stars({ value, size = 14 }: { value: number; size?: number }) {
 
 export function Avatar({ name, className }: { name: string; className?: string }) {
   const initials = name.split(" ").slice(-2).map((w) => w[0]).join("").toUpperCase();
+  const avatar = getTrainerAvatar(name);
   return (
-    <span className={cn("grid size-10 shrink-0 place-items-center rounded-full bg-primary/15 text-sm font-semibold text-primary", className)}>
-      {initials}
+    <span className={cn("grid size-10 shrink-0 place-items-center overflow-hidden rounded-full border border-primary/20 bg-primary/15 text-sm font-semibold text-primary", className)}>
+      {avatar ? <img src={avatar} alt={`Ảnh đại diện của ${name}`} loading="lazy" width={816} height={816} className="size-full object-cover" /> : initials}
     </span>
   );
 }
