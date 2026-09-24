@@ -55,7 +55,7 @@ export function TrainerLiveSession() {
         <StatCard label="Hiệp đã xong" value={`${doneCount}/${total}`} />
         <StatCard label="Tổng khối lượng" value={`${formatNumber(volume)} kg`} />
       </Grid>
-      <div className="grid min-w-0 gap-6 lg:grid-cols-[280px_1fr]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
         <Panel title="Danh sách bài tập">
           <ul className="space-y-2">
             {items.map((it, i) => { const e = findExercise(it.exerciseId); const fin = sets[i]!.every((x) => x.done); return (
