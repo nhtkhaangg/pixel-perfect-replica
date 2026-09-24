@@ -165,7 +165,7 @@ export function DashboardLayout({ role, children }: { role: RoleKey; children: R
 
       {/* Điều hướng dưới cho thiết bị di động */}
       <nav className="fixed inset-x-0 bottom-0 z-30 flex border-t border-border bg-sidebar/95 backdrop-blur lg:hidden">
-        {(area.groups[0]?.items ?? []).slice(0, 4).map((item) => (
+        {area.groups.flatMap((g) => g.items).slice(0, 4).map((item) => (
           <AppLink
             key={item.to}
             to={item.to}

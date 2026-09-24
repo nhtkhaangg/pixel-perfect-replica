@@ -18,6 +18,7 @@ import {
   UserCog,
   Wallet,
 } from "lucide-react";
+import { History, MessageCircle, QrCode, Route as RouteIcon, Scale, NotebookPen, UserRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export type NavItem = { label: string; to: string; icon: LucideIcon };
@@ -41,21 +42,34 @@ export const ROLE_AREAS: Record<RoleKey, RoleArea> = {
     areaLabel: "Cổng hội viên",
     groups: [
       {
-        title: "Tập luyện",
+        title: "Tổng quan",
         items: [
-          { label: "Tổng quan", to: "/customer", icon: LayoutDashboard },
-          { label: "Lịch tập", to: "/customer/schedule", icon: CalendarDays },
-          { label: "Bài tập", to: "/customer/exercises", icon: Dumbbell },
-          { label: "Tiến độ cơ thể", to: "/customer/progress", icon: Activity },
+          { label: "Tổng quan", to: "/customer/dashboard", icon: LayoutDashboard },
+          { label: "Thông báo", to: "/customer/notifications", icon: Bell },
+          { label: "Hồ sơ của tôi", to: "/customer/profile", icon: UserRound },
         ],
       },
       {
-        title: "Dịch vụ",
+        title: "Tập luyện",
         items: [
-          { label: "Gói tập của tôi", to: "/customer/packages", icon: Package },
-          { label: "Huấn luyện viên", to: "/customer/trainers", icon: Users },
-          { label: "Thanh toán", to: "/customer/payments", icon: CreditCard },
-          { label: "Đánh giá của tôi", to: "/customer/reviews", icon: Star },
+          { label: "Lịch tập", to: "/customer/calendar", icon: CalendarDays },
+          { label: "Lộ trình tập luyện", to: "/customer/training-roadmap", icon: RouteIcon },
+          { label: "Hướng dẫn bài tập", to: "/customer/exercises", icon: Dumbbell },
+          { label: "Ghi nhận buổi tập", to: "/customer/workout-log", icon: NotebookPen },
+          { label: "Tiến độ tập luyện", to: "/customer/progress", icon: Activity },
+          { label: "Chỉ số cơ thể", to: "/customer/body-metrics", icon: Scale },
+          { label: "Trò chuyện với HLV", to: "/customer/chat", icon: MessageCircle },
+        ],
+      },
+      {
+        title: "Gói tập & thanh toán",
+        items: [
+          { label: "Check-in QR", to: "/customer/check-in", icon: QrCode },
+          { label: "Gói tập đã mua", to: "/customer/my-packages", icon: Package },
+          { label: "Mua gói hội viên", to: "/customer/packages", icon: CreditCard },
+          { label: "Đặt gói PT", to: "/customer/trainer-packages", icon: Users },
+          { label: "Lịch sử giao dịch", to: "/customer/transactions", icon: Wallet },
+          { label: "Lịch sử check-in", to: "/customer/check-in-history", icon: History },
         ],
       },
     ],
@@ -171,4 +185,38 @@ export const PUBLIC_NAV: { label: string; to: string }[] = [
   { label: "Công cụ", to: "/tools/fitness-calculator" },
   { label: "Đánh giá", to: "/reviews" },
   { label: "Liên hệ", to: "/gym-info" },
+];
+
+/** Toàn bộ trang hội viên, dùng cho trang điều hướng kiểm thử. */
+export const CUSTOMER_PAGES: { label: string; to: string }[] = [
+  { label: "Tổng quan hội viên", to: "/customer/dashboard" },
+  { label: "Xem hồ sơ", to: "/customer/profile" },
+  { label: "Cập nhật hồ sơ", to: "/customer/profile/edit" },
+  { label: "Đổi mật khẩu", to: "/customer/change-password" },
+  { label: "Đánh giá thể trạng ban đầu", to: "/customer/initial-assessment" },
+  { label: "Thiết lập lịch rảnh", to: "/customer/availability" },
+  { label: "Cập nhật chỉ số cơ thể", to: "/customer/body-metrics" },
+  { label: "Biểu đồ tiến trình cơ thể", to: "/customer/body-progress" },
+  { label: "Đánh giá phòng gym", to: "/customer/reviews/create" },
+  { label: "Mua gói hội viên", to: "/customer/packages" },
+  { label: "Đặt gói huấn luyện viên cá nhân", to: "/customer/trainer-packages" },
+  { label: "Gói tập đã mua", to: "/customer/my-packages" },
+  { label: "Lịch sử giao dịch", to: "/customer/transactions" },
+  { label: "Mã QR check-in", to: "/customer/check-in" },
+  { label: "Lịch sử check-in", to: "/customer/check-in-history" },
+  { label: "Lịch tập", to: "/customer/calendar" },
+  { label: "Yêu cầu đổi lịch", to: "/customer/reschedule/request" },
+  { label: "Theo dõi yêu cầu đổi lịch", to: "/customer/reschedule/requests" },
+  { label: "Lộ trình tập luyện", to: "/customer/training-roadmap" },
+  { label: "Hướng dẫn bài tập", to: "/customer/exercises" },
+  { label: "Trò chuyện với huấn luyện viên", to: "/customer/chat" },
+  { label: "Ghi nhận buổi tập", to: "/customer/workout-log" },
+  { label: "Phản hồi buổi tập", to: "/customer/workout-feedback" },
+  { label: "Xác nhận hoàn thành buổi tập", to: "/customer/session-verification" },
+  { label: "Gợi ý huấn luyện viên phù hợp", to: "/customer/trainer-recommendations" },
+  { label: "Tiến độ và chỉ số tập luyện", to: "/customer/progress" },
+  { label: "Danh sách thông báo", to: "/customer/notifications" },
+  { label: "Chi tiết thông báo", to: "/customer/notifications/n1" },
+  { label: "Yêu cầu hoàn tiền", to: "/customer/refunds/create" },
+  { label: "Giáo án tập thử", to: "/customer/sample-workouts" },
 ];

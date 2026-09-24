@@ -3,7 +3,7 @@ import { ArrowRight, Compass } from "lucide-react";
 
 import { Logo } from "@/components/brand/Logo";
 import { AppLink } from "@/components/shared/AppLink";
-import { ROLE_AREAS } from "@/components/layout/nav-config";
+import { CUSTOMER_PAGES, ROLE_AREAS } from "@/components/layout/nav-config";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 
@@ -90,7 +90,14 @@ function UiNavigationPage() {
             <h2 className="text-lg font-semibold">{area.roleLabel}</h2>
             <StatusBadge tone="neutral" label={area.areaLabel} />
           </div>
-          {area.groups.map((group) => (
+          {area.key === "customer" ? (
+            <div className="grid gap-2 md:grid-cols-2">
+              {CUSTOMER_PAGES.map((item) => (
+                <LinkRow key={item.to} {...item} />
+              ))}
+            </div>
+          ) : null}
+          {area.key !== "customer" && area.groups.map((group) => (
             <div key={group.title} className="space-y-2">
               <p className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
                 {group.title}

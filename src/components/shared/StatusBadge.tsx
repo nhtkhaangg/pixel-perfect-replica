@@ -26,6 +26,10 @@ export const STATUS_MAP: Record<string, { label: string; tone: StatusTone }> = {
   draft: { label: "Bản nháp", tone: "neutral" },
   inactive: { label: "Không hoạt động", tone: "neutral" },
   expired: { label: "Hết hạn", tone: "neutral" },
+  scheduled: { label: "Sắp diễn ra", tone: "info" },
+  refunded: { label: "Đã hoàn tiền", tone: "neutral" },
+  upcoming: { label: "Sắp tới", tone: "neutral" },
+  unread: { label: "Chưa đọc", tone: "info" },
 };
 
 export function StatusBadge({
