@@ -36,7 +36,7 @@ function WorkoutLog() {
       </div>
       {data.map((e, ei) => (
         <Panel key={e.exercise} title={e.exercise} action={<Button size="sm" variant="ghost" onClick={() => setData(data.map((x, i) => (i === ei ? { ...x, sets: [...x.sets, { ...(x.sets.at(-1) ?? { reps: 10, weight: 0 }), done: false }] } : x)))}><Plus size={14} /> Thêm hiệp</Button>}>
-          <div className="overflow-x-auto">
+          <div className="relative overflow-x-auto">
             <table className="w-full min-w-[480px] text-sm">
               <thead className="text-left text-xs text-muted-foreground"><tr><th className="w-16 py-2">Hiệp</th><th>Số lần</th><th>Mức tạ (kg)</th><th className="w-24 text-center">Hoàn thành</th><th className="w-12" /></tr></thead>
               <tbody className="divide-y divide-border">
