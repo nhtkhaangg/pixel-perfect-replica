@@ -44,8 +44,8 @@ export function TrainerLiveSession() {
       <Grid cols={4}>
         <div className="card-surface p-5 sm:col-span-2">
           <p className="text-xs text-muted-foreground">Thời gian buổi tập</p>
-          <p className="font-display text-6xl tabular-nums">{mm}:{ss}</p>
-          <div className="mt-3 flex gap-2">
+          <p className="font-display text-5xl tabular-nums sm:text-6xl">{mm}:{ss}</p>
+          <div className="mt-3 flex flex-wrap gap-2">
             <Button onClick={() => setRunning((r) => !r)}>{running ? <><Pause className="size-4" /> Tạm dừng</> : <><Play className="size-4" /> {sec ? "Tiếp tục" : "Bắt đầu"}</>}</Button>
             <Dialog><DialogTrigger asChild><Button variant="outline"><SquareCheck className="size-4" /> Kết thúc buổi</Button></DialogTrigger>
               <DialogContent><DialogHeader><DialogTitle>Kết thúc buổi tập?</DialogTitle><DialogDescription>Đã hoàn thành {doneCount}/{total} hiệp, tổng khối lượng {formatNumber(volume)} kg.</DialogDescription></DialogHeader>
@@ -55,7 +55,7 @@ export function TrainerLiveSession() {
         <StatCard label="Hiệp đã xong" value={`${doneCount}/${total}`} />
         <StatCard label="Tổng khối lượng" value={`${formatNumber(volume)} kg`} />
       </Grid>
-      <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
         <Panel title="Danh sách bài tập">
           <ul className="space-y-2">
             {items.map((it, i) => { const e = findExercise(it.exerciseId); const fin = sets[i]!.every((x) => x.done); return (
@@ -65,7 +65,7 @@ export function TrainerLiveSession() {
               </button></li>); })}
           </ul>
         </Panel>
-        <Panel title={findExercise(items[active]!.exerciseId).name} action={<Button size="sm" variant="outline" onClick={() => setSets((all) => all.map((r, a) => (a === active ? [...r, { reps: 10, weight: 20, rpe: 7, done: false }] : r)))}><Plus className="size-4" /> Thêm hiệp</Button>}>
+        <Panel className="min-w-0" title={findExercise(items[active]!.exerciseId).name} action={<Button size="sm" variant="outline" onClick={() => setSets((all) => all.map((r, a) => (a === active ? [...r, { reps: 10, weight: 20, rpe: 7, done: false }] : r)))}><Plus className="size-4" /> Thêm hiệp</Button>}>
           <div className="relative overflow-x-auto">
             <table className="w-full min-w-[520px] text-sm">
               <thead><tr className="text-left text-xs text-muted-foreground"><th className="p-2">Hiệp</th><th className="p-2">Lần lặp</th><th className="p-2">Mức tạ (kg)</th><th className="p-2">RPE (1–10)</th><th className="p-2">Xong</th></tr></thead>

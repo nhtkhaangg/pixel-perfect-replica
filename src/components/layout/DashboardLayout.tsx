@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 /** Tên người dùng giả lập theo từng vai trò. */
 const MOCK_USERS: Record<RoleKey, string> = {
   customer: "Nguyễn Minh Hoàng",
-  trainer: "Trần Anh Khoa",
+  trainer: "Trần Minh Khang",
   staff: "Lê Mai Phương",
   manager: "Phạm Quốc Bảo",
   admin: "Đặng Trần Minh",

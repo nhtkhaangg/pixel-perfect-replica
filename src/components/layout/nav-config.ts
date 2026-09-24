@@ -119,18 +119,24 @@ export const ROLE_AREAS: Record<RoleKey, RoleArea> = {
       {
         title: "Hằng ngày",
         items: [
-          { label: "Tổng quan", to: "/staff", icon: LayoutDashboard },
-          { label: "Check-in", to: "/staff/check-in", icon: BadgeCheck },
-          { label: "Hội viên", to: "/staff/members", icon: Users },
-          { label: "Đăng ký gói tập", to: "/staff/registrations", icon: Package },
+          { label: "Tổng quan", to: "/staff/dashboard", icon: LayoutDashboard },
+          { label: "Thanh toán", to: "/staff/payments", icon: CreditCard },
+          { label: "Thông báo", to: "/staff/notifications", icon: Bell },
         ],
       },
       {
-        title: "Hỗ trợ",
+        title: "Gói tập",
         items: [
-          { label: "Thanh toán", to: "/staff/payments", icon: CreditCard },
-          { label: "Lịch phòng tập", to: "/staff/schedule", icon: CalendarDays },
-          { label: "Yêu cầu hội viên", to: "/staff/requests", icon: MessageSquare },
+          { label: "Gói hội viên", to: "/staff/membership-packages", icon: Package },
+          { label: "Gói PT", to: "/staff/trainer-packages", icon: Users },
+        ],
+      },
+      {
+        title: "Nội dung & đánh giá",
+        items: [
+          { label: "Bài viết", to: "/staff/articles", icon: BookOpen },
+          { label: "Đánh giá phòng gym", to: "/staff/gym-reviews", icon: Star },
+          { label: "Đánh giá HLV", to: "/staff/trainer-reviews", icon: MessageSquare },
         ],
       },
     ],
@@ -142,21 +148,29 @@ export const ROLE_AREAS: Record<RoleKey, RoleArea> = {
     areaLabel: "Quản lý phòng tập",
     groups: [
       {
-        title: "Điều hành",
+        title: "Tổng quan",
         items: [
-          { label: "Tổng quan", to: "/manager", icon: LayoutDashboard },
-          { label: "Doanh thu", to: "/manager/revenue", icon: BarChart3 },
-          { label: "Hội viên", to: "/manager/members", icon: Users },
-          { label: "Huấn luyện viên", to: "/manager/trainers", icon: UserCog },
+          { label: "Tổng quan", to: "/manager/dashboard", icon: LayoutDashboard },
+          { label: "Thông báo", to: "/manager/notifications", icon: Bell },
         ],
       },
       {
-        title: "Nội dung & dịch vụ",
+        title: "Nhân sự & vận hành",
         items: [
-          { label: "Gói tập", to: "/manager/packages", icon: Package },
-          { label: "Lịch & phòng chức năng", to: "/manager/schedule", icon: CalendarDays },
-          { label: "Bài viết", to: "/manager/blog", icon: BookOpen },
-          { label: "Đánh giá", to: "/manager/reviews", icon: Star },
+          { label: "Nhân viên", to: "/manager/staff", icon: UserCog },
+          { label: "Huấn luyện viên", to: "/manager/trainers", icon: Dumbbell },
+          { label: "Cơ sở vật chất", to: "/manager/facilities", icon: Settings },
+          { label: "Hoàn tiền", to: "/manager/refunds", icon: Wallet },
+          { label: "Bài tập", to: "/manager/exercises", icon: ClipboardList },
+        ],
+      },
+      {
+        title: "Thống kê",
+        items: [
+          { label: "Doanh thu", to: "/manager/analytics/revenue", icon: BarChart3 },
+          { label: "Thanh toán", to: "/manager/analytics/payments", icon: CreditCard },
+          { label: "Check-in", to: "/manager/analytics/check-ins", icon: Activity },
+          { label: "Xếp hạng HLV", to: "/manager/analytics/trainers", icon: Star },
         ],
       },
     ],
@@ -268,7 +282,53 @@ export const TRAINER_PAGES: { label: string; to: string }[] = [
   { label: "Thông báo", to: "/trainer/notifications" },
 ];
 
+export const STAFF_PAGES: { label: string; to: string }[] = [
+  { label: "Tổng quan nhân viên", to: "/staff/dashboard" },
+  { label: "Danh sách gói PT", to: "/staff/trainer-packages" },
+  { label: "Chi tiết gói PT", to: "/staff/trainer-packages/t1" },
+  { label: "Danh sách gói hội viên", to: "/staff/membership-packages" },
+  { label: "Chi tiết gói hội viên", to: "/staff/membership-packages/m1" },
+  { label: "Danh sách thanh toán", to: "/staff/payments" },
+  { label: "Chi tiết thanh toán", to: "/staff/payments/pay3" },
+  { label: "Quản lý bài viết", to: "/staff/articles" },
+  { label: "Tạo bài viết", to: "/staff/articles/create" },
+  { label: "Chỉnh sửa bài viết", to: "/staff/articles/a1/edit" },
+  { label: "Đánh giá phòng gym", to: "/staff/gym-reviews" },
+  { label: "Chi tiết và phản hồi đánh giá", to: "/staff/gym-reviews/g2" },
+  { label: "Đánh giá huấn luyện viên", to: "/staff/trainer-reviews" },
+  { label: "Chi tiết đánh giá huấn luyện viên", to: "/staff/trainer-reviews/tr3" },
+  { label: "Thông báo", to: "/staff/notifications" },
+];
+
+export const MANAGER_PAGES: { label: string; to: string }[] = [
+  { label: "Tổng quan quản lý", to: "/manager/dashboard" },
+  { label: "Danh sách nhân viên", to: "/manager/staff" },
+  { label: "Tạo nhân viên", to: "/manager/staff/create" },
+  { label: "Chi tiết nhân viên", to: "/manager/staff/st1" },
+  { label: "Cập nhật nhân viên", to: "/manager/staff/st1/edit" },
+  { label: "Danh sách huấn luyện viên", to: "/manager/trainers" },
+  { label: "Chi tiết huấn luyện viên", to: "/manager/trainers/tn5" },
+  { label: "Xét duyệt hồ sơ huấn luyện viên", to: "/manager/trainers/tn5/review" },
+  { label: "Xác minh chứng chỉ", to: "/manager/trainers/tn5/certificates" },
+  { label: "Lịch huấn luyện viên", to: "/manager/trainers/tn5/schedule" },
+  { label: "Danh sách cơ sở vật chất", to: "/manager/facilities" },
+  { label: "Thêm cơ sở vật chất", to: "/manager/facilities/create" },
+  { label: "Chi tiết cơ sở vật chất", to: "/manager/facilities/f3" },
+  { label: "Cập nhật cơ sở vật chất", to: "/manager/facilities/f3/edit" },
+  { label: "Thống kê thanh toán", to: "/manager/analytics/payments" },
+  { label: "Tổng doanh thu", to: "/manager/analytics/revenue" },
+  { label: "Lượt check-in", to: "/manager/analytics/check-ins" },
+  { label: "Xếp hạng huấn luyện viên", to: "/manager/analytics/trainers" },
+  { label: "Danh sách yêu cầu hoàn tiền", to: "/manager/refunds" },
+  { label: "Chi tiết và xét duyệt hoàn tiền", to: "/manager/refunds/rf1" },
+  { label: "Danh sách bài tập", to: "/manager/exercises" },
+  { label: "Chi tiết bài tập", to: "/manager/exercises/e1" },
+  { label: "Thông báo", to: "/manager/notifications" },
+];
+
 export const ROLE_PAGES: Partial<Record<RoleKey, { label: string; to: string }[]>> = {
   customer: CUSTOMER_PAGES,
   trainer: TRAINER_PAGES,
+  staff: STAFF_PAGES,
+  manager: MANAGER_PAGES,
 };
