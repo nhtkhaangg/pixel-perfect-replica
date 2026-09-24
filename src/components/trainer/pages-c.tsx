@@ -266,7 +266,7 @@ export function TrainerNutritionPlan() {
           <Field label="Nước uống (lít/ngày)"><Input type="number" defaultValue={2.5} step={0.5} /></Field>
         </Panel>
         <Panel title="Thực đơn mẫu" className="lg:col-span-2">
-          <div className="space-y-3">{meals.map(([t, d]) => <Field key={t} label={t}><Textarea rows={2} defaultValue={d} /></Field>)}</div>
+          <div className="space-y-3">{meals.map(([t, d]) => <Field key={t} label={t!}><Textarea rows={2} defaultValue={d!} /></Field>)}</div>
           <Field label="Ghi chú cho học viên"><Textarea rows={2} defaultValue="Hạn chế đồ chiên, nước ngọt. Ăn trước tập 60–90 phút." /></Field>
           <div className="mt-4 flex justify-end"><Button type="submit">Lưu và gửi học viên</Button></div>
         </Panel>
