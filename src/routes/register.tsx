@@ -25,13 +25,21 @@ export const Route = createFileRoute("/register")({
   component: RegisterPage,
 });
 
+type FieldErrors = {
+  fullName?: string;
+  contact?: string;
+  password?: string;
+  confirm?: string;
+  agreed?: string;
+};
+
 function passwordStrength(value: string): { level: number; label: string } {
   let level = 0;
   if (value.length >= 8) level++;
   if (/[A-Z]/.test(value) && /[a-z]/.test(value)) level++;
   if (/\d/.test(value) || /[^\w\s]/.test(value)) level++;
   const labels = ["Rất yếu", "Yếu", "Trung bình", "Mạnh"];
-  return { level, label: labels[level] };
+  return { level, label: labels[level] ?? "Rất yếu" };
 }
 
 function RegisterPage() {
@@ -39,7 +47,7 @@ function RegisterPage() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [agreed, setAgreed] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<FieldErrors>({});
 
   const strength = passwordStrength(password);
 
@@ -54,7 +62,7 @@ function RegisterPage() {
         onSubmit={(e) => {
           e.preventDefault();
           const form = new FormData(e.currentTarget);
-          const next: Record<string, string> = {};
+          const next: FieldErrors = {};
           if (!String(form.get("fullName") ?? "").trim()) next.fullName = "Vui lòng nhập họ và tên.";
           if (!String(form.get("contact") ?? "").trim())
             next.contact = "Vui lòng nhập số điện thoại hoặc email.";

@@ -36,7 +36,10 @@ export function ConfirmDialog({
   onOpenChange?: (open: boolean) => void;
 }) {
   return (
-    <AlertDialog open={open} onOpenChange={onOpenChange}>
+    <AlertDialog
+      {...(open !== undefined ? { open } : {})}
+      {...(onOpenChange ? { onOpenChange } : {})}
+    >
       {trigger ? <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger> : null}
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -46,7 +49,7 @@ export function ConfirmDialog({
         <AlertDialogFooter>
           <AlertDialogCancel>{cancelLabel}</AlertDialogCancel>
           <AlertDialogAction
-            onClick={onConfirm}
+            {...(onConfirm ? { onClick: onConfirm } : {})}
             className={cn(
               buttonVariants({ variant: destructive ? "destructive" : "default" }),
             )}

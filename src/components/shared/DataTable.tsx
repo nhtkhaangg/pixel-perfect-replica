@@ -165,7 +165,10 @@ export function DataTable<T extends { id: string | number }>({
       {loading ? (
         <LoadingState />
       ) : pageRows.length === 0 ? (
-        <EmptyState title={emptyTitle ?? "Không tìm thấy kết quả"} description={emptyDescription} />
+        <EmptyState
+          title={emptyTitle ?? "Không tìm thấy kết quả"}
+          {...(emptyDescription ? { description: emptyDescription } : {})}
+        />
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
