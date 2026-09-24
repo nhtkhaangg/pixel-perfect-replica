@@ -73,7 +73,7 @@ function PlanBuilder({ initial, mode }: { initial?: LessonPlan; mode: "create" |
   const day = days[active]!;
   const move = (i: number, dir: -1 | 1) => update((d) => { const items = [...d.items]; const j = i + dir; if (j < 0 || j >= items.length) return d; [items[i], items[j]] = [items[j]!, items[i]!]; return { ...d, items }; });
   return (
-    <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); if (!days.some((d) => d.items.length)) return toast.error("Giáo án cần ít nhất một bài tập."); toast.success(mode === "create" ? "Đã lưu bản nháp giáo án." : "Đã lưu thành phiên bản mới."); }}>
+    <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); if (!days.some((d) => d.items.length)) return void toast.error("Giáo án cần ít nhất một bài tập."); toast.success(mode === "create" ? "Đã lưu bản nháp giáo án." : "Đã lưu thành phiên bản mới."); }}>
       <Panel title="Thông tin chung">
         <div className="grid gap-4 md:grid-cols-4">
           <Field label="Tên giáo án"><Input defaultValue={initial?.name} placeholder="VD: Giảm mỡ 8 tuần" required /></Field>

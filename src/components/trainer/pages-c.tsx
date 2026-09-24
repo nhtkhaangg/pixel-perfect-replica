@@ -252,7 +252,7 @@ export function TrainerNutritionPlan() {
   const meals = [["Bữa sáng 07:00", "Yến mạch 50 g, 2 trứng luộc, 1 quả chuối"], ["Bữa trưa 12:00", "Cơm gạo lứt 150 g, ức gà 150 g, rau luộc"], ["Bữa phụ 15:30", "Sữa chua Hy Lạp, 1 nắm hạt"], ["Bữa tối 19:00", "Cá hồi 120 g, khoai lang 150 g, salad"]];
   return (
     <OPage area="trainer" title="Kế hoạch dinh dưỡng" parent={{ label: c.name, to: `/trainer/customers/${c.id}` }}>
-      <form className="grid gap-6 lg:grid-cols-3" onSubmit={(e) => { e.preventDefault(); if (macro.p + macro.c + macro.f !== 100) return toast.error("Tổng tỷ lệ đạm, tinh bột, chất béo phải bằng 100%."); toast.success("Đã lưu và gửi kế hoạch dinh dưỡng."); }}>
+      <form className="grid gap-6 lg:grid-cols-3" onSubmit={(e) => { e.preventDefault(); if (macro.p + macro.c + macro.f !== 100) return void toast.error("Tổng tỷ lệ đạm, tinh bột, chất béo phải bằng 100%."); toast.success("Đã lưu và gửi kế hoạch dinh dưỡng."); }}>
         <Panel title="Mục tiêu năng lượng">
           <Field label="Calo mỗi ngày (kcal)"><Input type="number" value={kcal} onChange={(e) => setKcal(Number(e.target.value))} /></Field>
           <div className="mt-4 grid grid-cols-3 gap-2">

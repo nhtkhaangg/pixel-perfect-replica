@@ -38,10 +38,10 @@ export function StatusBadge({
   tone,
   className,
 }: {
-  status?: string;
-  label?: string;
-  tone?: StatusTone;
-  className?: string;
+  status?: string | undefined;
+  label?: string | undefined;
+  tone?: StatusTone | undefined;
+  className?: string | undefined;
 }) {
   const mapped = status ? STATUS_MAP[status] : undefined;
   const finalTone = tone ?? mapped?.tone ?? "neutral";

@@ -79,7 +79,7 @@ export function Avatar({ name, className }: { name: string; className?: string }
   );
 }
 
-export type TimelineItem = { title: string; time: string; description?: string; tone?: StatusTone };
+export type TimelineItem = { title: string; time: string; description?: string | undefined; tone?: StatusTone };
 export function Timeline({ items }: { items: TimelineItem[] }) {
   const dot: Record<StatusTone, string> = {
     success: "bg-success", warning: "bg-warning", danger: "bg-destructive", info: "bg-cyan", neutral: "bg-muted-foreground",
@@ -127,7 +127,7 @@ export function InfoList({ items }: { items: { label: string; value: ReactNode }
 }
 
 /** Khung phản hồi đánh giá. */
-export function ReplyPanel({ existing, placeholder = "Viết phản hồi lịch sự, cảm ơn và nêu hướng khắc phục nếu có..." }: { existing?: string; placeholder?: string }) {
+export function ReplyPanel({ existing, placeholder = "Viết phản hồi lịch sự, cảm ơn và nêu hướng khắc phục nếu có..." }: { existing?: string | undefined; placeholder?: string }) {
   const [text, setText] = useState("");
   const [reply, setReply] = useState(existing);
   return (
@@ -147,7 +147,7 @@ export function ReplyPanel({ existing, placeholder = "Viết phản hồi lịch
       <div className="mt-4 flex justify-end">
         <Button
           onClick={() => {
-            if (text.trim().length < 10) return toast.error("Phản hồi cần tối thiểu 10 ký tự.");
+            if (text.trim().length < 10) return void toast.error("Phản hồi cần tối thiểu 10 ký tự.");
             setReply(text); setText(""); toast.success("Đã gửi phản hồi.");
           }}
         >
@@ -179,7 +179,7 @@ export function ApprovalActions({
             <Button
               variant="destructive"
               onClick={() => {
-                if (reason.trim().length < 5) return toast.error("Vui lòng nhập lý do từ chối.");
+                if (reason.trim().length < 5) return void toast.error("Vui lòng nhập lý do từ chối.");
                 setOpen(null); onDone?.("rejected"); toast.success("Đã từ chối và gửi lý do.");
               }}
             >Xác nhận từ chối</Button>
@@ -203,7 +203,7 @@ export function ApprovalActions({
   );
 }
 
-export type DrawerField = { name: string; label: string; type?: "text" | "number" | "date" | "textarea" | "file"; placeholder?: string; defaultValue?: string };
+export type DrawerField = { name: string; label: string; type?: "text" | "number" | "date" | "textarea" | "file"; placeholder?: string | undefined; defaultValue?: string | undefined };
 /** Ngăn kéo tạo / chỉnh sửa nhanh. */
 export function FormDrawer({
   trigger, title, description, fields, submitLabel = "Lưu",
@@ -223,7 +223,7 @@ export function FormDrawer({
             e.preventDefault();
             const fd = new FormData(e.currentTarget);
             const missing = fields.find((f) => f.type !== "file" && !String(fd.get(f.name) ?? "").trim());
-            if (missing) return toast.error(`Vui lòng nhập “${missing.label}”.`);
+            if (missing) return void toast.error(`Vui lòng nhập “${missing.label}”.`);
             setOpen(false); toast.success("Đã lưu thông tin.");
           }}
         >
