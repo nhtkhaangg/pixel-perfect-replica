@@ -12,9 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as CustomerRouteRouteImport } from './routes/customer/route'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ManagerRouteRouteImport } from './routes/manager/route'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as RegisterTrainerRouteImport } from './routes/register-trainer'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as StaffRouteRouteImport } from './routes/staff/route'
 import { Route as TrainerRouteRouteImport } from './routes/trainer/route'
 import { Route as UiNavigationRouteImport } from './routes/ui-navigation'
@@ -39,6 +42,11 @@ const CustomerRouteRoute = CustomerRouteRouteImport.update({
   path: '/customer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -52,6 +60,16 @@ const ManagerRouteRoute = ManagerRouteRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterTrainerRoute = RegisterTrainerRouteImport.update({
+  id: '/register-trainer',
+  path: '/register-trainer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StaffRouteRoute = StaffRouteRouteImport.update({
@@ -102,8 +120,11 @@ export interface FileRoutesByFullPath {
   '/manager': typeof ManagerRouteRouteWithChildren
   '/staff': typeof StaffRouteRouteWithChildren
   '/trainer': typeof TrainerRouteRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/register-trainer': typeof RegisterTrainerRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/ui-navigation': typeof UiNavigationRoute
   '/admin/': typeof AdminIndexRoute
   '/customer/': typeof CustomerIndexRoute
@@ -113,8 +134,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/register-trainer': typeof RegisterTrainerRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/ui-navigation': typeof UiNavigationRoute
   '/admin': typeof AdminIndexRoute
   '/customer': typeof CustomerIndexRoute
@@ -130,8 +154,11 @@ export interface FileRoutesById {
   '/manager': typeof ManagerRouteRouteWithChildren
   '/staff': typeof StaffRouteRouteWithChildren
   '/trainer': typeof TrainerRouteRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/register-trainer': typeof RegisterTrainerRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/ui-navigation': typeof UiNavigationRoute
   '/admin/': typeof AdminIndexRoute
   '/customer/': typeof CustomerIndexRoute
@@ -148,8 +175,11 @@ export interface FileRouteTypes {
     | '/manager'
     | '/staff'
     | '/trainer'
+    | '/forgot-password'
     | '/login'
     | '/register'
+    | '/register-trainer'
+    | '/reset-password'
     | '/ui-navigation'
     | '/admin/'
     | '/customer/'
@@ -159,8 +189,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/forgot-password'
     | '/login'
     | '/register'
+    | '/register-trainer'
+    | '/reset-password'
     | '/ui-navigation'
     | '/admin'
     | '/customer'
@@ -175,8 +208,11 @@ export interface FileRouteTypes {
     | '/manager'
     | '/staff'
     | '/trainer'
+    | '/forgot-password'
     | '/login'
     | '/register'
+    | '/register-trainer'
+    | '/reset-password'
     | '/ui-navigation'
     | '/admin/'
     | '/customer/'
@@ -192,8 +228,11 @@ export interface RootRouteChildren {
   ManagerRouteRoute: typeof ManagerRouteRouteWithChildren
   StaffRouteRoute: typeof StaffRouteRouteWithChildren
   TrainerRouteRoute: typeof TrainerRouteRouteWithChildren
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
+  RegisterTrainerRoute: typeof RegisterTrainerRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   UiNavigationRoute: typeof UiNavigationRoute
 }
 
@@ -220,6 +259,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomerRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -239,6 +285,20 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register-trainer': {
+      id: '/register-trainer'
+      path: '/register-trainer'
+      fullPath: '/register-trainer'
+      preLoaderRoute: typeof RegisterTrainerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/staff': {
@@ -367,8 +427,11 @@ const rootRouteChildren: RootRouteChildren = {
   ManagerRouteRoute: ManagerRouteRouteWithChildren,
   StaffRouteRoute: StaffRouteRouteWithChildren,
   TrainerRouteRoute: TrainerRouteRouteWithChildren,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
+  RegisterTrainerRoute: RegisterTrainerRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   UiNavigationRoute: UiNavigationRoute,
 }
 export const routeTree = rootRouteImport
