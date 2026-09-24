@@ -1,8 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { GoogleButton, OrDivider } from "@/components/public/auth-fields";
 import { AuthLayout } from "@/components/layout/AuthLayout";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -18,7 +19,9 @@ export const Route = createFileRoute("/login")({
         content: "Đăng nhập vào hệ thống GymCore để quản lý lịch tập, gói tập và hội viên.",
       },
       { property: "og:title", content: "Đăng nhập — GymCore" },
-      { property: "og:description", content: "Truy cập hệ thống quản lý phòng tập GymCore." },
+      { property: "og:description", content: "Truy cập tài khoản hội viên GymCore." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: LoginPage,
@@ -47,15 +50,8 @@ function LoginPage() {
           toast.success("Đăng nhập thành công (dữ liệu mẫu).");
         }}
       >
-        <Button type="button" variant="outline" className="w-full">
-          Đăng nhập bằng Google
-        </Button>
-
-        <div className="flex items-center gap-3 text-xs text-muted-foreground">
-          <span className="h-px flex-1 bg-border" />
-          HOẶC
-          <span className="h-px flex-1 bg-border" />
-        </div>
+        <GoogleButton label="Đăng nhập bằng Google" />
+        <OrDivider />
 
         <div className="space-y-2">
           <Label htmlFor="identifier">Email hoặc số điện thoại</Label>
@@ -88,13 +84,9 @@ function LoginPage() {
           <label className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground">
             <Checkbox id="remember" /> Ghi nhớ đăng nhập
           </label>
-          <button
-            type="button"
-            onClick={() => toast.info("Hướng dẫn đặt lại mật khẩu đã được gửi (dữ liệu mẫu).")}
-            className="cursor-pointer text-sm text-primary hover:underline"
-          >
+          <Link to="/forgot-password" className="text-sm text-primary hover:underline">
             Quên mật khẩu?
-          </button>
+          </Link>
         </div>
 
         <Button type="submit" variant="hero" size="lg" className="w-full">

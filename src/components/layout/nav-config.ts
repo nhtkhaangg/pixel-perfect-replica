@@ -165,8 +165,10 @@ export const ROLE_AREAS: Record<RoleKey, RoleArea> = {
 
 export const PUBLIC_NAV: { label: string; to: string }[] = [
   { label: "Trang chủ", to: "/" },
-  { label: "Gói tập", to: "/#packages" },
-  { label: "Huấn luyện viên", to: "/#trainers" },
-  { label: "Cơ sở vật chất", to: "/#facilities" },
-  { label: "Liên hệ", to: "/#contact" },
+  { label: "Gói tập", to: "/packages" },
+  { label: "Huấn luyện viên", to: "/trainers" },
+  { label: "Kiến thức", to: "/articles" },
+  { label: "Công cụ", to: "/tools/fitness-calculator" },
+  { label: "Đánh giá", to: "/reviews" },
+  { label: "Liên hệ", to: "/gym-info" },
 ];
