@@ -81,20 +81,31 @@ export const ROLE_AREAS: Record<RoleKey, RoleArea> = {
     areaLabel: "Khu vực huấn luyện",
     groups: [
       {
-        title: "Vận hành",
+        title: "Tổng quan",
         items: [
-          { label: "Tổng quan", to: "/trainer", icon: LayoutDashboard },
-          { label: "Lịch ca dạy", to: "/trainer/schedule", icon: CalendarDays },
-          { label: "Học viên", to: "/trainer/clients", icon: Users },
-          { label: "Giáo án", to: "/trainer/programs", icon: ClipboardList },
+          { label: "Tổng quan", to: "/trainer/dashboard", icon: LayoutDashboard },
+          { label: "Lịch hướng dẫn", to: "/trainer/calendar", icon: CalendarDays },
+          { label: "Thông báo", to: "/trainer/notifications", icon: Bell },
+          { label: "Trò chuyện", to: "/trainer/chat", icon: MessageSquare },
         ],
       },
       {
-        title: "Chuyên môn",
+        title: "Học viên & giáo án",
         items: [
-          { label: "Thư viện bài tập", to: "/trainer/exercises", icon: Dumbbell },
-          { label: "Đánh giá từ hội viên", to: "/trainer/reviews", icon: Star },
-          { label: "Hoa hồng", to: "/trainer/earnings", icon: Wallet },
+          { label: "Học viên", to: "/trainer/customers", icon: Users },
+          { label: "Tiến độ học viên", to: "/trainer/progress", icon: Activity },
+          { label: "Giáo án", to: "/trainer/lesson-plans", icon: ClipboardList },
+          { label: "Bài tập", to: "/trainer/exercises", icon: Dumbbell },
+          { label: "Yêu cầu đổi lịch", to: "/trainer/reschedule/requests", icon: History },
+          { label: "Ngày nghỉ", to: "/trainer/days-off", icon: CalendarDays },
+        ],
+      },
+      {
+        title: "Hồ sơ",
+        items: [
+          { label: "Hồ sơ của tôi", to: "/trainer/profile", icon: UserRound },
+          { label: "Chứng chỉ", to: "/trainer/certificates", icon: BadgeCheck },
+          { label: "Đánh giá về tôi", to: "/trainer/reviews", icon: Star },
         ],
       },
     ],
@@ -220,3 +231,44 @@ export const CUSTOMER_PAGES: { label: string; to: string }[] = [
   { label: "Yêu cầu hoàn tiền", to: "/customer/refunds/create" },
   { label: "Giáo án tập thử", to: "/customer/sample-workouts" },
 ];
+
+/** Toàn bộ trang huấn luyện viên, dùng cho trang điều hướng kiểm thử. */
+export const TRAINER_PAGES: { label: string; to: string }[] = [
+  { label: "Tổng quan huấn luyện viên", to: "/trainer/dashboard" },
+  { label: "Hồ sơ huấn luyện viên", to: "/trainer/profile" },
+  { label: "Cập nhật hồ sơ", to: "/trainer/profile/edit" },
+  { label: "Danh sách chứng chỉ", to: "/trainer/certificates" },
+  { label: "Chi tiết chứng chỉ", to: "/trainer/certificates/cert1" },
+  { label: "Lịch hướng dẫn", to: "/trainer/calendar" },
+  { label: "Đăng ký ngày nghỉ", to: "/trainer/days-off" },
+  { label: "Xác nhận buổi tập hoàn thành", to: "/trainer/sessions/s6/verify" },
+  { label: "Phản hồi sau buổi tập", to: "/trainer/sessions/s6/feedback" },
+  { label: "Xử lý yêu cầu đổi lịch", to: "/trainer/reschedule/requests" },
+  { label: "Gửi yêu cầu đổi lịch", to: "/trainer/reschedule/create" },
+  { label: "Danh sách giáo án", to: "/trainer/lesson-plans" },
+  { label: "Chi tiết giáo án", to: "/trainer/lesson-plans/p1" },
+  { label: "Tạo giáo án", to: "/trainer/lesson-plans/create" },
+  { label: "Chỉnh sửa giáo án", to: "/trainer/lesson-plans/p1/edit" },
+  { label: "Danh sách bài tập", to: "/trainer/exercises" },
+  { label: "Chi tiết bài tập", to: "/trainer/exercises/e6" },
+  { label: "Tạo bài tập tùy chỉnh", to: "/trainer/exercises/create" },
+  { label: "Cập nhật bài tập tùy chỉnh", to: "/trainer/exercises/e6/edit" },
+  { label: "Đánh giá về tôi", to: "/trainer/reviews" },
+  { label: "Chi tiết và phản hồi đánh giá", to: "/trainer/reviews/r1" },
+  { label: "Điều khiển buổi tập trực tiếp", to: "/trainer/live-sessions/s2" },
+  { label: "Tiến độ tập luyện của học viên", to: "/trainer/progress" },
+  { label: "Danh sách học viên", to: "/trainer/customers" },
+  { label: "Hồ sơ và chỉ số học viên", to: "/trainer/customers/c1" },
+  { label: "Giáo án được AI gợi ý", to: "/trainer/customers/c1/ai-plan" },
+  { label: "Kế hoạch dinh dưỡng", to: "/trainer/customers/c1/nutrition-plan" },
+  { label: "Xuất bản giáo án", to: "/trainer/plans/p1/publish" },
+  { label: "Đánh giá cột mốc", to: "/trainer/plans/p1/milestones" },
+  { label: "Lịch sử phiên bản giáo án", to: "/trainer/plans/p1/versions" },
+  { label: "Trò chuyện với hội viên", to: "/trainer/chat" },
+  { label: "Thông báo", to: "/trainer/notifications" },
+];
+
+export const ROLE_PAGES: Partial<Record<RoleKey, { label: string; to: string }[]>> = {
+  customer: CUSTOMER_PAGES,
+  trainer: TRAINER_PAGES,
+};
