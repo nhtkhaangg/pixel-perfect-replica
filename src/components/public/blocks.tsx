@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { Breadcrumbs } from "@/components/shared/PageHeader";
 import { initials } from "@/lib/mock/public";
+import { getTrainerAvatar } from "@/lib/trainer-avatars";
 import { cn } from "@/lib/utils";
 
 export function SectionHeading({
@@ -68,6 +69,7 @@ export function Stars({ value, size = 14 }: { value: number; size?: number }) {
 }
 
 export function InitialsAvatar({ name, className }: { name: string; className?: string }) {
+  const avatar = getTrainerAvatar(name);
   return (
     <span
       className={cn(
@@ -75,7 +77,9 @@ export function InitialsAvatar({ name, className }: { name: string; className?: 
         className,
       )}
     >
-      {initials(name)}
+      {avatar ? (
+        <img src={avatar} alt={`Ảnh đại diện của ${name}`} loading="lazy" width={816} height={816} className="size-full rounded-full object-cover" />
+      ) : initials(name)}
     </span>
   );
 }
