@@ -2,6 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Compass } from "lucide-react";
 
 import { Logo } from "@/components/brand/Logo";
+import { AppLink } from "@/components/shared/AppLink";
 import { ROLE_AREAS } from "@/components/layout/nav-config";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { StatusBadge } from "@/components/shared/StatusBadge";
@@ -32,7 +33,7 @@ const PUBLIC_LINKS = [
 
 function LinkRow({ label, to }: { label: string; to: string }) {
   return (
-    <Link
+    <AppLink
       to={to}
       className="flex items-center justify-between gap-3 rounded-md border border-border px-4 py-3 text-sm transition-colors hover:border-primary/40 hover:bg-accent/50"
     >
@@ -41,7 +42,7 @@ function LinkRow({ label, to }: { label: string; to: string }) {
         {to}
         <ArrowRight size={14} className="text-primary" />
       </span>
-    </Link>
+    </AppLink>
   );
 }
 

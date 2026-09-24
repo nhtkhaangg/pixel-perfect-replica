@@ -3,6 +3,7 @@ import { Bell, LogOut, Menu, Search, Settings, User } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
 import { Logo } from "@/components/brand/Logo";
+import { AppLink } from "@/components/shared/AppLink";
 import { ROLE_AREAS, type RoleKey } from "@/components/layout/nav-config";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,7 +44,7 @@ function SidebarNav({ role, onNavigate }: { role: RoleKey; onNavigate?: () => vo
                 item.to === area.basePath ? pathname === item.to : pathname.startsWith(item.to);
               return (
                 <li key={item.to}>
-                  <Link
+                  <AppLink
                     to={item.to}
                     onClick={onNavigate}
                     className={cn(
@@ -58,7 +59,7 @@ function SidebarNav({ role, onNavigate }: { role: RoleKey; onNavigate?: () => vo
                     ) : null}
                     <item.icon size={17} />
                     {item.label}
-                  </Link>
+                  </AppLink>
                 </li>
               );
             })}
@@ -165,7 +166,7 @@ export function DashboardLayout({ role, children }: { role: RoleKey; children: R
       {/* Điều hướng dưới cho thiết bị di động */}
       <nav className="fixed inset-x-0 bottom-0 z-30 flex border-t border-border bg-sidebar/95 backdrop-blur lg:hidden">
         {area.groups[0].items.slice(0, 4).map((item) => (
-          <Link
+          <AppLink
             key={item.to}
             to={item.to}
             className="flex flex-1 flex-col items-center gap-1 py-2.5 text-[11px] text-muted-foreground transition-colors hover:text-foreground"
@@ -174,7 +175,7 @@ export function DashboardLayout({ role, children }: { role: RoleKey; children: R
           >
             <item.icon size={18} />
             <span className="max-w-full truncate px-1">{item.label}</span>
-          </Link>
+          </AppLink>
         ))}
       </nav>
     </div>
