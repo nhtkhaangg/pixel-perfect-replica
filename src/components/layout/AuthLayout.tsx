@@ -31,7 +31,7 @@ export function AuthLayout({
 }: {
   title: string;
   description: string;
-  activeTab: "login" | "register";
+  activeTab?: "login" | "register";
   children: ReactNode;
 }) {
   return (
@@ -47,7 +47,7 @@ export function AuthLayout({
             Phòng tập chất lượng cao tại Quận 3
           </span>
           <h1 className="max-w-lg font-display text-4xl leading-[1.1] font-extrabold xl:text-5xl">
-            Hệ thống phòng tập thông minh cho từng mục tiêu
+            Một phòng tập, trọn vẹn hành trình của bạn
           </h1>
           <ul className="space-y-5">
             {HIGHLIGHTS.map((item) => (
@@ -93,7 +93,7 @@ export function AuthLayout({
             <h2 className="font-display text-2xl font-bold">{title}</h2>
             <p className="mt-1.5 text-sm text-muted-foreground">{description}</p>
 
-            <div className="mt-6 grid grid-cols-2 gap-1 rounded-lg border border-border bg-secondary/60 p-1">
+            {activeTab ? (<div className="mt-6 grid grid-cols-2 gap-1 rounded-lg border border-border bg-secondary/60 p-1">
               <Link
                 to="/login"
                 className={cn(
@@ -116,7 +116,7 @@ export function AuthLayout({
               >
                 Đăng ký
               </Link>
-            </div>
+            </div>) : null}
 
             <div className="mt-6">{children}</div>
           </div>

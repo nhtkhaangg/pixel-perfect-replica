@@ -3,6 +3,7 @@ import { Facebook, Instagram, Mail, MapPin, Menu, Phone, Youtube } from "lucide-
 import { useState, type ReactNode } from "react";
 
 import { Logo, BRAND_NAME } from "@/components/brand/Logo";
+import { AppLink } from "@/components/shared/AppLink";
 import { PUBLIC_NAV } from "@/components/layout/nav-config";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -17,15 +18,15 @@ export function PublicHeader() {
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-7 text-sm lg:flex">
+        <nav className="hidden items-center gap-6 text-sm xl:flex">
           {PUBLIC_NAV.map((item) => (
-            <a
+            <AppLink
               key={item.to}
-              href={item.to}
+              to={item.to}
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
               {item.label}
-            </a>
+            </AppLink>
           ))}
         </nav>
 
@@ -40,21 +41,21 @@ export function PublicHeader() {
 
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="md:hidden" aria-label="Mở menu">
+            <Button variant="outline" size="icon" className="xl:hidden" aria-label="Mở menu">
               <Menu size={18} />
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-72 bg-sidebar">
             <div className="mt-2 flex flex-col gap-1">
               {PUBLIC_NAV.map((item) => (
-                <a
+                <AppLink
                   key={item.to}
-                  href={item.to}
+                  to={item.to}
                   onClick={() => setOpen(false)}
                   className="rounded-md px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                 >
                   {item.label}
-                </a>
+                </AppLink>
               ))}
               <div className="mt-4 flex flex-col gap-2">
                 <Button variant="outline" asChild>
@@ -99,9 +100,9 @@ export function PublicFooter() {
           <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
             {PUBLIC_NAV.map((item) => (
               <li key={item.to}>
-                <a href={item.to} className="transition-colors hover:text-foreground">
+                <AppLink to={item.to} className="transition-colors hover:text-foreground">
                   {item.label}
-                </a>
+                </AppLink>
               </li>
             ))}
           </ul>
