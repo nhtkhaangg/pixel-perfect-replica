@@ -27,6 +27,28 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ArticlesIndexRouteImport } from './routes/articles/index'
 import { Route as ArticlesIdRouteImport } from './routes/articles/$id'
 import { Route as CustomerIndexRouteImport } from './routes/customer/index'
+import { Route as CustomerAvailabilityRouteImport } from './routes/customer/availability'
+import { Route as CustomerBodyMetricsRouteImport } from './routes/customer/body-metrics'
+import { Route as CustomerBodyProgressRouteImport } from './routes/customer/body-progress'
+import { Route as CustomerCalendarRouteImport } from './routes/customer/calendar'
+import { Route as CustomerChangePasswordRouteImport } from './routes/customer/change-password'
+import { Route as CustomerChatRouteImport } from './routes/customer/chat'
+import { Route as CustomerCheckInRouteImport } from './routes/customer/check-in'
+import { Route as CustomerCheckInHistoryRouteImport } from './routes/customer/check-in-history'
+import { Route as CustomerDashboardRouteImport } from './routes/customer/dashboard'
+import { Route as CustomerExercisesRouteImport } from './routes/customer/exercises'
+import { Route as CustomerInitialAssessmentRouteImport } from './routes/customer/initial-assessment'
+import { Route as CustomerMyPackagesRouteImport } from './routes/customer/my-packages'
+import { Route as CustomerPackagesRouteImport } from './routes/customer/packages'
+import { Route as CustomerProgressRouteImport } from './routes/customer/progress'
+import { Route as CustomerSampleWorkoutsRouteImport } from './routes/customer/sample-workouts'
+import { Route as CustomerSessionVerificationRouteImport } from './routes/customer/session-verification'
+import { Route as CustomerTrainerPackagesRouteImport } from './routes/customer/trainer-packages'
+import { Route as CustomerTrainerRecommendationsRouteImport } from './routes/customer/trainer-recommendations'
+import { Route as CustomerTrainingRoadmapRouteImport } from './routes/customer/training-roadmap'
+import { Route as CustomerTransactionsRouteImport } from './routes/customer/transactions'
+import { Route as CustomerWorkoutFeedbackRouteImport } from './routes/customer/workout-feedback'
+import { Route as CustomerWorkoutLogRouteImport } from './routes/customer/workout-log'
 import { Route as ManagerIndexRouteImport } from './routes/manager/index'
 import { Route as PackagesIndexRouteImport } from './routes/packages/index'
 import { Route as PackagesIdRouteImport } from './routes/packages/$id'
@@ -35,6 +57,14 @@ import { Route as ToolsFitnessCalculatorRouteImport } from './routes/tools/fitne
 import { Route as TrainerIndexRouteImport } from './routes/trainer/index'
 import { Route as TrainersIndexRouteImport } from './routes/trainers/index'
 import { Route as TrainersIdRouteImport } from './routes/trainers/$id'
+import { Route as CustomerNotificationsIndexRouteImport } from './routes/customer/notifications.index'
+import { Route as CustomerNotificationsIdRouteImport } from './routes/customer/notifications.$id'
+import { Route as CustomerProfileIndexRouteImport } from './routes/customer/profile.index'
+import { Route as CustomerProfileEditRouteImport } from './routes/customer/profile.edit'
+import { Route as CustomerRefundsCreateRouteImport } from './routes/customer/refunds.create'
+import { Route as CustomerRescheduleRequestRouteImport } from './routes/customer/reschedule.request'
+import { Route as CustomerRescheduleRequestsRouteImport } from './routes/customer/reschedule.requests'
+import { Route as CustomerReviewsCreateRouteImport } from './routes/customer/reviews.create'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -126,6 +156,119 @@ const CustomerIndexRoute = CustomerIndexRouteImport.update({
   path: '/',
   getParentRoute: () => CustomerRouteRoute,
 } as any)
+const CustomerAvailabilityRoute = CustomerAvailabilityRouteImport.update({
+  id: '/availability',
+  path: '/availability',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerBodyMetricsRoute = CustomerBodyMetricsRouteImport.update({
+  id: '/body-metrics',
+  path: '/body-metrics',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerBodyProgressRoute = CustomerBodyProgressRouteImport.update({
+  id: '/body-progress',
+  path: '/body-progress',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerCalendarRoute = CustomerCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerChangePasswordRoute = CustomerChangePasswordRouteImport.update({
+  id: '/change-password',
+  path: '/change-password',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerChatRoute = CustomerChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerCheckInRoute = CustomerCheckInRouteImport.update({
+  id: '/check-in',
+  path: '/check-in',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerCheckInHistoryRoute = CustomerCheckInHistoryRouteImport.update({
+  id: '/check-in-history',
+  path: '/check-in-history',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerDashboardRoute = CustomerDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerExercisesRoute = CustomerExercisesRouteImport.update({
+  id: '/exercises',
+  path: '/exercises',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerInitialAssessmentRoute =
+  CustomerInitialAssessmentRouteImport.update({
+    id: '/initial-assessment',
+    path: '/initial-assessment',
+    getParentRoute: () => CustomerRouteRoute,
+  } as any)
+const CustomerMyPackagesRoute = CustomerMyPackagesRouteImport.update({
+  id: '/my-packages',
+  path: '/my-packages',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerPackagesRoute = CustomerPackagesRouteImport.update({
+  id: '/packages',
+  path: '/packages',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerProgressRoute = CustomerProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerSampleWorkoutsRoute = CustomerSampleWorkoutsRouteImport.update({
+  id: '/sample-workouts',
+  path: '/sample-workouts',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerSessionVerificationRoute =
+  CustomerSessionVerificationRouteImport.update({
+    id: '/session-verification',
+    path: '/session-verification',
+    getParentRoute: () => CustomerRouteRoute,
+  } as any)
+const CustomerTrainerPackagesRoute = CustomerTrainerPackagesRouteImport.update({
+  id: '/trainer-packages',
+  path: '/trainer-packages',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerTrainerRecommendationsRoute =
+  CustomerTrainerRecommendationsRouteImport.update({
+    id: '/trainer-recommendations',
+    path: '/trainer-recommendations',
+    getParentRoute: () => CustomerRouteRoute,
+  } as any)
+const CustomerTrainingRoadmapRoute = CustomerTrainingRoadmapRouteImport.update({
+  id: '/training-roadmap',
+  path: '/training-roadmap',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerTransactionsRoute = CustomerTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerWorkoutFeedbackRoute = CustomerWorkoutFeedbackRouteImport.update({
+  id: '/workout-feedback',
+  path: '/workout-feedback',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerWorkoutLogRoute = CustomerWorkoutLogRouteImport.update({
+  id: '/workout-log',
+  path: '/workout-log',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
 const ManagerIndexRoute = ManagerIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -166,6 +309,49 @@ const TrainersIdRoute = TrainersIdRouteImport.update({
   path: '/trainers/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CustomerNotificationsIndexRoute =
+  CustomerNotificationsIndexRouteImport.update({
+    id: '/notifications/',
+    path: '/notifications/',
+    getParentRoute: () => CustomerRouteRoute,
+  } as any)
+const CustomerNotificationsIdRoute = CustomerNotificationsIdRouteImport.update({
+  id: '/notifications/$id',
+  path: '/notifications/$id',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerProfileIndexRoute = CustomerProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerProfileEditRoute = CustomerProfileEditRouteImport.update({
+  id: '/profile/edit',
+  path: '/profile/edit',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerRefundsCreateRoute = CustomerRefundsCreateRouteImport.update({
+  id: '/refunds/create',
+  path: '/refunds/create',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
+const CustomerRescheduleRequestRoute =
+  CustomerRescheduleRequestRouteImport.update({
+    id: '/reschedule/request',
+    path: '/reschedule/request',
+    getParentRoute: () => CustomerRouteRoute,
+  } as any)
+const CustomerRescheduleRequestsRoute =
+  CustomerRescheduleRequestsRouteImport.update({
+    id: '/reschedule/requests',
+    path: '/reschedule/requests',
+    getParentRoute: () => CustomerRouteRoute,
+  } as any)
+const CustomerReviewsCreateRoute = CustomerReviewsCreateRouteImport.update({
+  id: '/reviews/create',
+  path: '/reviews/create',
+  getParentRoute: () => CustomerRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -183,6 +369,28 @@ export interface FileRoutesByFullPath {
   '/reviews': typeof ReviewsRoute
   '/ui-navigation': typeof UiNavigationRoute
   '/articles/$id': typeof ArticlesIdRoute
+  '/customer/availability': typeof CustomerAvailabilityRoute
+  '/customer/body-metrics': typeof CustomerBodyMetricsRoute
+  '/customer/body-progress': typeof CustomerBodyProgressRoute
+  '/customer/calendar': typeof CustomerCalendarRoute
+  '/customer/change-password': typeof CustomerChangePasswordRoute
+  '/customer/chat': typeof CustomerChatRoute
+  '/customer/check-in': typeof CustomerCheckInRoute
+  '/customer/check-in-history': typeof CustomerCheckInHistoryRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/exercises': typeof CustomerExercisesRoute
+  '/customer/initial-assessment': typeof CustomerInitialAssessmentRoute
+  '/customer/my-packages': typeof CustomerMyPackagesRoute
+  '/customer/packages': typeof CustomerPackagesRoute
+  '/customer/progress': typeof CustomerProgressRoute
+  '/customer/sample-workouts': typeof CustomerSampleWorkoutsRoute
+  '/customer/session-verification': typeof CustomerSessionVerificationRoute
+  '/customer/trainer-packages': typeof CustomerTrainerPackagesRoute
+  '/customer/trainer-recommendations': typeof CustomerTrainerRecommendationsRoute
+  '/customer/training-roadmap': typeof CustomerTrainingRoadmapRoute
+  '/customer/transactions': typeof CustomerTransactionsRoute
+  '/customer/workout-feedback': typeof CustomerWorkoutFeedbackRoute
+  '/customer/workout-log': typeof CustomerWorkoutLogRoute
   '/packages/$id': typeof PackagesIdRoute
   '/tools/fitness-calculator': typeof ToolsFitnessCalculatorRoute
   '/trainers/$id': typeof TrainersIdRoute
@@ -194,6 +402,14 @@ export interface FileRoutesByFullPath {
   '/staff/': typeof StaffIndexRoute
   '/trainer/': typeof TrainerIndexRoute
   '/trainers/': typeof TrainersIndexRoute
+  '/customer/notifications/$id': typeof CustomerNotificationsIdRoute
+  '/customer/profile/edit': typeof CustomerProfileEditRoute
+  '/customer/refunds/create': typeof CustomerRefundsCreateRoute
+  '/customer/reschedule/request': typeof CustomerRescheduleRequestRoute
+  '/customer/reschedule/requests': typeof CustomerRescheduleRequestsRoute
+  '/customer/reviews/create': typeof CustomerReviewsCreateRoute
+  '/customer/notifications/': typeof CustomerNotificationsIndexRoute
+  '/customer/profile/': typeof CustomerProfileIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -206,6 +422,28 @@ export interface FileRoutesByTo {
   '/reviews': typeof ReviewsRoute
   '/ui-navigation': typeof UiNavigationRoute
   '/articles/$id': typeof ArticlesIdRoute
+  '/customer/availability': typeof CustomerAvailabilityRoute
+  '/customer/body-metrics': typeof CustomerBodyMetricsRoute
+  '/customer/body-progress': typeof CustomerBodyProgressRoute
+  '/customer/calendar': typeof CustomerCalendarRoute
+  '/customer/change-password': typeof CustomerChangePasswordRoute
+  '/customer/chat': typeof CustomerChatRoute
+  '/customer/check-in': typeof CustomerCheckInRoute
+  '/customer/check-in-history': typeof CustomerCheckInHistoryRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/exercises': typeof CustomerExercisesRoute
+  '/customer/initial-assessment': typeof CustomerInitialAssessmentRoute
+  '/customer/my-packages': typeof CustomerMyPackagesRoute
+  '/customer/packages': typeof CustomerPackagesRoute
+  '/customer/progress': typeof CustomerProgressRoute
+  '/customer/sample-workouts': typeof CustomerSampleWorkoutsRoute
+  '/customer/session-verification': typeof CustomerSessionVerificationRoute
+  '/customer/trainer-packages': typeof CustomerTrainerPackagesRoute
+  '/customer/trainer-recommendations': typeof CustomerTrainerRecommendationsRoute
+  '/customer/training-roadmap': typeof CustomerTrainingRoadmapRoute
+  '/customer/transactions': typeof CustomerTransactionsRoute
+  '/customer/workout-feedback': typeof CustomerWorkoutFeedbackRoute
+  '/customer/workout-log': typeof CustomerWorkoutLogRoute
   '/packages/$id': typeof PackagesIdRoute
   '/tools/fitness-calculator': typeof ToolsFitnessCalculatorRoute
   '/trainers/$id': typeof TrainersIdRoute
@@ -217,6 +455,14 @@ export interface FileRoutesByTo {
   '/staff': typeof StaffIndexRoute
   '/trainer': typeof TrainerIndexRoute
   '/trainers': typeof TrainersIndexRoute
+  '/customer/notifications/$id': typeof CustomerNotificationsIdRoute
+  '/customer/profile/edit': typeof CustomerProfileEditRoute
+  '/customer/refunds/create': typeof CustomerRefundsCreateRoute
+  '/customer/reschedule/request': typeof CustomerRescheduleRequestRoute
+  '/customer/reschedule/requests': typeof CustomerRescheduleRequestsRoute
+  '/customer/reviews/create': typeof CustomerReviewsCreateRoute
+  '/customer/notifications': typeof CustomerNotificationsIndexRoute
+  '/customer/profile': typeof CustomerProfileIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -235,6 +481,28 @@ export interface FileRoutesById {
   '/reviews': typeof ReviewsRoute
   '/ui-navigation': typeof UiNavigationRoute
   '/articles/$id': typeof ArticlesIdRoute
+  '/customer/availability': typeof CustomerAvailabilityRoute
+  '/customer/body-metrics': typeof CustomerBodyMetricsRoute
+  '/customer/body-progress': typeof CustomerBodyProgressRoute
+  '/customer/calendar': typeof CustomerCalendarRoute
+  '/customer/change-password': typeof CustomerChangePasswordRoute
+  '/customer/chat': typeof CustomerChatRoute
+  '/customer/check-in': typeof CustomerCheckInRoute
+  '/customer/check-in-history': typeof CustomerCheckInHistoryRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/exercises': typeof CustomerExercisesRoute
+  '/customer/initial-assessment': typeof CustomerInitialAssessmentRoute
+  '/customer/my-packages': typeof CustomerMyPackagesRoute
+  '/customer/packages': typeof CustomerPackagesRoute
+  '/customer/progress': typeof CustomerProgressRoute
+  '/customer/sample-workouts': typeof CustomerSampleWorkoutsRoute
+  '/customer/session-verification': typeof CustomerSessionVerificationRoute
+  '/customer/trainer-packages': typeof CustomerTrainerPackagesRoute
+  '/customer/trainer-recommendations': typeof CustomerTrainerRecommendationsRoute
+  '/customer/training-roadmap': typeof CustomerTrainingRoadmapRoute
+  '/customer/transactions': typeof CustomerTransactionsRoute
+  '/customer/workout-feedback': typeof CustomerWorkoutFeedbackRoute
+  '/customer/workout-log': typeof CustomerWorkoutLogRoute
   '/packages/$id': typeof PackagesIdRoute
   '/tools/fitness-calculator': typeof ToolsFitnessCalculatorRoute
   '/trainers/$id': typeof TrainersIdRoute
@@ -246,6 +514,14 @@ export interface FileRoutesById {
   '/staff/': typeof StaffIndexRoute
   '/trainer/': typeof TrainerIndexRoute
   '/trainers/': typeof TrainersIndexRoute
+  '/customer/notifications/$id': typeof CustomerNotificationsIdRoute
+  '/customer/profile/edit': typeof CustomerProfileEditRoute
+  '/customer/refunds/create': typeof CustomerRefundsCreateRoute
+  '/customer/reschedule/request': typeof CustomerRescheduleRequestRoute
+  '/customer/reschedule/requests': typeof CustomerRescheduleRequestsRoute
+  '/customer/reviews/create': typeof CustomerReviewsCreateRoute
+  '/customer/notifications/': typeof CustomerNotificationsIndexRoute
+  '/customer/profile/': typeof CustomerProfileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -265,6 +541,28 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/ui-navigation'
     | '/articles/$id'
+    | '/customer/availability'
+    | '/customer/body-metrics'
+    | '/customer/body-progress'
+    | '/customer/calendar'
+    | '/customer/change-password'
+    | '/customer/chat'
+    | '/customer/check-in'
+    | '/customer/check-in-history'
+    | '/customer/dashboard'
+    | '/customer/exercises'
+    | '/customer/initial-assessment'
+    | '/customer/my-packages'
+    | '/customer/packages'
+    | '/customer/progress'
+    | '/customer/sample-workouts'
+    | '/customer/session-verification'
+    | '/customer/trainer-packages'
+    | '/customer/trainer-recommendations'
+    | '/customer/training-roadmap'
+    | '/customer/transactions'
+    | '/customer/workout-feedback'
+    | '/customer/workout-log'
     | '/packages/$id'
     | '/tools/fitness-calculator'
     | '/trainers/$id'
@@ -276,6 +574,14 @@ export interface FileRouteTypes {
     | '/staff/'
     | '/trainer/'
     | '/trainers/'
+    | '/customer/notifications/$id'
+    | '/customer/profile/edit'
+    | '/customer/refunds/create'
+    | '/customer/reschedule/request'
+    | '/customer/reschedule/requests'
+    | '/customer/reviews/create'
+    | '/customer/notifications/'
+    | '/customer/profile/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -288,6 +594,28 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/ui-navigation'
     | '/articles/$id'
+    | '/customer/availability'
+    | '/customer/body-metrics'
+    | '/customer/body-progress'
+    | '/customer/calendar'
+    | '/customer/change-password'
+    | '/customer/chat'
+    | '/customer/check-in'
+    | '/customer/check-in-history'
+    | '/customer/dashboard'
+    | '/customer/exercises'
+    | '/customer/initial-assessment'
+    | '/customer/my-packages'
+    | '/customer/packages'
+    | '/customer/progress'
+    | '/customer/sample-workouts'
+    | '/customer/session-verification'
+    | '/customer/trainer-packages'
+    | '/customer/trainer-recommendations'
+    | '/customer/training-roadmap'
+    | '/customer/transactions'
+    | '/customer/workout-feedback'
+    | '/customer/workout-log'
     | '/packages/$id'
     | '/tools/fitness-calculator'
     | '/trainers/$id'
@@ -299,6 +627,14 @@ export interface FileRouteTypes {
     | '/staff'
     | '/trainer'
     | '/trainers'
+    | '/customer/notifications/$id'
+    | '/customer/profile/edit'
+    | '/customer/refunds/create'
+    | '/customer/reschedule/request'
+    | '/customer/reschedule/requests'
+    | '/customer/reviews/create'
+    | '/customer/notifications'
+    | '/customer/profile'
   id:
     | '__root__'
     | '/'
@@ -316,6 +652,28 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/ui-navigation'
     | '/articles/$id'
+    | '/customer/availability'
+    | '/customer/body-metrics'
+    | '/customer/body-progress'
+    | '/customer/calendar'
+    | '/customer/change-password'
+    | '/customer/chat'
+    | '/customer/check-in'
+    | '/customer/check-in-history'
+    | '/customer/dashboard'
+    | '/customer/exercises'
+    | '/customer/initial-assessment'
+    | '/customer/my-packages'
+    | '/customer/packages'
+    | '/customer/progress'
+    | '/customer/sample-workouts'
+    | '/customer/session-verification'
+    | '/customer/trainer-packages'
+    | '/customer/trainer-recommendations'
+    | '/customer/training-roadmap'
+    | '/customer/transactions'
+    | '/customer/workout-feedback'
+    | '/customer/workout-log'
     | '/packages/$id'
     | '/tools/fitness-calculator'
     | '/trainers/$id'
@@ -327,6 +685,14 @@ export interface FileRouteTypes {
     | '/staff/'
     | '/trainer/'
     | '/trainers/'
+    | '/customer/notifications/$id'
+    | '/customer/profile/edit'
+    | '/customer/refunds/create'
+    | '/customer/reschedule/request'
+    | '/customer/reschedule/requests'
+    | '/customer/reviews/create'
+    | '/customer/notifications/'
+    | '/customer/profile/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -481,6 +847,160 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomerIndexRouteImport
       parentRoute: typeof CustomerRouteRoute
     }
+    '/customer/availability': {
+      id: '/customer/availability'
+      path: '/availability'
+      fullPath: '/customer/availability'
+      preLoaderRoute: typeof CustomerAvailabilityRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/body-metrics': {
+      id: '/customer/body-metrics'
+      path: '/body-metrics'
+      fullPath: '/customer/body-metrics'
+      preLoaderRoute: typeof CustomerBodyMetricsRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/body-progress': {
+      id: '/customer/body-progress'
+      path: '/body-progress'
+      fullPath: '/customer/body-progress'
+      preLoaderRoute: typeof CustomerBodyProgressRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/calendar': {
+      id: '/customer/calendar'
+      path: '/calendar'
+      fullPath: '/customer/calendar'
+      preLoaderRoute: typeof CustomerCalendarRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/change-password': {
+      id: '/customer/change-password'
+      path: '/change-password'
+      fullPath: '/customer/change-password'
+      preLoaderRoute: typeof CustomerChangePasswordRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/chat': {
+      id: '/customer/chat'
+      path: '/chat'
+      fullPath: '/customer/chat'
+      preLoaderRoute: typeof CustomerChatRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/check-in': {
+      id: '/customer/check-in'
+      path: '/check-in'
+      fullPath: '/customer/check-in'
+      preLoaderRoute: typeof CustomerCheckInRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/check-in-history': {
+      id: '/customer/check-in-history'
+      path: '/check-in-history'
+      fullPath: '/customer/check-in-history'
+      preLoaderRoute: typeof CustomerCheckInHistoryRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/dashboard': {
+      id: '/customer/dashboard'
+      path: '/dashboard'
+      fullPath: '/customer/dashboard'
+      preLoaderRoute: typeof CustomerDashboardRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/exercises': {
+      id: '/customer/exercises'
+      path: '/exercises'
+      fullPath: '/customer/exercises'
+      preLoaderRoute: typeof CustomerExercisesRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/initial-assessment': {
+      id: '/customer/initial-assessment'
+      path: '/initial-assessment'
+      fullPath: '/customer/initial-assessment'
+      preLoaderRoute: typeof CustomerInitialAssessmentRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/my-packages': {
+      id: '/customer/my-packages'
+      path: '/my-packages'
+      fullPath: '/customer/my-packages'
+      preLoaderRoute: typeof CustomerMyPackagesRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/packages': {
+      id: '/customer/packages'
+      path: '/packages'
+      fullPath: '/customer/packages'
+      preLoaderRoute: typeof CustomerPackagesRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/progress': {
+      id: '/customer/progress'
+      path: '/progress'
+      fullPath: '/customer/progress'
+      preLoaderRoute: typeof CustomerProgressRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/sample-workouts': {
+      id: '/customer/sample-workouts'
+      path: '/sample-workouts'
+      fullPath: '/customer/sample-workouts'
+      preLoaderRoute: typeof CustomerSampleWorkoutsRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/session-verification': {
+      id: '/customer/session-verification'
+      path: '/session-verification'
+      fullPath: '/customer/session-verification'
+      preLoaderRoute: typeof CustomerSessionVerificationRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/trainer-packages': {
+      id: '/customer/trainer-packages'
+      path: '/trainer-packages'
+      fullPath: '/customer/trainer-packages'
+      preLoaderRoute: typeof CustomerTrainerPackagesRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/trainer-recommendations': {
+      id: '/customer/trainer-recommendations'
+      path: '/trainer-recommendations'
+      fullPath: '/customer/trainer-recommendations'
+      preLoaderRoute: typeof CustomerTrainerRecommendationsRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/training-roadmap': {
+      id: '/customer/training-roadmap'
+      path: '/training-roadmap'
+      fullPath: '/customer/training-roadmap'
+      preLoaderRoute: typeof CustomerTrainingRoadmapRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/transactions': {
+      id: '/customer/transactions'
+      path: '/transactions'
+      fullPath: '/customer/transactions'
+      preLoaderRoute: typeof CustomerTransactionsRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/workout-feedback': {
+      id: '/customer/workout-feedback'
+      path: '/workout-feedback'
+      fullPath: '/customer/workout-feedback'
+      preLoaderRoute: typeof CustomerWorkoutFeedbackRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/workout-log': {
+      id: '/customer/workout-log'
+      path: '/workout-log'
+      fullPath: '/customer/workout-log'
+      preLoaderRoute: typeof CustomerWorkoutLogRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
     '/manager/': {
       id: '/manager/'
       path: '/'
@@ -537,6 +1057,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrainersIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/customer/notifications/': {
+      id: '/customer/notifications/'
+      path: '/notifications'
+      fullPath: '/customer/notifications/'
+      preLoaderRoute: typeof CustomerNotificationsIndexRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/notifications/$id': {
+      id: '/customer/notifications/$id'
+      path: '/notifications/$id'
+      fullPath: '/customer/notifications/$id'
+      preLoaderRoute: typeof CustomerNotificationsIdRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/profile/': {
+      id: '/customer/profile/'
+      path: '/profile'
+      fullPath: '/customer/profile/'
+      preLoaderRoute: typeof CustomerProfileIndexRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/profile/edit': {
+      id: '/customer/profile/edit'
+      path: '/profile/edit'
+      fullPath: '/customer/profile/edit'
+      preLoaderRoute: typeof CustomerProfileEditRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/refunds/create': {
+      id: '/customer/refunds/create'
+      path: '/refunds/create'
+      fullPath: '/customer/refunds/create'
+      preLoaderRoute: typeof CustomerRefundsCreateRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/reschedule/request': {
+      id: '/customer/reschedule/request'
+      path: '/reschedule/request'
+      fullPath: '/customer/reschedule/request'
+      preLoaderRoute: typeof CustomerRescheduleRequestRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/reschedule/requests': {
+      id: '/customer/reschedule/requests'
+      path: '/reschedule/requests'
+      fullPath: '/customer/reschedule/requests'
+      preLoaderRoute: typeof CustomerRescheduleRequestsRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
+    '/customer/reviews/create': {
+      id: '/customer/reviews/create'
+      path: '/reviews/create'
+      fullPath: '/customer/reviews/create'
+      preLoaderRoute: typeof CustomerReviewsCreateRouteImport
+      parentRoute: typeof CustomerRouteRoute
+    }
   }
 }
 
@@ -553,11 +1129,71 @@ const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
 )
 
 interface CustomerRouteRouteChildren {
+  CustomerAvailabilityRoute: typeof CustomerAvailabilityRoute
+  CustomerBodyMetricsRoute: typeof CustomerBodyMetricsRoute
+  CustomerBodyProgressRoute: typeof CustomerBodyProgressRoute
+  CustomerCalendarRoute: typeof CustomerCalendarRoute
+  CustomerChangePasswordRoute: typeof CustomerChangePasswordRoute
+  CustomerChatRoute: typeof CustomerChatRoute
+  CustomerCheckInRoute: typeof CustomerCheckInRoute
+  CustomerCheckInHistoryRoute: typeof CustomerCheckInHistoryRoute
+  CustomerDashboardRoute: typeof CustomerDashboardRoute
+  CustomerExercisesRoute: typeof CustomerExercisesRoute
+  CustomerInitialAssessmentRoute: typeof CustomerInitialAssessmentRoute
+  CustomerMyPackagesRoute: typeof CustomerMyPackagesRoute
+  CustomerPackagesRoute: typeof CustomerPackagesRoute
+  CustomerProgressRoute: typeof CustomerProgressRoute
+  CustomerSampleWorkoutsRoute: typeof CustomerSampleWorkoutsRoute
+  CustomerSessionVerificationRoute: typeof CustomerSessionVerificationRoute
+  CustomerTrainerPackagesRoute: typeof CustomerTrainerPackagesRoute
+  CustomerTrainerRecommendationsRoute: typeof CustomerTrainerRecommendationsRoute
+  CustomerTrainingRoadmapRoute: typeof CustomerTrainingRoadmapRoute
+  CustomerTransactionsRoute: typeof CustomerTransactionsRoute
+  CustomerWorkoutFeedbackRoute: typeof CustomerWorkoutFeedbackRoute
+  CustomerWorkoutLogRoute: typeof CustomerWorkoutLogRoute
   CustomerIndexRoute: typeof CustomerIndexRoute
+  CustomerNotificationsIdRoute: typeof CustomerNotificationsIdRoute
+  CustomerProfileEditRoute: typeof CustomerProfileEditRoute
+  CustomerRefundsCreateRoute: typeof CustomerRefundsCreateRoute
+  CustomerRescheduleRequestRoute: typeof CustomerRescheduleRequestRoute
+  CustomerRescheduleRequestsRoute: typeof CustomerRescheduleRequestsRoute
+  CustomerReviewsCreateRoute: typeof CustomerReviewsCreateRoute
+  CustomerNotificationsIndexRoute: typeof CustomerNotificationsIndexRoute
+  CustomerProfileIndexRoute: typeof CustomerProfileIndexRoute
 }
 
 const CustomerRouteRouteChildren: CustomerRouteRouteChildren = {
+  CustomerAvailabilityRoute: CustomerAvailabilityRoute,
+  CustomerBodyMetricsRoute: CustomerBodyMetricsRoute,
+  CustomerBodyProgressRoute: CustomerBodyProgressRoute,
+  CustomerCalendarRoute: CustomerCalendarRoute,
+  CustomerChangePasswordRoute: CustomerChangePasswordRoute,
+  CustomerChatRoute: CustomerChatRoute,
+  CustomerCheckInRoute: CustomerCheckInRoute,
+  CustomerCheckInHistoryRoute: CustomerCheckInHistoryRoute,
+  CustomerDashboardRoute: CustomerDashboardRoute,
+  CustomerExercisesRoute: CustomerExercisesRoute,
+  CustomerInitialAssessmentRoute: CustomerInitialAssessmentRoute,
+  CustomerMyPackagesRoute: CustomerMyPackagesRoute,
+  CustomerPackagesRoute: CustomerPackagesRoute,
+  CustomerProgressRoute: CustomerProgressRoute,
+  CustomerSampleWorkoutsRoute: CustomerSampleWorkoutsRoute,
+  CustomerSessionVerificationRoute: CustomerSessionVerificationRoute,
+  CustomerTrainerPackagesRoute: CustomerTrainerPackagesRoute,
+  CustomerTrainerRecommendationsRoute: CustomerTrainerRecommendationsRoute,
+  CustomerTrainingRoadmapRoute: CustomerTrainingRoadmapRoute,
+  CustomerTransactionsRoute: CustomerTransactionsRoute,
+  CustomerWorkoutFeedbackRoute: CustomerWorkoutFeedbackRoute,
+  CustomerWorkoutLogRoute: CustomerWorkoutLogRoute,
   CustomerIndexRoute: CustomerIndexRoute,
+  CustomerNotificationsIdRoute: CustomerNotificationsIdRoute,
+  CustomerProfileEditRoute: CustomerProfileEditRoute,
+  CustomerRefundsCreateRoute: CustomerRefundsCreateRoute,
+  CustomerRescheduleRequestRoute: CustomerRescheduleRequestRoute,
+  CustomerRescheduleRequestsRoute: CustomerRescheduleRequestsRoute,
+  CustomerReviewsCreateRoute: CustomerReviewsCreateRoute,
+  CustomerNotificationsIndexRoute: CustomerNotificationsIndexRoute,
+  CustomerProfileIndexRoute: CustomerProfileIndexRoute,
 }
 
 const CustomerRouteRouteWithChildren = CustomerRouteRoute._addFileChildren(
