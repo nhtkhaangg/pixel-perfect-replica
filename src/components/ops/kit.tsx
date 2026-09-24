@@ -15,11 +15,12 @@ import { cn } from "@/lib/utils";
 
 export { Field, Panel };
 
-export type Area = "trainer" | "staff" | "manager";
+export type Area = "trainer" | "staff" | "manager" | "admin";
 const AREA_ROOT: Record<Area, { label: string; to: string; suffix: string }> = {
   trainer: { label: "Khu vực huấn luyện", to: "/trainer/dashboard", suffix: "Huấn luyện viên" },
   staff: { label: "Quầy lễ tân", to: "/staff/dashboard", suffix: "Nhân viên" },
   manager: { label: "Quản lý phòng tập", to: "/manager/dashboard", suffix: "Quản lý" },
+  admin: { label: "Quản trị hệ thống", to: "/admin/dashboard", suffix: "Quản trị" },
 };
 
 export function opsMeta(area: Area, title: string, description: string) {
