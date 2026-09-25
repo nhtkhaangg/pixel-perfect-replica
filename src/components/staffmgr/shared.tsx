@@ -25,6 +25,7 @@ export function PackageTable({ data, base }: { data: OpsPackage[]; base: string 
     { key: "sold", header: "Đã bán", sortable: true, value: (p) => p.sold },
     { key: "a", header: "Đang hiệu lực", sortable: true, value: (p) => p.active },
     { key: "st", header: "Trạng thái", cell: (p) => <StatusBadge status={p.status} label={p.status === "active" ? "Đang bán" : "Ngừng bán"} /> },
+    { key: "x", header: "", cell: (p) => <TextLink to={`${base}/$id`} params={{ id: p.id }}>Xem chi tiết</TextLink> },
   ];
   return <DataTable data={data} columns={cols} searchPlaceholder="Tìm tên gói..." filters={[{ key: "st", label: "Trạng thái", options: [{ label: "Đang bán", value: "active" }, { label: "Ngừng bán", value: "inactive" }], match: (p, v) => p.status === v }]} />;
 }
