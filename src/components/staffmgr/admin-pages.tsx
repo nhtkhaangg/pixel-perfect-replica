@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Activity, Building2, Database, HardDrive, Lock, Package, Plus, RotateCcw, Server, ShieldCheck, Unlock, UserCog, Users } from "lucide-react";
 import { toast } from "sonner";
 
-import { ActivityList, Avatar, ButtonLink, Field, Grid, InfoList, NotificationList, OPage, Panel, TextLink, Timeline } from "@/components/ops/kit";
+import { ActivityList, Avatar, ButtonLink, Field, FormDrawer, Grid, InfoList, NotificationList, OPage, Panel, TextLink, Timeline } from "@/components/ops/kit";
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
 import { DataTable, type Column } from "@/components/shared/DataTable";
 import { StatCard } from "@/components/shared/StatCard";
@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { formatCurrency, formatDate } from "@/lib/format";
 import { GYM_INFO } from "@/lib/mock/public";
-import { OPS_PACKAGES, PAYMENTS, REFUNDS, findPkg, findRefund, type OpsPackage, type Refund } from "@/lib/mock/ops";
+import { OPS_PACKAGES, PAYMENTS, REFUNDS, STAFF, findPkg, findRefund, findStaff, type OpsPackage, type Payment, type Refund, type Staff } from "@/lib/mock/ops";
 import { useId } from "@/components/trainer/pages-a";
 import { PackageDetail, PackageTable, kindLabel } from "./shared";
 
@@ -65,6 +65,7 @@ export function AdminDashboard() {
         <StatCard label="Tài khoản đang hoạt động" value="1.268" hint={`${c("UNVERIFIED")} chưa xác minh trong mẫu`} icon={Activity} />
         <StatCard label="Tài khoản bị khoá" value={String(c("LOCKED") + 12)} icon={Lock} />
         <StatCard label="Số quản lý" value={String(MANAGERS.length)} icon={UserCog} />
+        <StatCard label="Nhân viên đang làm việc" value={String(STAFF.filter((s) => s.status === "active").length)} hint={`${STAFF.filter((s) => s.status === "inactive").length} đã nghỉ trong mẫu`} icon={UserCog} />
         <StatCard label="Tổng gói dịch vụ" value={String(OPS_PACKAGES.length)} hint={`${OPS_PACKAGES.filter((p) => p.status === "active").length} đang bán`} icon={Package} />
         <StatCard label="Hoàn tiền đang chờ" value={String(REFUNDS.filter((r) => r.status !== "rejected").length - 1)} hint="Đã được quản lý duyệt, chờ chi trả" icon={RotateCcw} />
       </Grid>
@@ -75,6 +76,7 @@ export function AdminDashboard() {
         <Panel title="Thao tác nhanh">
           <div className="grid gap-2">
             <ButtonLink variant="outline" to="/admin/managers/create"><Plus className="size-4" /> Tạo tài khoản quản lý</ButtonLink>
+            <ButtonLink variant="outline" to="/admin/staff"><UserCog className="size-4" /> Quản lý nhân viên</ButtonLink>
             <ButtonLink variant="outline" to="/admin/membership-packages/create"><Plus className="size-4" /> Tạo gói hội viên</ButtonLink>
             <ButtonLink variant="outline" to="/admin/trainer-packages/create"><Plus className="size-4" /> Tạo gói PT</ButtonLink>
             <ButtonLink variant="outline" to="/admin/refunds"><RotateCcw className="size-4" /> Xử lý hoàn tiền</ButtonLink>
