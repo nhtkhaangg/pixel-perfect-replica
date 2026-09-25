@@ -84,16 +84,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "GymCore — Hệ thống quản lý phòng tập" },
+      { title: "OmniGym — Nâng tầm thể lực, bứt phá mọi giới hạn" },
       {
         name: "description",
         content:
-          "GymCore quản lý hội viên, gói tập, huấn luyện viên và lịch tập cho một phòng tập duy nhất.",
+          "OmniGym Fitness & Yoga Center — Trung tâm thể hình & yoga đẳng cấp 2,500m² tại Cần Thơ. Đội ngũ Master PT, InBody 770 y khoa, xông hơi đá muối Himalaya.",
       },
-      { property: "og:title", content: "GymCore — Hệ thống quản lý phòng tập" },
+      { property: "og:title", content: "OmniGym — Nâng tầm thể lực, bứt phá mọi giới hạn" },
       {
         property: "og:description",
-        content: "Quản lý hội viên, gói tập, huấn luyện viên và lịch tập trong một nền tảng.",
+        content: "Trung tâm thể hình & yoga đẳng cấp 2,500m² tại Cần Thơ. Đăng ký tập thử miễn phí ngay!",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

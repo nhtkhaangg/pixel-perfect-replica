@@ -12,11 +12,16 @@ import voQuocBao from "@/assets/trainers/vo-quoc-bao.jpg";
 
 const TRAINER_AVATARS: Record<string, string> = {
   "Trần Anh Khoa": tranAnhKhoa,
+  "Coach Minh Tú": tranAnhKhoa,
   "Lê Mai Phương": leMaiPhuong,
+  "Coach Lan Anh": leMaiPhuong,
   "Nguyễn Minh Đức": nguyenMinhDuc,
   "Phạm Thu Hà": phamThuHa,
+  "Coach Thu Hà": phamThuHa,
   "Võ Quốc Bảo": voQuocBao,
+  "Coach Quốc Bảo": voQuocBao,
   "Đặng Hoàng Nam": dangHoangNam,
+  "PT Hoàng Nam": dangHoangNam,
   "Trần Minh Khang": tranMinhKhang,
   "Nguyễn Thảo Vy": nguyenThaoVy,
   "Phạm Đức Long": phamDucLong,
