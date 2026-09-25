@@ -13,10 +13,10 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "Đánh giá của hội viên — GymCore" },
-      { name: "description", content: "Hội viên chấm GymCore 4,5/5 về huấn luyện viên, lớp nhóm và cơ sở vật chất." },
-      { property: "og:title", content: "Hội viên nói gì về GymCore" },
-      { property: "og:description", content: "Đánh giá thật từ hội viên về trải nghiệm tập luyện tại GymCore." },
+      { title: "Đánh giá của hội viên — OmniGym" },
+      { name: "description", content: "Hội viên chấm OmniGym 4.9/5 về huấn luyện viên, lớp nhóm, xông hơi và cơ sở vật chất." },
+      { property: "og:title", content: "Hội viên nói gì về OmniGym" },
+      { property: "og:description", content: "Đánh giá thật từ hội viên về trải nghiệm tập luyện tại OmniGym Cần Thơ." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -34,7 +34,7 @@ function ReviewsPage() {
 
   return (
     <PublicLayout>
-      <PublicPageHero title="Đánh giá phòng gym" description="Những chia sẻ thật từ hội viên đang tập luyện tại GymCore Quận 3." crumbs={[{ label: "Đánh giá" }]} />
+      <PublicPageHero title="Đánh giá phòng gym" description="Những chia sẻ thật từ hội viên đang tập luyện tại OmniGym Cần Thơ." crumbs={[{ label: "Đánh giá" }]} />
       <Container className="grid gap-8 py-12 lg:grid-cols-[1fr_2fr]">
         <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
           <div className="card-surface p-6">

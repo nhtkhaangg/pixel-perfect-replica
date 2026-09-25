@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/packages/")({
   head: () => ({
     meta: [
-      { title: "Bảng giá gói tập — GymCore Quận 3" },
-      { name: "description", content: "Gói hội viên từ 890.000 VNĐ/tháng và gói tập cùng huấn luyện viên cá nhân tại GymCore." },
-      { property: "og:title", content: "Bảng giá gói tập — GymCore" },
-      { property: "og:description", content: "So sánh gói hội viên và gói PT để chọn lộ trình phù hợp." },
+      { title: "Bảng giá gói tập — OmniGym Cần Thơ" },
+      { name: "description", content: "Gói hội viên linh hoạt và gói tập cùng Master PT cá nhân tại OmniGym Fitness & Yoga Center." },
+      { property: "og:title", content: "Bảng giá gói tập — OmniGym" },
+      { property: "og:description", content: "So sánh gói hội viên và gói PT để chọn lộ trình bứt phá thể lực phù hợp." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

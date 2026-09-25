@@ -12,10 +12,10 @@ import { TRAINERS } from "@/lib/mock/public";
 export const Route = createFileRoute("/trainers/")({
   head: () => ({
     meta: [
-      { title: "Đội ngũ huấn luyện viên — GymCore" },
-      { name: "description", content: "Gặp gỡ 6 huấn luyện viên cá nhân có chứng chỉ quốc tế tại GymCore Quận 3." },
-      { property: "og:title", content: "Đội ngũ huấn luyện viên — GymCore" },
-      { property: "og:description", content: "Chọn huấn luyện viên phù hợp với mục tiêu tăng cơ, giảm mỡ, yoga hay phục hồi." },
+      { title: "Đội ngũ huấn luyện viên — OmniGym Cần Thơ" },
+      { name: "description", content: "Gặp gỡ đội ngũ Master PT cá nhân có chứng chỉ quốc tế NASM, ACE, IFBB tại OmniGym." },
+      { property: "og:title", content: "Đội ngũ huấn luyện viên — OmniGym" },
+      { property: "og:description", content: "Chọn huấn luyện viên phù hợp với mục tiêu tăng cơ, giảm mỡ, yoga hay phục hồi tại OmniGym." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

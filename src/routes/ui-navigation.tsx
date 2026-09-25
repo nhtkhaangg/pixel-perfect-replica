@@ -10,12 +10,12 @@ import { StatusBadge } from "@/components/shared/StatusBadge";
 export const Route = createFileRoute("/ui-navigation")({
   head: () => ({
     meta: [
-      { title: "Điều hướng kiểm thử giao diện — GymCore" },
+      { title: "Điều hướng kiểm thử giao diện — OmniGym" },
       {
         name: "description",
-        content: "Danh sách liên kết tới mọi trang giao diện của GymCore để kiểm thử nhanh.",
+        content: "Danh sách liên kết tới mọi trang giao diện của OmniGym để kiểm thử nhanh.",
       },
-      { property: "og:title", content: "Điều hướng kiểm thử giao diện — GymCore" },
+      { property: "og:title", content: "Điều hướng kiểm thử giao diện — OmniGym" },
       {
         property: "og:description",
         content: "Truy cập nhanh mọi trang giao diện theo từng vai trò.",
@@ -35,10 +35,10 @@ const PUBLIC_LINKS = [
   { label: "Danh sách gói tập", to: "/packages" },
   { label: "Chi tiết gói tập", to: "/packages/membership-6m" },
   { label: "Danh sách huấn luyện viên", to: "/trainers" },
-  { label: "Hồ sơ huấn luyện viên", to: "/trainers/tran-anh-khoa" },
+  { label: "Hồ sơ huấn luyện viên", to: "/trainers/coach-minh-tu" },
   { label: "Công cụ tính chỉ số thể chất", to: "/tools/fitness-calculator" },
   { label: "Kiến thức thể hình", to: "/articles" },
-  { label: "Chi tiết bài viết", to: "/articles/lich-tap-3-buoi-moi-tuan" },
+  { label: "Chi tiết bài viết", to: "/articles/top-5-thuc-pham-giup-phuc-hoi-co-bap-than-toc-sau-tap" },
   { label: "Đánh giá phòng gym", to: "/reviews" },
   { label: "Thông tin phòng gym", to: "/gym-info" },
 ];

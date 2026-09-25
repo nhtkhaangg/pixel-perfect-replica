@@ -13,13 +13,13 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Đăng nhập — GymCore" },
+      { title: "Đăng nhập — OmniGym" },
       {
         name: "description",
-        content: "Đăng nhập vào hệ thống GymCore để quản lý lịch tập, gói tập và hội viên.",
+        content: "Đăng nhập vào hệ thống OmniGym để quản lý lịch tập, gói tập và theo dõi tiến độ.",
       },
-      { property: "og:title", content: "Đăng nhập — GymCore" },
-      { property: "og:description", content: "Truy cập tài khoản hội viên GymCore." },
+      { property: "og:title", content: "Đăng nhập — OmniGym" },
+      { property: "og:description", content: "Truy cập tài khoản hội viên OmniGym." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

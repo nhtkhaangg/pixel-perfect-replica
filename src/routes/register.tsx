@@ -18,10 +18,10 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/register")({
   head: () => ({
     meta: [
-      { title: "Đăng ký tài khoản — GymCore" },
-      { name: "description", content: "Tạo tài khoản GymCore để nhận ưu đãi tập thử và theo dõi tiến độ tập luyện." },
-      { property: "og:title", content: "Đăng ký tài khoản — GymCore" },
-      { property: "og:description", content: "Tạo tài khoản và nhận ưu đãi buổi tập thử." },
+      { title: "Đăng ký tài khoản — OmniGym" },
+      { name: "description", content: "Tạo tài khoản OmniGym để nhận ưu đãi tập thử miễn phí và trải nghiệm không gian 2,500m²." },
+      { property: "og:title", content: "Đăng ký tài khoản — OmniGym" },
+      { property: "og:description", content: "Tạo tài khoản và nhận ưu đãi buổi tập thử chuẩn 5 sao." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

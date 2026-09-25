@@ -69,77 +69,83 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.75rem;
 
-  --background: oklch(0.185 0.028 262);
-  --foreground: oklch(0.985 0.002 250);
-  --surface: oklch(0.225 0.028 260);
-  --surface-foreground: oklch(0.985 0.002 250);
-  --card: oklch(0.235 0.028 260);
-  --card-foreground: oklch(0.985 0.002 250);
-  --popover: oklch(0.235 0.028 260);
-  --popover-foreground: oklch(0.985 0.002 250);
+  --background: #070b13;
+  --foreground: #f4f4f5;
+  --surface: #0d1527;
+  --surface-foreground: #f4f4f5;
+  --card: #0d1527;
+  --card-foreground: #f4f4f5;
+  --popover: #0d1527;
+  --popover-foreground: #f4f4f5;
 
-  --primary: oklch(0.73 0.185 148);
-  --primary-foreground: oklch(0.17 0.03 260);
-  --primary-soft: oklch(0.32 0.075 156);
+  --primary: #10b981;
+  --primary-foreground: #020617;
+  --primary-soft: rgba(16, 185, 129, 0.15);
 
-  --secondary: oklch(0.275 0.03 260);
-  --secondary-foreground: oklch(0.96 0.003 250);
+  --secondary: #17223b;
+  --secondary-foreground: #f4f4f5;
 
-  --muted: oklch(0.27 0.028 260);
-  --muted-foreground: oklch(0.7 0.028 256);
+  --muted: #0e1628;
+  --muted-foreground: #94a3b8;
 
-  --accent: oklch(0.3 0.035 260);
-  --accent-foreground: oklch(0.985 0.002 250);
+  --accent: #172545;
+  --accent-foreground: #f4f4f5;
 
-  --cyan: oklch(0.8 0.13 196);
-  --cyan-foreground: oklch(0.17 0.03 260);
+  --cyan: #06b6d4;
+  --cyan-foreground: #020617;
 
-  --destructive: oklch(0.63 0.21 25);
-  --destructive-foreground: oklch(0.985 0.002 250);
-  --success: oklch(0.73 0.185 148);
-  --success-foreground: oklch(0.17 0.03 260);
-  --warning: oklch(0.78 0.15 76);
-  --warning-foreground: oklch(0.17 0.03 260);
-  --neutral: oklch(0.62 0.02 256);
-  --neutral-foreground: oklch(0.17 0.03 260);
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --success: #10b981;
+  --success-foreground: #020617;
+  --warning: #f59e0b;
+  --warning-foreground: #020617;
+  --neutral: #64748b;
+  --neutral-foreground: #ffffff;
 
-  --border: oklch(1 0 0 / 9%);
-  --border-strong: oklch(1 0 0 / 16%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.73 0.185 148);
+  --border: #17223b;
+  --border-strong: #1a2438;
+  --input: #17223b;
+  --ring: #10b981;
 
-  --chart-1: oklch(0.73 0.185 148);
-  --chart-2: oklch(0.8 0.13 196);
-  --chart-3: oklch(0.78 0.15 76);
-  --chart-4: oklch(0.65 0.17 285);
-  --chart-5: oklch(0.68 0.16 20);
+  --chart-1: #10b981;
+  --chart-2: #06b6d4;
+  --chart-3: #f59e0b;
+  --chart-4: #8b5cf6;
+  --chart-5: #ec4899;
 
-  --sidebar: oklch(0.2 0.028 262);
-  --sidebar-foreground: oklch(0.93 0.005 250);
-  --sidebar-primary: oklch(0.73 0.185 148);
-  --sidebar-primary-foreground: oklch(0.17 0.03 260);
-  --sidebar-accent: oklch(0.27 0.03 260);
-  --sidebar-accent-foreground: oklch(0.985 0.002 250);
-  --sidebar-border: oklch(1 0 0 / 9%);
-  --sidebar-ring: oklch(0.73 0.185 148);
+  --sidebar: #060913;
+  --sidebar-foreground: #e2e8f0;
+  --sidebar-primary: #10b981;
+  --sidebar-primary-foreground: #020617;
+  --sidebar-accent: #0e1628;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #17223b;
+  --sidebar-ring: #10b981;
 
-  --gradient-cta: linear-gradient(90deg, var(--primary) 0%, var(--cyan) 100%);
+  --gradient-cta: linear-gradient(90deg, #10b981 0%, #06b6d4 100%);
   --gradient-ambient: radial-gradient(
-    circle at 20% 20%,
-    color-mix(in oklab, var(--primary) 22%, transparent) 0%,
-    transparent 62%
+    circle at 50% 0%,
+    rgba(16, 185, 129, 0.15) 0%,
+    transparent 65%
   );
-  --shadow-card: 0 1px 2px oklch(0 0 0 / 30%), 0 12px 32px -18px oklch(0 0 0 / 60%);
-  --shadow-glow: 0 10px 40px -14px color-mix(in oklab, var(--primary) 45%, transparent);
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px #1a2438;
+  --shadow-glow: 0 10px 40px -10px rgba(16, 185, 129, 0.3);
 }
 
-/* Interface is dark-first; the .dark class mirrors :root so shadcn primitives
-   behave identically whichever wrapper is used. */
 .dark {
-  --background: oklch(0.185 0.028 262);
-  --foreground: oklch(0.985 0.002 250);
+  --background: #070b13;
+  --foreground: #f4f4f5;
+}
+
+.glass-panel {
+  background: #0d1527;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #1a2438;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
 }
 
 @layer base {

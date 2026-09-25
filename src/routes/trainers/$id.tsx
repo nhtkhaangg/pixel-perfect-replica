@@ -16,9 +16,9 @@ export const Route = createFileRoute("/trainers/$id")({
     return { trainer };
   },
   head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: "Không tìm thấy huấn luyện viên — GymCore" }, { name: "robots", content: "noindex" }] };
+    if (!loaderData) return { meta: [{ title: "Không tìm thấy huấn luyện viên — OmniGym" }, { name: "robots", content: "noindex" }] };
     const { trainer } = loaderData;
-    const title = `${trainer.name} — Huấn luyện viên ${trainer.specialty} | GymCore`;
+    const title = `${trainer.name} — Huấn luyện viên ${trainer.specialty} | OmniGym`;
     return {
       meta: [
         { title },

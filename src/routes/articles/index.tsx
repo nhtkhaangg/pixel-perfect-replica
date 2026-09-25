@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/articles/")({
   head: () => ({
     meta: [
-      { title: "Kiến thức thể hình — Blog GymCore" },
-      { name: "description", content: "Bài viết về tập luyện, dinh dưỡng và phục hồi từ đội ngũ huấn luyện viên GymCore." },
-      { property: "og:title", content: "Kiến thức thể hình — GymCore" },
-      { property: "og:description", content: "Mẹo tập luyện, dinh dưỡng và phục hồi dễ áp dụng mỗi ngày." },
+      { title: "Kiến thức thể hình — Blog OmniGym" },
+      { name: "description", content: "Bài viết về tập luyện, dinh dưỡng và phục hồi từ đội ngũ huấn luyện viên OmniGym." },
+      { property: "og:title", content: "Kiến thức thể hình — OmniGym" },
+      { property: "og:description", content: "Mẹo tập luyện, dinh dưỡng và phục hồi chuẩn khoa học dễ áp dụng mỗi ngày." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

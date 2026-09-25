@@ -15,10 +15,10 @@ import { FACILITIES, GYM_INFO } from "@/lib/mock/public";
 export const Route = createFileRoute("/gym-info")({
   head: () => ({
     meta: [
-      { title: "Thông tin & liên hệ — GymCore Quận 3" },
-      { name: "description", content: `Địa chỉ ${GYM_INFO.address}. Mở cửa 05:30 – 22:30, hotline ${GYM_INFO.hotline}.` },
-      { property: "og:title", content: "Thông tin phòng gym GymCore" },
-      { property: "og:description", content: "Địa chỉ, giờ mở cửa, cơ sở vật chất và nội quy phòng tập." },
+      { title: "Thông tin & Liên hệ — OmniGym Cần Thơ" },
+      { name: "description", content: `Địa chỉ ${GYM_INFO.address}. Mở cửa ${GYM_INFO.hoursText}, hotline ${GYM_INFO.hotline}.` },
+      { property: "og:title", content: "Thông tin phòng tập OmniGym Fitness & Yoga Center" },
+      { property: "og:description", content: "Địa chỉ, giờ mở cửa, 6 khu vực chức năng và nội quy phòng tập." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -35,7 +35,7 @@ function GymInfoPage() {
   ];
   return (
     <PublicLayout>
-      <PublicPageHero title="Thông tin phòng gym" description={`${GYM_INFO.name} — ${GYM_INFO.area} không gian tập luyện trên 3 tầng ngay trung tâm Quận 3.`} crumbs={[{ label: "Thông tin phòng gym" }]} />
+      <PublicPageHero title="Thông tin phòng gym" description={`${GYM_INFO.name} — ${GYM_INFO.area} không gian tập luyện tiêu chuẩn Olympic tại Cần Thơ.`} crumbs={[{ label: "Thông tin phòng gym" }]} />
       <Container className="grid gap-8 py-12 lg:grid-cols-2">
         <div className="space-y-6">
           <img src={gymInterior} alt="Không gian bên trong phòng tập GymCore" width={1600} height={912} loading="lazy" className="aspect-[16/9] w-full rounded-xl border border-border object-cover" />
