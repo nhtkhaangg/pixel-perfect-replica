@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Activity, Building2, Database, HardDrive, Lock, Package, Plus, RotateCcw, Server, ShieldCheck, Unlock, UserCog, Users } from "lucide-react";
 import { toast } from "sonner";
 
-import { ActivityList, Avatar, ButtonLink, Field, Grid, InfoList, NotificationList, OPage, Panel, TextLink, Timeline } from "@/components/ops/kit";
+import { ActivityList, Avatar, ButtonLink, Field, FormDrawer, Grid, InfoList, NotificationList, OPage, Panel, TextLink, Timeline } from "@/components/ops/kit";
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
 import { DataTable, type Column } from "@/components/shared/DataTable";
 import { StatCard } from "@/components/shared/StatCard";
@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { formatCurrency, formatDate } from "@/lib/format";
 import { GYM_INFO } from "@/lib/mock/public";
-import { OPS_PACKAGES, PAYMENTS, REFUNDS, findPkg, findRefund, type OpsPackage, type Refund } from "@/lib/mock/ops";
+import { OPS_PACKAGES, PAYMENTS, REFUNDS, STAFF, findPkg, findRefund, findStaff, type OpsPackage, type Payment, type Refund, type Staff } from "@/lib/mock/ops";
 import { useId } from "@/components/trainer/pages-a";
 import { PackageDetail, PackageTable, kindLabel } from "./shared";
 
@@ -65,6 +65,7 @@ export function AdminDashboard() {
         <StatCard label="Tài khoản đang hoạt động" value="1.268" hint={`${c("UNVERIFIED")} chưa xác minh trong mẫu`} icon={Activity} />
         <StatCard label="Tài khoản bị khoá" value={String(c("LOCKED") + 12)} icon={Lock} />
         <StatCard label="Số quản lý" value={String(MANAGERS.length)} icon={UserCog} />
+        <StatCard label="Nhân viên đang làm việc" value={String(STAFF.filter((s) => s.status === "active").length)} hint={`${STAFF.filter((s) => s.status === "inactive").length} đã nghỉ trong mẫu`} icon={UserCog} />
         <StatCard label="Tổng gói dịch vụ" value={String(OPS_PACKAGES.length)} hint={`${OPS_PACKAGES.filter((p) => p.status === "active").length} đang bán`} icon={Package} />
         <StatCard label="Hoàn tiền đang chờ" value={String(REFUNDS.filter((r) => r.status !== "rejected").length - 1)} hint="Đã được quản lý duyệt, chờ chi trả" icon={RotateCcw} />
       </Grid>
@@ -75,6 +76,7 @@ export function AdminDashboard() {
         <Panel title="Thao tác nhanh">
           <div className="grid gap-2">
             <ButtonLink variant="outline" to="/admin/managers/create"><Plus className="size-4" /> Tạo tài khoản quản lý</ButtonLink>
+            <ButtonLink variant="outline" to="/admin/staff"><UserCog className="size-4" /> Quản lý nhân viên</ButtonLink>
             <ButtonLink variant="outline" to="/admin/membership-packages/create"><Plus className="size-4" /> Tạo gói hội viên</ButtonLink>
             <ButtonLink variant="outline" to="/admin/trainer-packages/create"><Plus className="size-4" /> Tạo gói PT</ButtonLink>
             <ButtonLink variant="outline" to="/admin/refunds"><RotateCcw className="size-4" /> Xử lý hoàn tiền</ButtonLink>
@@ -233,6 +235,115 @@ export function AdminManagerDetail() {
         <Panel title="Thông tin" className="lg:col-span-2"><InfoList items={[{ label: "Email", value: m.email }, { label: "Điện thoại", value: m.phone }, { label: "Phạm vi", value: m.scope }, { label: "Ngày tạo", value: formatDate(m.created) }, { label: "Trạng thái", value: <AccBadge s={m.status} /> }]} /></Panel>
         <Panel title="Hoạt động gần đây"><ActivityList items={[{ text: "Duyệt hoàn tiền Trương Mỹ Linh", time: "12/09" }, { text: "Thêm nhân viên Cao Thị Mai", time: "10/09" }, { text: "Đăng nhập", time: "25/09 07:30" }]} /></Panel>
       </div>
+    </OPage>
+  );
+}
+
+const STAFF_ROLES = ["Lễ tân", "Kỹ thuật", "Tạp vụ", "Kinh doanh"];
+const STAFF_STATUS: Record<Staff["status"], { label: string; tone: "success" | "neutral" }> = {
+  active: { label: "Đang làm việc", tone: "success" },
+  inactive: { label: "Đã nghỉ", tone: "neutral" },
+};
+const SP = { label: "Nhân viên", to: "/admin/staff" };
+const staffFields = (s?: Staff) => [
+  { name: "name", label: "Họ và tên", defaultValue: s?.name },
+  { name: "role", label: "Vị trí", defaultValue: s?.role },
+  { name: "email", label: "Email", defaultValue: s?.email },
+  { name: "phone", label: "Số điện thoại", defaultValue: s?.phone },
+  { name: "shift", label: "Ca làm việc", defaultValue: s?.shift },
+  { name: "salary", label: "Lương cơ bản (VNĐ)", type: "number" as const, defaultValue: s ? String(s.salary) : undefined },
+];
+const staffAccess = (s?: Staff) =>
+  s?.role === "Kỹ thuật" ? "Cơ sở vật chất, lịch bảo trì" : s?.role === "Kinh doanh" ? "Gói dịch vụ, khách hàng tiềm năng" : s?.role === "Tạp vụ" ? "Khu tập, danh mục thiết bị" : "Thanh toán, check-in, hồ sơ hội viên";
+
+function StaffForm({ s }: { s?: Staff }) {
+  return (
+    <form className="grid gap-6 lg:grid-cols-3" onSubmit={(e) => { e.preventDefault(); toast.success(s ? "Đã cập nhật nhân viên." : "Đã tạo nhân viên và gửi email kích hoạt."); }}>
+      <Panel title="Thông tin nhân viên" className="lg:col-span-2">
+        <div className="grid gap-4 sm:grid-cols-2">{staffFields(s).map((f) => <Field key={f.name} label={f.label}><Input required name={f.name} type={f.type ?? "text"} defaultValue={f.defaultValue} /></Field>)}</div>
+        <div className="mt-4"><Field label="Ghi chú"><Textarea rows={3} placeholder="VD: Tiếp nhận ca lễ tân cuối tuần." /></Field></div>
+      </Panel>
+      <Panel title="Hợp đồng & quyền truy cập">
+        <div className="space-y-4">
+          <Field label="Ngày bắt đầu"><Input type="date" defaultValue={s?.joined ?? "2026-10-01"} /></Field>
+          <Field label="Loại hợp đồng"><select className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm"><option className="bg-card">Toàn thời gian</option><option className="bg-card">Bán thời gian</option></select></Field>
+          <Field label="Khu vực làm việc"><Input defaultValue={staffAccess(s)} /></Field>
+          <Field label="Trạng thái tài khoản"><select defaultValue={s?.status ?? "active"} className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm"><option value="active" className="bg-card">Đang làm việc</option><option value="inactive" className="bg-card">Đã nghỉ</option></select></Field>
+        </div>
+        {!s ? <p className="mt-4 text-xs text-muted-foreground">Mật khẩu tạm được gửi qua email. Nhân viên cần đổi mật khẩu ở lần đăng nhập đầu tiên.</p> : null}
+        <div className="mt-6 flex gap-2"><ButtonLink variant="outline" to="/admin/staff">Huỷ</ButtonLink><Button type="submit">{s ? "Lưu thay đổi" : "Tạo nhân viên"}</Button></div>
+      </Panel>
+    </form>
+  );
+}
+
+export function AdminStaff() {
+  const [rows, setRows] = useState(STAFF);
+  const [target, setTarget] = useState<Staff | null>(null);
+  const toggle = (s: Staff) => {
+    setRows((r) => r.map((x) => (x.id === s.id ? { ...x, status: s.status === "active" ? ("inactive" as const) : ("active" as const) } : x)));
+    toast.success(s.status === "active" ? `Đã vô hiệu hoá tài khoản ${s.name}.` : `Đã kích hoạt lại tài khoản ${s.name}.`);
+  };
+  const cols: Column<Staff>[] = [
+    { key: "n", header: "Nhân viên", sortable: true, value: (s) => s.name, cell: (s) => <span className="flex items-center gap-2"><Avatar name={s.name} className="size-8 text-xs" /><span className="min-w-0"><TextLink to="/admin/staff/$id" params={{ id: s.id }}>{s.name}</TextLink><span className="block truncate text-xs text-muted-foreground">{s.email}</span></span></span> },
+    { key: "r", header: "Vị trí", sortable: true, value: (s) => s.role },
+    { key: "p", header: "Điện thoại", value: (s) => s.phone },
+    { key: "sh", header: "Ca làm", value: (s) => s.shift },
+    { key: "j", header: "Ngày vào làm", sortable: true, value: (s) => s.joined, cell: (s) => formatDate(s.joined) },
+    { key: "s", header: "Trạng thái", cell: (s) => <StatusBadge label={STAFF_STATUS[s.status].label} tone={STAFF_STATUS[s.status].tone} /> },
+    { key: "a", header: "", cell: (s) => <Button size="sm" variant="outline" onClick={() => setTarget(s)}>{s.status === "active" ? <><Lock className="size-3.5" /> Vô hiệu hoá</> : <><Unlock className="size-3.5" /> Kích hoạt</>}</Button> },
+  ];
+  return (
+    <OPage area={A} title="Danh sách nhân viên" description="Tài khoản làm việc tại quầy, kỹ thuật, tạp vụ và kinh doanh của GymCore."
+      actions={<div className="flex flex-wrap gap-2"><FormDrawer trigger={<Button variant="outline">Thêm nhanh</Button>} title="Thêm nhân viên nhanh" fields={staffFields()} /><ButtonLink to="/admin/staff/create"><Plus className="size-4" /> Tạo nhân viên</ButtonLink></div>}>
+      <DataTable data={rows} columns={cols} searchPlaceholder="Tìm theo tên, email, số điện thoại..." filters={[
+        { key: "r", label: "Vị trí", options: STAFF_ROLES.map((x) => ({ label: x, value: x })), match: (s, v) => s.role === v },
+        { key: "s", label: "Trạng thái", options: [{ label: "Đang làm việc", value: "active" }, { label: "Đã nghỉ", value: "inactive" }], match: (s, v) => s.status === v },
+      ]} />
+      <ConfirmDialog open={!!target} onOpenChange={(o) => !o && setTarget(null)} destructive={target?.status === "active"}
+        title={target?.status === "active" ? "Vô hiệu hoá tài khoản nhân viên?" : "Kích hoạt lại tài khoản?"}
+        description={target?.status === "active" ? `${target?.name} sẽ không đăng nhập được vào khu nhân viên; lịch làm việc và giao dịch đã ghi nhận vẫn được giữ.` : `${target?.name} sẽ đăng nhập lại được ngay mà không cần tạo tài khoản mới.`}
+        confirmLabel={target?.status === "active" ? "Vô hiệu hoá" : "Kích hoạt"} onConfirm={() => { if (target) toggle(target); setTarget(null); }} />
+    </OPage>
+  );
+}
+
+export function AdminStaffCreate() { return <OPage area={A} title="Tạo nhân viên" parent={SP} description="Tài khoản mới ở trạng thái “Chưa xác minh” cho tới khi nhân viên kích hoạt email."><StaffForm /></OPage>; }
+export function AdminStaffEdit() { const s = findStaff(useId()); return <OPage area={A} title="Cập nhật nhân viên" parent={SP} description={s.name}><StaffForm s={s} /></OPage>; }
+
+export function AdminStaffDetail() {
+  const s = findStaff(useId());
+  const handled: Payment[] = PAYMENTS.filter((p) => p.staff === s.name);
+  return (
+    <OPage area={A} title={s.name} parent={SP} description={`${s.role} · ${s.shift}`}
+      actions={<div className="flex flex-wrap gap-2"><ButtonLink variant="outline" to="/admin/staff/$id/edit" params={{ id: s.id }}>Chỉnh sửa</ButtonLink><ButtonLink to="/admin/users">Tìm trong danh sách người dùng</ButtonLink></div>}>
+      <div className="grid gap-6 lg:grid-cols-3">
+        <Panel title="Hồ sơ" className="lg:col-span-2"><InfoList items={[
+          { label: "Vị trí", value: s.role }, { label: "Email", value: s.email },
+          { label: "Điện thoại", value: s.phone }, { label: "Ca làm việc", value: s.shift },
+          { label: "Ngày vào làm", value: formatDate(s.joined) }, { label: "Lương cơ bản", value: formatCurrency(s.salary) },
+          { label: "Khu vực làm việc", value: staffAccess(s) }, { label: "Trạng thái", value: <StatusBadge label={STAFF_STATUS[s.status].label} tone={STAFF_STATUS[s.status].tone} /> },
+        ]} /></Panel>
+        <Panel title="Hoạt động hệ thống"><ActivityList items={[
+          { text: "Đăng nhập khu nhân viên", time: "25/09 07:12" },
+          { text: handled.length ? `Ghi nhận ${handled.length} giao dịch` : "Chưa ghi nhận giao dịch nào", time: "24/09" },
+          { text: "Cập nhật mật khẩu", time: "02/09" },
+          { text: "Tạo tài khoản bởi Phạm Quốc Bảo", time: formatDate(s.joined) },
+        ]} /></Panel>
+      </div>
+      <Panel title="Giao dịch đã xử lý" action={<TextLink to="/admin/users">Quản lý người dùng</TextLink>}>
+        {handled.length ? (
+          <ul className="divide-y divide-border">{handled.map((p) => (
+            <li key={p.id} className="flex flex-wrap items-center gap-2 py-3 text-sm">
+              <span className="font-medium">{p.code}</span>
+              <span className="text-muted-foreground">{p.customer} · {p.item}</span>
+              <span className="ml-auto font-semibold">{formatCurrency(p.amount)}</span>
+              <StatusBadge status={p.status} />
+              <span className="w-full text-xs text-muted-foreground sm:w-auto">{p.time}</span>
+            </li>
+          ))}</ul>
+        ) : <p className="text-sm text-muted-foreground">Chưa có giao dịch nào gắn tên nhân viên này trong dữ liệu mẫu.</p>}
+      </Panel>
     </OPage>
   );
 }
