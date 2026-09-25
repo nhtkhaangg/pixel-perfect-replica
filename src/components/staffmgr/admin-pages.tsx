@@ -191,11 +191,59 @@ function PackageForm({ kind, p, onDone }: { kind: OpsPackage["kind"]; p?: OpsPac
   );
 }
 const PT = { label: "Gói PT", to: "/admin/trainer-packages" }, MB = { label: "Gói hội viên", to: "/admin/membership-packages" };
-export function AdminTrainerPackages() { return <OPage area={A} title="Danh sách gói PT" actions={<CrudModal trigger={<Button><Plus className="size-4" /> Tạo gói PT</Button>} title="Tạo gói PT">{(c) => <PackageForm kind="PT" onDone={c} />}</CrudModal>}><PackageTable data={OPS_PACKAGES.filter((p) => p.kind === "PT")} base="/admin/trainer-packages" /></OPage>; }
+
+/** Popup xem chi tiết gói, gồm nút chỉnh sửa và xoá ngay trong popup. */
+function PackageDetailModal({ p }: { p: OpsPackage }) {
+  return (
+    <CrudModal trigger={<button type="button" className="cursor-pointer text-sm font-medium text-primary hover:underline">Xem chi tiết</button>} title={p.name} description={kindLabel(p.kind)}>
+      {(close) => (
+        <div className="space-y-6">
+          <InfoList items={[
+            { label: "Loại gói", value: kindLabel(p.kind) }, { label: "Giá bán", value: formatCurrency(p.price) },
+            { label: "Thời hạn", value: `${p.months} tháng` }, { label: "Số buổi", value: p.sessions ? `${p.sessions} buổi với HLV` : "Tập không giới hạn" },
+            { label: "Đơn giá/buổi", value: p.sessions ? formatCurrency(Math.round(p.price / p.sessions)) : formatCurrency(Math.round(p.price / (p.months * 30))) + "/ngày" },
+            { label: "Đã bán / đang hiệu lực", value: `${p.sold} / ${p.active}` },
+            { label: "Trạng thái", value: p.status === "active" ? "Đang bán" : "Ngừng bán" },
+          ]} />
+          <div>
+            <h3 className="mb-2 text-sm font-semibold">Quyền lợi</h3>
+            <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">{p.benefits.map((b) => <li key={b}>{b}</li>)}</ul>
+          </div>
+          <div className="rounded-lg border border-border p-4">
+            <p className="text-sm text-muted-foreground">Doanh thu từ gói</p>
+            <p className="font-display text-2xl">{formatCurrency(p.price * p.sold)}</p>
+            <p className="text-xs text-muted-foreground">Tổng từ {p.sold} lượt bán</p>
+          </div>
+          <div className="flex flex-wrap justify-end gap-2">
+            <CrudModal trigger={<Button variant="outline"><Pencil className="size-4" /> Chỉnh sửa gói</Button>} title={`Cập nhật ${kindLabel(p.kind).toLowerCase()}`} description={p.name}>{(c) => <PackageForm kind={p.kind} p={p} onDone={() => { c(); close(); }} />}</CrudModal>
+            <DeleteButton what={p.name} onDone={close} />
+          </div>
+        </div>
+      )}
+    </CrudModal>
+  );
+}
+
+/** Bảng gói của khu quản trị: mọi thao tác đều mở popup. */
+function AdminPackageTable({ data }: { data: OpsPackage[] }) {
+  const cols: Column<OpsPackage>[] = [
+    { key: "n", header: "Tên gói", sortable: true, value: (p) => p.name },
+    { key: "p", header: "Giá", sortable: true, value: (p) => p.price, cell: (p) => formatCurrency(p.price) },
+    { key: "m", header: "Thời hạn", sortable: true, value: (p) => p.months, cell: (p) => `${p.months} tháng` },
+    { key: "s", header: "Số buổi", cell: (p) => (p.sessions ? `${p.sessions} buổi` : "Không giới hạn") },
+    { key: "sold", header: "Đã bán", sortable: true, value: (p) => p.sold },
+    { key: "a", header: "Đang hiệu lực", sortable: true, value: (p) => p.active },
+    { key: "st", header: "Trạng thái", cell: (p) => <StatusBadge status={p.status} label={p.status === "active" ? "Đang bán" : "Ngừng bán"} /> },
+    { key: "x", header: "", cell: (p) => <PackageDetailModal p={p} /> },
+  ];
+  return <DataTable data={data} columns={cols} searchPlaceholder="Tìm tên gói..." filters={[{ key: "st", label: "Trạng thái", options: [{ label: "Đang bán", value: "active" }, { label: "Ngừng bán", value: "inactive" }], match: (p, v) => p.status === v }]} />;
+}
+
+export function AdminTrainerPackages() { return <OPage area={A} title="Danh sách gói PT" actions={<CrudModal trigger={<Button><Plus className="size-4" /> Tạo gói PT</Button>} title="Tạo gói PT">{(c) => <PackageForm kind="PT" onDone={c} />}</CrudModal>}><AdminPackageTable data={OPS_PACKAGES.filter((p) => p.kind === "PT")} /></OPage>; }
 export function AdminTrainerPackageCreate() { return <OPage area={A} title="Tạo gói PT" parent={PT}><PackageForm kind="PT" /></OPage>; }
 export function AdminTrainerPackageDetail() { const p = findPkg(useId() ?? "t1"); return <><PackageDetail area={A} p={p} parent={PT} /><div className="mx-auto mt-6 max-w-7xl"><div className="flex flex-wrap gap-2"><CrudModal trigger={<Button><Pencil className="size-4" /> Chỉnh sửa gói</Button>} title="Cập nhật gói PT" description={p.name}>{(c) => <PackageForm kind="PT" p={p} onDone={c} />}</CrudModal><DeleteButton what={p.name} /></div></div></>; }
 export function AdminTrainerPackageEdit() { const p = findPkg(useId() ?? "t1"); return <OPage area={A} title="Cập nhật gói PT" parent={PT} description={p.name}><PackageForm kind="PT" p={p} /></OPage>; }
-export function AdminMembershipPackages() { return <OPage area={A} title="Danh sách gói hội viên" actions={<CrudModal trigger={<Button><Plus className="size-4" /> Tạo gói hội viên</Button>} title="Tạo gói hội viên">{(c) => <PackageForm kind="MEMBERSHIP" onDone={c} />}</CrudModal>}><PackageTable data={OPS_PACKAGES.filter((p) => p.kind === "MEMBERSHIP")} base="/admin/membership-packages" /></OPage>; }
+export function AdminMembershipPackages() { return <OPage area={A} title="Danh sách gói hội viên" actions={<CrudModal trigger={<Button><Plus className="size-4" /> Tạo gói hội viên</Button>} title="Tạo gói hội viên">{(c) => <PackageForm kind="MEMBERSHIP" onDone={c} />}</CrudModal>}><AdminPackageTable data={OPS_PACKAGES.filter((p) => p.kind === "MEMBERSHIP")} /></OPage>; }
 export function AdminMembershipPackageCreate() { return <OPage area={A} title="Tạo gói hội viên" parent={MB}><PackageForm kind="MEMBERSHIP" /></OPage>; }
 export function AdminMembershipPackageDetail() { const p = findPkg(useId()); return <><PackageDetail area={A} p={p} parent={MB} /><div className="mx-auto mt-6 max-w-7xl"><div className="flex flex-wrap gap-2"><CrudModal trigger={<Button><Pencil className="size-4" /> Chỉnh sửa gói</Button>} title="Cập nhật gói hội viên" description={p.name}>{(c) => <PackageForm kind="MEMBERSHIP" p={p} onDone={c} />}</CrudModal><DeleteButton what={p.name} /></div></div></>; }
 export function AdminMembershipPackageEdit() { const p = findPkg(useId()); return <OPage area={A} title="Cập nhật gói hội viên" parent={MB} description={p.name}><PackageForm kind="MEMBERSHIP" p={p} /></OPage>; }
