@@ -129,6 +129,7 @@ export function SimpleBarChart({
         ))}
       </BarChart>
     </ResponsiveContainer>
+    </div>
   );
 }
 
@@ -142,7 +143,7 @@ export function SimpleDonutChart({
   centerValue?: string;
 }) {
   return (
-    <div className="relative size-full">
+    <div className="relative h-64 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie data={data} dataKey="value" nameKey="name" innerRadius="58%" outerRadius="82%" paddingAngle={2}>
