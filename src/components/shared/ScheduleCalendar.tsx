@@ -58,7 +58,7 @@ export function ScheduleCalendar({
   } as const;
 
   return (
-    <section className={cn("card-surface p-5", className)}>
+    <section className={cn("card-surface p-3.5 sm:p-5", className)}>
       <header className="mb-4 flex items-center justify-between gap-2">
         <h3 className="font-semibold">
           {MONTHS[cursor.getMonth()]} {cursor.getFullYear()}
@@ -108,19 +108,37 @@ export function ScheduleCalendar({
                 onSelectDay?.(day);
               }}
               className={cn(
-                "min-h-20 cursor-pointer rounded-md border border-border/60 p-1.5 text-left align-top transition-colors hover:border-primary/40 hover:bg-accent/50",
+                "min-h-14 sm:min-h-20 cursor-pointer rounded-md border border-border/60 p-1 sm:p-1.5 text-left align-top transition-colors hover:border-primary/40 hover:bg-accent/50",
                 selected === day && "border-primary bg-primary/10",
               )}
             >
               <span
                 className={cn(
-                  "inline-grid size-6 place-items-center rounded-md text-xs",
+                  "inline-grid size-5 sm:size-6 place-items-center rounded-md text-[11px] sm:text-xs",
                   isToday ? "bg-primary font-semibold text-primary-foreground" : "text-foreground",
                 )}
               >
                 {day}
               </span>
-              <span className="mt-1 block space-y-1">
+
+              {/* Dấu chấm thu gọn trên màn hình nhỏ */}
+              <span className="flex sm:hidden items-center justify-center gap-0.5 mt-0.5 flex-wrap min-h-2">
+                {dayEvents.slice(0, 3).map((event, idx) => (
+                  <span
+                    key={idx}
+                    className={cn(
+                      "size-1.5 rounded-full shrink-0",
+                      event.tone === "cyan" ? "bg-cyan" : event.tone === "warning" ? "bg-warning" : "bg-primary",
+                    )}
+                  />
+                ))}
+                {dayEvents.length > 3 ? (
+                  <span className="text-[9px] text-muted-foreground leading-none">+</span>
+                ) : null}
+              </span>
+
+              {/* Chi tiết ca tập trên màn hình lớn */}
+              <span className="mt-1 hidden sm:block space-y-1">
                 {dayEvents.slice(0, 2).map((event) => (
                   <span
                     key={event.label}
@@ -143,6 +161,37 @@ export function ScheduleCalendar({
           );
         })}
       </div>
+
+      {/* Chi tiết ca trong ngày đã chọn trên màn hình nhỏ */}
+      {selected !== null && (
+        <div className="mt-4 border-t border-border pt-4 sm:hidden">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+            Lịch ngày {selected}/{cursor.getMonth() + 1}/{cursor.getFullYear()}
+          </p>
+          {events.filter((e) => e.day === selected).length === 0 ? (
+            <p className="text-xs text-muted-foreground py-2">Không có ca tập trong ngày này.</p>
+          ) : (
+            <div className="space-y-1.5">
+              {events.filter((e) => e.day === selected).map((ev, idx) => (
+                <div
+                  key={idx}
+                  className={cn(
+                    "flex items-center justify-between rounded-md p-2.5 text-xs border",
+                    ev.tone === "cyan"
+                      ? "border-cyan/30 bg-cyan/10"
+                      : ev.tone === "warning"
+                        ? "border-warning/30 bg-warning/10"
+                        : "border-primary/30 bg-primary/10",
+                  )}
+                >
+                  <span className="font-medium text-foreground truncate mr-2">{ev.label}</span>
+                  {ev.time ? <span className="font-semibold text-primary shrink-0">{ev.time}</span> : null}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </section>
   );
 }

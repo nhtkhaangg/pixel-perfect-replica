@@ -121,8 +121,8 @@ export function DataTable<T extends { id: string | number }>({
 
   return (
     <div className={cn("card-surface overflow-hidden", className)}>
-      <div className="flex flex-wrap items-center gap-3 border-b border-border p-4">
-        <div className="relative min-w-56 flex-1">
+      <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-3 border-b border-border p-3.5 sm:p-4">
+        <div className="relative w-full sm:min-w-56 sm:flex-1">
           <Search
             size={15}
             className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground"
@@ -134,7 +134,7 @@ export function DataTable<T extends { id: string | number }>({
               setPage(1);
             }}
             placeholder={searchPlaceholder}
-            className="pl-9"
+            className="pl-9 text-xs sm:text-sm"
           />
         </div>
         {(filters ?? []).map((filter) => (
@@ -146,7 +146,7 @@ export function DataTable<T extends { id: string | number }>({
               setPage(1);
             }}
           >
-            <SelectTrigger className="w-44">
+            <SelectTrigger className="w-full sm:w-44 text-xs sm:text-sm">
               <SelectValue placeholder={filter.label} />
             </SelectTrigger>
             <SelectContent>
@@ -159,7 +159,7 @@ export function DataTable<T extends { id: string | number }>({
             </SelectContent>
           </Select>
         ))}
-        {toolbarExtra}
+        {toolbarExtra ? <div className="w-full sm:w-auto flex flex-wrap gap-2">{toolbarExtra}</div> : null}
       </div>
 
       {loading ? (
@@ -170,14 +170,14 @@ export function DataTable<T extends { id: string | number }>({
           {...(emptyDescription ? { description: emptyDescription } : {})}
         />
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+        <div className="overflow-x-auto scrollbar-thin">
+          <table className="w-full text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-border text-left">
                 {columns.map((col) => (
                   <th
                     key={col.key}
-                    className={cn("px-4 py-3 text-xs font-medium text-muted-foreground", col.className)}
+                    className={cn("px-3 py-2.5 sm:px-4 sm:py-3 text-xs font-medium text-muted-foreground whitespace-nowrap", col.className)}
                   >
                     {col.sortable ? (
                       <button
@@ -202,7 +202,7 @@ export function DataTable<T extends { id: string | number }>({
                   </th>
                 ))}
                 {rowActions?.length ? (
-                  <th className="px-4 py-3 text-right text-xs font-medium text-muted-foreground">
+                  <th className="px-3 py-2.5 sm:px-4 sm:py-3 text-right text-xs font-medium text-muted-foreground">
                     Hành động
                   </th>
                 ) : null}
@@ -215,12 +215,12 @@ export function DataTable<T extends { id: string | number }>({
                   className="border-b border-border/60 transition-colors last:border-0 hover:bg-accent/40"
                 >
                   {columns.map((col) => (
-                    <td key={col.key} className={cn("px-4 py-3 align-middle", col.className)}>
+                    <td key={col.key} className={cn("px-3 py-2.5 sm:px-4 sm:py-3 align-middle", col.className)}>
                       {col.cell ? col.cell(row) : String(col.value?.(row) ?? "")}
                     </td>
                   ))}
                   {rowActions?.length ? (
-                    <td className="px-4 py-3 text-right">
+                    <td className="px-3 py-2.5 sm:px-4 sm:py-3 text-right">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="icon" aria-label="Mở menu hành động">
@@ -248,7 +248,7 @@ export function DataTable<T extends { id: string | number }>({
         </div>
       )}
 
-      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border p-4 text-sm text-muted-foreground">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-border p-3.5 sm:p-4 text-xs sm:text-sm text-muted-foreground">
         <p>
           Hiển thị {pageRows.length} / {rows.length} bản ghi
         </p>

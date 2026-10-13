@@ -45,15 +45,19 @@ export function TrainerDashboard() {
             {today.map((s) => {
               const c = findCustomer(s.customerId);
               return (
-                <li key={s.id} className="flex flex-wrap items-center gap-3 py-3">
-                  <div className="w-24 text-sm font-semibold text-primary">{s.start}–{s.end}</div>
-                  <Avatar name={c.name} />
-                  <div className="min-w-0 flex-1">
-                    <p className="font-medium">{c.name}</p>
-                    <p className="text-xs text-muted-foreground">{s.focus} · {s.room}</p>
+                <li key={s.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-3.5 sm:py-3">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="rounded bg-primary/10 px-2 py-1 text-xs font-semibold text-primary shrink-0">{s.start}–{s.end}</span>
+                    <Avatar name={c.name} />
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-sm sm:text-base truncate">{c.name}</p>
+                      <p className="text-xs text-muted-foreground truncate">{s.focus} · {s.room}</p>
+                    </div>
                   </div>
-                  <StatusBadge status={s.status} />
-                  {s.status === "scheduled" ? <ButtonLink variant="outline" to="/trainer/live-sessions/$id" params={{ id: s.id }}>Bắt đầu</ButtonLink> : null}
+                  <div className="flex items-center justify-between sm:justify-end gap-2 pl-11 sm:pl-0">
+                    <StatusBadge status={s.status} />
+                    {s.status === "scheduled" ? <ButtonLink size="sm" variant="outline" to="/trainer/live-sessions/$id" params={{ id: s.id }}>Bắt đầu</ButtonLink> : null}
+                  </div>
                 </li>
               );
             })}
@@ -62,7 +66,7 @@ export function TrainerDashboard() {
         <Panel title="Chứng chỉ đang chờ duyệt">
           {CERTIFICATES.filter((c) => c.status === "pending").map((c) => (
             <div key={c.id} className="rounded-md border border-warning/30 bg-warning/5 p-3">
-              <p className="font-medium">{c.name}</p>
+              <p className="font-medium text-sm sm:text-base">{c.name}</p>
               <p className="text-xs text-muted-foreground">Gửi ngày {formatDate(c.issued)} · {c.issuer}</p>
               <div className="mt-2"><TextLink to="/trainer/certificates/$id" params={{ id: c.id }}>Xem chi tiết</TextLink></div>
             </div>
@@ -73,12 +77,12 @@ export function TrainerDashboard() {
       <Panel title="Cảnh báo chững tiến độ">
         <div className="grid gap-3 md:grid-cols-2">
           {stalled.map((c) => (
-            <div key={c.id} className="flex gap-3 rounded-md border border-warning/30 bg-warning/5 p-3">
+            <div key={c.id} className="flex gap-3 rounded-md border border-warning/30 bg-warning/5 p-3 sm:p-4">
               <AlertTriangle className="mt-0.5 size-5 shrink-0 text-warning" />
-              <div className="flex-1 text-sm">
-                <p className="font-medium">{c.name}</p>
-                <p className="text-muted-foreground">Cân nặng chỉ thay đổi {Math.abs(c.weight - c.startWeight).toFixed(1).replace(".", ",")} kg sau {c.sessionsDone} buổi. Mục tiêu: {c.goal.toLowerCase()}.</p>
-                <div className="mt-2 flex gap-3"><TextLink to="/trainer/customers/$id" params={{ id: c.id }}>Xem chỉ số</TextLink><TextLink to="/trainer/customers/$id/ai-plan" params={{ id: c.id }}>Gợi ý điều chỉnh</TextLink></div>
+              <div className="flex-1 text-sm min-w-0">
+                <p className="font-medium text-sm sm:text-base truncate">{c.name}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground break-words">Cân nặng chỉ thay đổi {Math.abs(c.weight - c.startWeight).toFixed(1).replace(".", ",")} kg sau {c.sessionsDone} buổi. Mục tiêu: {c.goal.toLowerCase()}.</p>
+                <div className="mt-2.5 flex flex-wrap gap-3 text-xs sm:text-sm"><TextLink to="/trainer/customers/$id" params={{ id: c.id }}>Xem chỉ số</TextLink><TextLink to="/trainer/customers/$id/ai-plan" params={{ id: c.id }}>Gợi ý điều chỉnh</TextLink></div>
               </div>
             </div>
           ))}
@@ -89,12 +93,12 @@ export function TrainerDashboard() {
           <SimpleBarChart data={WEEKLY_COMPLETED} xKey="week" series={[{ key: "sessions", name: "Buổi tập" }]} />
         </Panel>
         <Panel title="Thao tác nhanh">
-          <div className="grid gap-2">
-            <ButtonLink variant="outline" to="/trainer/lesson-plans/create"><ClipboardList className="size-4" /> Tạo giáo án</ButtonLink>
-            <ButtonLink variant="outline" to="/trainer/reschedule/requests"><CalendarCheck className="size-4" /> Xử lý đổi lịch</ButtonLink>
-            <ButtonLink variant="outline" to="/trainer/days-off"><CalendarDays className="size-4" /> Đăng ký ngày nghỉ</ButtonLink>
-            <ButtonLink variant="outline" to="/trainer/certificates"><Award className="size-4" /> Tải chứng chỉ</ButtonLink>
-            <ButtonLink variant="outline" to="/trainer/chat"><MessageSquare className="size-4" /> Nhắn học viên</ButtonLink>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+            <ButtonLink variant="outline" to="/trainer/lesson-plans/create" className="justify-start"><ClipboardList className="size-4" /> Tạo giáo án</ButtonLink>
+            <ButtonLink variant="outline" to="/trainer/reschedule/requests" className="justify-start"><CalendarCheck className="size-4" /> Xử lý đổi lịch</ButtonLink>
+            <ButtonLink variant="outline" to="/trainer/days-off" className="justify-start"><CalendarDays className="size-4" /> Đăng ký ngày nghỉ</ButtonLink>
+            <ButtonLink variant="outline" to="/trainer/certificates" className="justify-start"><Award className="size-4" /> Tải chứng chỉ</ButtonLink>
+            <ButtonLink variant="outline" to="/trainer/chat" className="justify-start"><MessageSquare className="size-4" /> Nhắn học viên</ButtonLink>
           </div>
         </Panel>
       </div>
@@ -229,46 +233,123 @@ export function TrainerCertificateDetail() {
 
 export function TrainerCalendar() {
   const [view, setView] = useState<"week" | "month">("week");
+  const [mobileMode, setMobileMode] = useState<"day" | "table">("day");
+  const [activeDayIdx, setActiveDayIdx] = useState(4); // Default to Thứ 6 (2026-09-25)
   const days = ["T2 21/09", "T3 22/09", "T4 23/09", "T5 24/09", "T6 25/09", "T7 26/09", "CN 27/09"];
   const dates = ["2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27"];
   const hours = ["06:00", "06:30", "07:30", "17:00", "18:30"];
+
+  const activeDate = dates[activeDayIdx]!;
+  const daySessions = SESSIONS.filter((s) => s.date === activeDate);
+
   return (
     <OPage area="trainer" title="Lịch hướng dẫn" description="Lịch dạy theo tuần hoặc tháng. Bấm vào buổi để xem chi tiết."
-      actions={<div className="flex gap-2"><Button variant={view === "week" ? "default" : "outline"} onClick={() => setView("week")}>Tuần</Button><Button variant={view === "month" ? "default" : "outline"} onClick={() => setView("month")}>Tháng</Button></div>}>
+      actions={
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex gap-1 rounded-md border border-border p-0.5 bg-muted/40">
+            <Button size="sm" variant={view === "week" ? "default" : "ghost"} onClick={() => setView("week")}>Tuần</Button>
+            <Button size="sm" variant={view === "month" ? "default" : "ghost"} onClick={() => setView("month")}>Tháng</Button>
+          </div>
+          {view === "week" ? (
+            <div className="flex gap-1 md:hidden rounded-md border border-border p-0.5 bg-muted/40">
+              <Button size="sm" variant={mobileMode === "day" ? "default" : "ghost"} onClick={() => setMobileMode("day")}>Theo ngày</Button>
+              <Button size="sm" variant={mobileMode === "table" ? "default" : "ghost"} onClick={() => setMobileMode("table")}>Bảng lưới</Button>
+            </div>
+          ) : null}
+        </div>
+      }>
       {view === "month" ? (
         <ScheduleCalendar initialMonth={new Date(2026, 8, 1)} events={SESSIONS.map((s) => ({ id: s.id, day: Number(s.date.slice(8)), label: findCustomer(s.customerId).name, time: s.start, tone: s.status === "completed" ? "cyan" : "primary" }))} />
       ) : (
-        <div className="card-surface overflow-x-auto">
-          <table className="w-full min-w-[820px] text-sm">
-            <thead><tr><th className="w-20 p-3 text-left text-xs text-muted-foreground">Giờ</th>{days.map((d, i) => <th key={d} className={cn("p-3 text-left text-xs", dates[i] === "2026-09-25" ? "text-primary" : "text-muted-foreground")}>{d}</th>)}</tr></thead>
-            <tbody>
-              {hours.map((h) => (
-                <tr key={h} className="border-t border-border">
-                  <td className="p-3 text-xs text-muted-foreground">{h}</td>
-                  {dates.map((d) => {
-                    const s = SESSIONS.find((x) => x.date === d && x.start === h);
+        <div className="space-y-4">
+          {/* Chế độ xem theo từng ngày trên màn hình điện thoại */}
+          <div className={cn("space-y-3", mobileMode === "day" ? "block md:hidden" : "hidden")}>
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+              {days.map((d, i) => (
+                <button
+                  key={d}
+                  type="button"
+                  onClick={() => setActiveDayIdx(i)}
+                  className={cn(
+                    "shrink-0 rounded-lg px-3 py-2 text-xs font-medium border transition-colors",
+                    activeDayIdx === i
+                      ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                      : dates[i] === "2026-09-25"
+                        ? "border-primary/50 bg-primary/10 text-primary"
+                        : "border-border bg-card text-muted-foreground hover:border-primary/30",
+                  )}
+                >
+                  {d}
+                </button>
+              ))}
+            </div>
+
+            <Panel title={`Lịch dạy ${days[activeDayIdx]}`}>
+              {activeDate === "2026-09-27" ? (
+                <div className="py-8 text-center text-sm text-muted-foreground">Chủ nhật: Lịch nghỉ cố định trong tuần.</div>
+              ) : daySessions.length === 0 ? (
+                <div className="py-8 text-center text-sm text-muted-foreground">Không có ca hướng dẫn nào trong ngày này.</div>
+              ) : (
+                <ul className="divide-y divide-border">
+                  {daySessions.map((s) => {
+                    const c = findCustomer(s.customerId);
                     return (
-                      <td key={d} className="h-20 p-1.5 align-top">
-                        {s ? (
-                          <div className={cn("rounded-md border p-2 text-xs", s.status === "completed" ? "border-cyan/30 bg-cyan/10" : s.status === "pending" ? "border-warning/30 bg-warning/10" : "border-primary/30 bg-primary/10")}>
-                            <p className="font-medium">{findCustomer(s.customerId).name}</p>
-                            <p className="text-muted-foreground">{s.focus}</p>
-                            <div className="mt-1"><TextLink to={s.status === "pending" ? "/trainer/sessions/$id/verify" : "/trainer/live-sessions/$id"} params={{ id: s.id }}>{s.status === "pending" ? "Xác nhận" : "Mở"}</TextLink></div>
+                      <li key={s.id} className="py-3 flex flex-col gap-2">
+                        <div className="flex items-center justify-between">
+                          <span className="font-semibold text-primary text-sm">{s.start} – {s.end}</span>
+                          <StatusBadge status={s.status} />
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Avatar name={c.name} />
+                          <div className="min-w-0 flex-1">
+                            <p className="font-medium text-sm">{c.name}</p>
+                            <p className="text-xs text-muted-foreground">{s.focus} · {s.room}</p>
                           </div>
-                        ) : d === "2026-09-27" ? <div className="h-full rounded-md bg-muted/40 p-2 text-xs text-muted-foreground">Nghỉ</div> : null}
-                      </td>
+                          <ButtonLink size="sm" variant={s.status === "scheduled" ? "default" : "outline"} to={s.status === "pending" ? "/trainer/sessions/$id/verify" : "/trainer/live-sessions/$id"} params={{ id: s.id }}>
+                            {s.status === "pending" ? "Xác nhận" : s.status === "scheduled" ? "Bắt đầu" : "Chi tiết"}
+                          </ButtonLink>
+                        </div>
+                      </li>
                     );
                   })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                </ul>
+              )}
+            </Panel>
+          </div>
+
+          {/* Bảng tuần đầy đủ cho tablet và desktop, hoặc khi bật xem bảng trên mobile */}
+          <div className={cn("card-surface overflow-x-auto scrollbar-thin", mobileMode === "day" ? "hidden md:block" : "block")}>
+            <table className="w-full min-w-[760px] text-xs sm:text-sm">
+              <thead><tr><th className="w-16 sm:w-20 p-2.5 sm:p-3 text-left text-xs text-muted-foreground">Giờ</th>{days.map((d, i) => <th key={d} className={cn("p-2.5 sm:p-3 text-left text-xs whitespace-nowrap", dates[i] === "2026-09-25" ? "text-primary font-semibold" : "text-muted-foreground")}>{d}</th>)}</tr></thead>
+              <tbody>
+                {hours.map((h) => (
+                  <tr key={h} className="border-t border-border">
+                    <td className="p-2.5 sm:p-3 text-xs text-muted-foreground font-mono">{h}</td>
+                    {dates.map((d) => {
+                      const s = SESSIONS.find((x) => x.date === d && x.start === h);
+                      return (
+                        <td key={d} className="h-20 p-1 sm:p-1.5 align-top">
+                          {s ? (
+                            <div className={cn("rounded-md border p-1.5 sm:p-2 text-xs", s.status === "completed" ? "border-cyan/30 bg-cyan/10" : s.status === "pending" ? "border-warning/30 bg-warning/10" : "border-primary/30 bg-primary/10")}>
+                              <p className="font-medium truncate">{findCustomer(s.customerId).name}</p>
+                              <p className="text-muted-foreground truncate">{s.focus}</p>
+                              <div className="mt-1"><TextLink to={s.status === "pending" ? "/trainer/sessions/$id/verify" : "/trainer/live-sessions/$id"} params={{ id: s.id }}>{s.status === "pending" ? "Xác nhận" : "Mở"}</TextLink></div>
+                            </div>
+                          ) : d === "2026-09-27" ? <div className="h-full rounded-md bg-muted/40 p-1.5 sm:p-2 text-xs text-muted-foreground">Nghỉ</div> : null}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
-      <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
-        <span className="flex items-center gap-2"><span className="size-3 rounded bg-primary/40" /> Sắp diễn ra</span>
-        <span className="flex items-center gap-2"><span className="size-3 rounded bg-cyan/40" /> Đã hoàn thành</span>
-        <span className="flex items-center gap-2"><span className="size-3 rounded bg-warning/40" /> Chờ xác nhận</span>
+      <div className="flex flex-wrap gap-3 sm:gap-4 text-xs text-muted-foreground">
+        <span className="flex items-center gap-1.5"><span className="size-2.5 sm:size-3 rounded bg-primary/40" /> Sắp diễn ra</span>
+        <span className="flex items-center gap-1.5"><span className="size-2.5 sm:size-3 rounded bg-cyan/40" /> Đã hoàn thành</span>
+        <span className="flex items-center gap-1.5"><span className="size-2.5 sm:size-3 rounded bg-warning/40" /> Chờ xác nhận</span>
       </div>
     </OPage>
   );
@@ -286,26 +367,34 @@ export function TrainerDaysOff() {
     <OPage area="trainer" title="Đăng ký ngày nghỉ" description="Chọn ngày nghỉ cố định hằng tuần hoặc gửi đơn nghỉ theo ngày cụ thể.">
       <div className="grid gap-6 lg:grid-cols-2">
         <Panel title="Ngày nghỉ cố định trong tuần">
-          <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
             {week.map((d) => (
               <button key={d} onClick={() => setOff((x) => (x.includes(d) ? x.filter((y) => y !== d) : [...x, d]))}
-                className={cn("rounded-md border px-2 py-4 text-sm font-medium", off.includes(d) ? "border-primary bg-primary/15 text-primary" : "border-border text-muted-foreground hover:border-border-strong")}>{d}</button>
+                className={cn("rounded-md border p-2.5 sm:p-3 text-xs sm:text-sm font-medium transition-colors", off.includes(d) ? "border-primary bg-primary/15 text-primary" : "border-border text-muted-foreground hover:border-border-strong")}>{d}</button>
             ))}
           </div>
           <p className="mt-3 text-xs text-muted-foreground">Đã chọn: {off.join(", ") || "Không có"}. Học viên sẽ không đặt được lịch vào các ngày này.</p>
-          <Button className="mt-4" onClick={() => toast.success("Đã lưu ngày nghỉ cố định.")}>Lưu lịch nghỉ tuần</Button>
+          <Button className="mt-4 w-full sm:w-auto" onClick={() => toast.success("Đã lưu ngày nghỉ cố định.")}>Lưu lịch nghỉ tuần</Button>
         </Panel>
         <Panel title="Gửi đơn nghỉ theo ngày">
           <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); toast.success("Đã gửi đơn nghỉ. Các buổi bị ảnh hưởng sẽ được đề xuất đổi lịch."); }}>
-            <div className="grid gap-4 sm:grid-cols-2"><Field label="Từ ngày"><Input type="date" defaultValue="2026-10-02" /></Field><Field label="Đến ngày"><Input type="date" defaultValue="2026-10-02" /></Field></div>
+            <div className="grid gap-3 sm:grid-cols-2"><Field label="Từ ngày"><Input type="date" defaultValue="2026-10-02" /></Field><Field label="Đến ngày"><Input type="date" defaultValue="2026-10-02" /></Field></div>
             <Field label="Lý do"><Textarea rows={3} placeholder="VD: tham gia khoá đào tạo" /></Field>
-            <div className="rounded-md border border-warning/30 bg-warning/5 p-3 text-sm text-warning">Ngày 02/10 có 3 buổi đã đặt, hệ thống sẽ gửi yêu cầu đổi lịch cho học viên.</div>
-            <Button type="submit">Gửi đơn</Button>
+            <div className="rounded-md border border-warning/30 bg-warning/5 p-3 text-xs sm:text-sm text-warning">Ngày 02/10 có 3 buổi đã đặt, hệ thống sẽ gửi yêu cầu đổi lịch cho học viên.</div>
+            <Button type="submit" className="w-full sm:w-auto">Gửi đơn</Button>
           </form>
         </Panel>
       </div>
       <Panel title="Lịch sử đơn nghỉ">
-        <ul className="divide-y divide-border">{history.map((h) => <li key={h.date} className="flex flex-wrap items-center justify-between gap-2 py-3 text-sm"><span className="font-medium">{h.date}</span><span className="flex-1 text-muted-foreground sm:px-4">{h.reason}</span><StatusBadge status={h.status} /></li>)}</ul>
+        <ul className="divide-y divide-border">
+          {history.map((h) => (
+            <li key={h.date} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 py-3 text-sm">
+              <span className="font-semibold sm:font-medium text-xs sm:text-sm">{h.date}</span>
+              <span className="flex-1 text-muted-foreground sm:px-4 text-xs sm:text-sm">{h.reason}</span>
+              <StatusBadge status={h.status} className="self-start sm:self-auto" />
+            </li>
+          ))}
+        </ul>
       </Panel>
     </OPage>
   );
@@ -333,7 +422,7 @@ export function TrainerSessionVerify() {
               {checks.map((t) => <label key={t} className="flex items-center gap-3 text-sm"><Checkbox defaultChecked /> {t}</label>)}
               <Field label="Thời lượng thực tế (phút)"><Input type="number" defaultValue={60} /></Field>
               <Field label="Ghi chú"><Textarea rows={3} placeholder="Ghi chú cho buổi tập (không bắt buộc)" /></Field>
-              <div className="flex gap-2"><ButtonLink variant="outline" to="/trainer/calendar">Để sau</ButtonLink><Button type="submit">Xác nhận hoàn thành</Button></div>
+              <div className="flex flex-wrap gap-2 pt-2"><ButtonLink variant="outline" to="/trainer/calendar" className="w-full sm:w-auto">Để sau</ButtonLink><Button type="submit" className="w-full sm:w-auto">Xác nhận hoàn thành</Button></div>
             </form>
           )}
         </Panel>

@@ -115,6 +115,7 @@ export function DashboardLayout({ role, children }: { role: RoleKey; children: R
             </SheetContent>
           </Sheet>
 
+          <span className="text-xs font-semibold text-primary lg:hidden">{area.roleLabel}</span>
           <span className="hidden text-sm font-medium md:inline">{area.areaLabel}</span>
 
           <div className="relative ml-auto hidden w-full max-w-sm md:block">
@@ -160,23 +161,40 @@ export function DashboardLayout({ role, children }: { role: RoleKey; children: R
           </DropdownMenu>
         </header>
 
-        <main className="p-4 pb-20 md:p-6 lg:pb-6">{children}</main>
+        <main className="p-3.5 sm:p-4 pb-20 md:p-6 lg:pb-6">{children}</main>
       </div>
 
       {/* Điều hướng dưới cho thiết bị di động */}
       <nav className="fixed inset-x-0 bottom-0 z-30 flex border-t border-border bg-sidebar/95 backdrop-blur lg:hidden">
-        {area.groups.flatMap((g) => g.items).slice(0, 4).map((item) => (
+        {(role === "trainer"
+          ? [
+              { label: "Tổng quan", to: "/trainer/dashboard", icon: area.groups[0]?.items[0]?.icon ?? Menu },
+              { label: "Lịch dạy", to: "/trainer/calendar", icon: area.groups[0]?.items[1]?.icon ?? Menu },
+              { label: "Học viên", to: "/trainer/customers", icon: area.groups[1]?.items[0]?.icon ?? Menu },
+              { label: "Trò chuyện", to: "/trainer/chat", icon: area.groups[0]?.items[3]?.icon ?? Menu },
+            ]
+          : area.groups.flatMap((g) => g.items).slice(0, 4)
+        ).map((item) => (
           <AppLink
             key={item.to}
             to={item.to}
-            className="flex flex-1 flex-col items-center gap-1 py-2.5 text-[11px] text-muted-foreground transition-colors hover:text-foreground"
-            activeProps={{ className: "text-primary" }}
+            className="flex flex-1 flex-col items-center gap-1 py-2 text-[10px] sm:text-[11px] text-muted-foreground transition-colors hover:text-foreground"
+            activeProps={{ className: "text-primary font-medium" }}
             activeOptions={{ exact: item.to === area.basePath }}
           >
-            <item.icon size={18} />
-            <span className="max-w-full truncate px-1">{item.label}</span>
+            <item.icon size={17} />
+            <span className="max-w-full truncate px-0.5">{item.label}</span>
           </AppLink>
         ))}
+        <button
+          type="button"
+          onClick={() => setMobileOpen(true)}
+          className="flex flex-1 flex-col items-center gap-1 py-2 text-[10px] sm:text-[11px] text-muted-foreground transition-colors hover:text-foreground"
+          aria-label="Xem thêm menu"
+        >
+          <Menu size={17} />
+          <span className="max-w-full truncate px-0.5">Thêm</span>
+        </button>
       </nav>
     </div>
   );

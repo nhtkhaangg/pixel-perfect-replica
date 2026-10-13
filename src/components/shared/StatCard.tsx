@@ -22,34 +22,34 @@ export function StatCard({
   className?: string;
 }) {
   return (
-    <div className={cn("card-surface p-5", className)}>
-      <div className="flex items-start justify-between gap-3">
-        <p className="text-sm text-muted-foreground">{label}</p>
+    <div className={cn("card-surface p-3.5 sm:p-5 flex flex-col justify-between", className)}>
+      <div className="flex items-start justify-between gap-2 sm:gap-3">
+        <p className="text-xs sm:text-sm text-muted-foreground">{label}</p>
         {Icon ? (
-          <span className="grid size-8 place-items-center rounded-md bg-primary/10 text-primary">
-            <Icon size={16} />
+          <span className="grid size-7 sm:size-8 shrink-0 place-items-center rounded-md bg-primary/10 text-primary">
+            <Icon className="size-3.5 sm:size-4" />
           </span>
         ) : (
           badge
         )}
       </div>
-      <div className="mt-3 flex flex-wrap items-baseline gap-2">
-        <p className="font-display text-2xl font-bold tracking-tight">{value}</p>
+      <div className="mt-2.5 sm:mt-3 flex flex-wrap items-baseline gap-1.5 sm:gap-2">
+        <p className="font-display text-xl sm:text-2xl font-bold tracking-tight">{value}</p>
         {trend ? (
           <span
             className={cn(
-              "inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-medium",
+              "inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] sm:text-xs font-medium",
               trend.direction === "up"
                 ? "bg-success/12 text-success"
                 : "bg-destructive/12 text-destructive",
             )}
           >
-            {trend.direction === "up" ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
+            {trend.direction === "up" ? <ArrowUpRight className="size-3 sm:size-3.5" /> : <ArrowDownRight className="size-3 sm:size-3.5" />}
             {trend.value}
           </span>
         ) : null}
       </div>
-      {hint ? <p className="mt-2 text-xs text-muted-foreground">{hint}</p> : null}
+      {hint ? <p className="mt-1.5 sm:mt-2 text-[11px] sm:text-xs text-muted-foreground">{hint}</p> : null}
     </div>
   );
 }

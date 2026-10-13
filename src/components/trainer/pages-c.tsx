@@ -42,12 +42,12 @@ export function TrainerLiveSession() {
   return (
     <OPage area="trainer" title="Điều khiển buổi tập trực tiếp" parent={{ label: "Lịch hướng dẫn", to: "/trainer/calendar" }} description={`${c.name} · ${s.focus} · ${s.room}`}>
       <Grid cols={4}>
-        <div className="card-surface p-5 sm:col-span-2">
+        <div className="card-surface p-4 sm:p-5 col-span-2">
           <p className="text-xs text-muted-foreground">Thời gian buổi tập</p>
-          <p className="font-display text-5xl tabular-nums sm:text-6xl">{mm}:{ss}</p>
+          <p className="font-display text-4xl sm:text-5xl md:text-6xl tabular-nums my-1">{mm}:{ss}</p>
           <div className="mt-3 flex flex-wrap gap-2">
-            <Button onClick={() => setRunning((r) => !r)}>{running ? <><Pause className="size-4" /> Tạm dừng</> : <><Play className="size-4" /> {sec ? "Tiếp tục" : "Bắt đầu"}</>}</Button>
-            <Dialog><DialogTrigger asChild><Button variant="outline"><SquareCheck className="size-4" /> Kết thúc buổi</Button></DialogTrigger>
+            <Button size="sm" onClick={() => setRunning((r) => !r)}>{running ? <><Pause className="size-4" /> Tạm dừng</> : <><Play className="size-4" /> {sec ? "Tiếp tục" : "Bắt đầu"}</>}</Button>
+            <Dialog><DialogTrigger asChild><Button size="sm" variant="outline"><SquareCheck className="size-4" /> Kết thúc buổi</Button></DialogTrigger>
               <DialogContent><DialogHeader><DialogTitle>Kết thúc buổi tập?</DialogTitle><DialogDescription>Đã hoàn thành {doneCount}/{total} hiệp, tổng khối lượng {formatNumber(volume)} kg.</DialogDescription></DialogHeader>
                 <DialogFooter><ButtonLink to="/trainer/sessions/$id/verify" params={{ id: s.id }}>Kết thúc và xác nhận</ButtonLink></DialogFooter></DialogContent></Dialog>
           </div>
@@ -55,34 +55,125 @@ export function TrainerLiveSession() {
         <StatCard label="Hiệp đã xong" value={`${doneCount}/${total}`} />
         <StatCard label="Tổng khối lượng" value={`${formatNumber(volume)} kg`} />
       </Grid>
-      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <Panel title="Danh sách bài tập">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
+        {/* Thanh chọn bài tập theo tab ngang trên tablet/mobile */}
+        <div className="lg:hidden">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Bài tập ({items.length})</p>
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            {items.map((it, i) => {
+              const e = findExercise(it.exerciseId);
+              const fin = sets[i]!.every((x) => x.done);
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setActive(i)}
+                  className={cn(
+                    "flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium shrink-0 transition-colors",
+                    i === active
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-border bg-card text-muted-foreground hover:border-primary/40",
+                  )}
+                >
+                  <span className={cn("grid size-5 place-items-center rounded-full text-[10px]", fin ? "bg-success text-background" : "bg-muted")}>
+                    {fin ? <Check className="size-3" /> : i + 1}
+                  </span>
+                  <span className="truncate max-w-[120px]">{e.name}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Danh sách bài tập bên trái trên desktop */}
+        <Panel title="Danh sách bài tập" className="hidden lg:block">
           <ul className="space-y-2">
             {items.map((it, i) => { const e = findExercise(it.exerciseId); const fin = sets[i]!.every((x) => x.done); return (
-              <li key={i}><button onClick={() => setActive(i)} className={cn("flex w-full items-center gap-3 rounded-md border p-3 text-left text-sm", i === active ? "border-primary bg-primary/10" : "border-border")}>
+              <li key={i}><button onClick={() => setActive(i)} className={cn("flex w-full items-center gap-3 rounded-md border p-3 text-left text-sm transition-colors", i === active ? "border-primary bg-primary/10" : "border-border hover:border-primary/30")}>
                 <span className={cn("grid size-6 place-items-center rounded-full text-xs", fin ? "bg-success text-background" : "bg-muted")}>{fin ? <Check className="size-3.5" /> : i + 1}</span>
-                <span className="flex-1"><span className="font-medium">{e.name}</span><br /><span className="text-xs text-muted-foreground">{it.sets} × {it.reps} · nghỉ {it.rest}</span></span>
+                <span className="flex-1 min-w-0"><span className="font-medium truncate block">{e.name}</span><span className="text-xs text-muted-foreground block">{it.sets} × {it.reps} · nghỉ {it.rest}</span></span>
               </button></li>); })}
           </ul>
         </Panel>
+
         <Panel className="min-w-0" title={findExercise(items[active]!.exerciseId).name} action={<Button size="sm" variant="outline" onClick={() => setSets((all) => all.map((r, a) => (a === active ? [...r, { reps: 10, weight: 20, rpe: 7, done: false }] : r)))}><Plus className="size-4" /> Thêm hiệp</Button>}>
-          <div className="relative overflow-x-auto">
-            <table className="w-full min-w-[520px] text-sm">
+          {/* Chế độ thẻ nhập cho mobile */}
+          <div className="sm:hidden space-y-2.5">
+            {sets[active]!.map((x, j) => (
+              <div
+                key={j}
+                className={cn(
+                  "rounded-lg border p-3 transition-colors",
+                  x.done ? "border-success/40 bg-success/5" : "border-border bg-card",
+                )}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-semibold text-primary">Hiệp {j + 1}</span>
+                  <label className="flex items-center gap-2 text-xs font-medium cursor-pointer">
+                    <span className={x.done ? "text-success font-medium" : "text-muted-foreground"}>{x.done ? "Đã xong" : "Chưa hoàn thành"}</span>
+                    <Checkbox
+                      checked={x.done}
+                      onCheckedChange={(v) => {
+                        upd(active, j, { done: !!v });
+                        if (v) toast.success(`Hiệp ${j + 1} xong — nghỉ ${items[active]!.rest}`);
+                      }}
+                    />
+                  </label>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  <div>
+                    <span className="text-[10px] text-muted-foreground block mb-1">Lần lặp</span>
+                    <Input
+                      type="number"
+                      className="h-8 text-xs"
+                      value={x.reps}
+                      onChange={(e) => upd(active, j, { reps: Number(e.target.value) })}
+                    />
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-muted-foreground block mb-1">Tạ (kg)</span>
+                    <Input
+                      type="number"
+                      step="2.5"
+                      className="h-8 text-xs"
+                      value={x.weight}
+                      onChange={(e) => upd(active, j, { weight: Number(e.target.value) })}
+                    />
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-muted-foreground block mb-1">RPE</span>
+                    <Input
+                      type="number"
+                      min={1}
+                      max={10}
+                      className="h-8 text-xs"
+                      value={x.rpe}
+                      onChange={(e) => upd(active, j, { rpe: Number(e.target.value) })}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bảng nhập trên tablet & desktop */}
+          <div className="hidden sm:block relative overflow-x-auto scrollbar-thin">
+            <table className="w-full min-w-[480px] text-sm">
               <thead><tr className="text-left text-xs text-muted-foreground"><th className="p-2">Hiệp</th><th className="p-2">Lần lặp</th><th className="p-2">Mức tạ (kg)</th><th className="p-2">RPE (1–10)</th><th className="p-2">Xong</th></tr></thead>
               <tbody>
                 {sets[active]!.map((x, j) => (
                   <tr key={j} className={cn("border-t border-border", x.done && "bg-success/5")}>
                     <td className="p-2 font-medium">{j + 1}</td>
-                    <td className="p-2"><Input type="number" className="w-20" value={x.reps} onChange={(e) => upd(active, j, { reps: Number(e.target.value) })} /></td>
-                    <td className="p-2"><Input type="number" step="2.5" className="w-24" value={x.weight} onChange={(e) => upd(active, j, { weight: Number(e.target.value) })} /></td>
-                    <td className="p-2"><Input type="number" min={1} max={10} className="w-20" value={x.rpe} onChange={(e) => upd(active, j, { rpe: Number(e.target.value) })} /></td>
+                    <td className="p-2"><Input type="number" className="w-20 h-8 text-sm" value={x.reps} onChange={(e) => upd(active, j, { reps: Number(e.target.value) })} /></td>
+                    <td className="p-2"><Input type="number" step="2.5" className="w-24 h-8 text-sm" value={x.weight} onChange={(e) => upd(active, j, { weight: Number(e.target.value) })} /></td>
+                    <td className="p-2"><Input type="number" min={1} max={10} className="w-20 h-8 text-sm" value={x.rpe} onChange={(e) => upd(active, j, { rpe: Number(e.target.value) })} /></td>
                     <td className="p-2"><Checkbox checked={x.done} onCheckedChange={(v) => { upd(active, j, { done: !!v }); if (v) toast.success(`Hiệp ${j + 1} xong — nghỉ ${items[active]!.rest}`); }} /></td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="mt-3 text-xs text-muted-foreground">RPE: mức gắng sức cảm nhận, 10 là không thể thực hiện thêm lần nào.</p>
+          <p className="mt-3 text-[11px] sm:text-xs text-muted-foreground">RPE: mức gắng sức cảm nhận, 10 là không thể thực hiện thêm lần nào.</p>
         </Panel>
       </div>
     </OPage>
@@ -210,9 +301,9 @@ export function TrainerAiPlan() {
           </div>
         ))}
       </Grid>
-      <div className="flex flex-wrap justify-end gap-2">
-        <Button variant="outline" onClick={() => toast.info("Đang tạo lại gợi ý mới...")}>Tạo gợi ý khác</Button>
-        <Button disabled={!accepted.length} onClick={() => toast.success(`Đã thêm ${accepted.length} gợi ý vào bản nháp giáo án.`)}>Đưa vào bản nháp giáo án</Button>
+      <div className="flex flex-col-reverse sm:flex-row justify-end gap-2">
+        <Button variant="outline" className="w-full sm:w-auto" onClick={() => toast.info("Đang tạo lại gợi ý mới...")}>Tạo gợi ý khác</Button>
+        <Button className="w-full sm:w-auto" disabled={!accepted.length} onClick={() => toast.success(`Đã thêm ${accepted.length} gợi ý vào bản nháp giáo án.`)}>Đưa vào bản nháp giáo án</Button>
       </div>
     </OPage>
   );
@@ -255,20 +346,20 @@ export function TrainerNutritionPlan() {
       <form className="grid gap-6 lg:grid-cols-3" onSubmit={(e) => { e.preventDefault(); if (macro.p + macro.c + macro.f !== 100) return void toast.error("Tổng tỷ lệ đạm, tinh bột, chất béo phải bằng 100%."); toast.success("Đã lưu và gửi kế hoạch dinh dưỡng."); }}>
         <Panel title="Mục tiêu năng lượng">
           <Field label="Calo mỗi ngày (kcal)"><Input type="number" value={kcal} onChange={(e) => setKcal(Number(e.target.value))} /></Field>
-          <div className="mt-4 grid grid-cols-3 gap-2">
+          <div className="mt-4 grid grid-cols-3 gap-1.5 sm:gap-2">
             {(["p", "c", "f"] as const).map((k) => <Field key={k} label={{ p: "Đạm %", c: "Tinh bột %", f: "Béo %" }[k]}><Input type="number" value={macro[k]} onChange={(e) => setMacro((m) => ({ ...m, [k]: Number(e.target.value) }))} /></Field>)}
           </div>
-          <div className="mt-4 grid grid-cols-3 gap-2 text-center text-sm">
-            <div className="rounded-md bg-primary/10 p-3"><p className="font-semibold">{grams.p} g</p><p className="text-xs text-muted-foreground">Đạm</p></div>
-            <div className="rounded-md bg-cyan/10 p-3"><p className="font-semibold">{grams.c} g</p><p className="text-xs text-muted-foreground">Tinh bột</p></div>
-            <div className="rounded-md bg-warning/10 p-3"><p className="font-semibold">{grams.f} g</p><p className="text-xs text-muted-foreground">Chất béo</p></div>
+          <div className="mt-4 grid grid-cols-3 gap-1.5 sm:gap-2 text-center text-xs sm:text-sm">
+            <div className="rounded-md bg-primary/10 p-2.5 sm:p-3"><p className="font-semibold">{grams.p} g</p><p className="text-[11px] sm:text-xs text-muted-foreground">Đạm</p></div>
+            <div className="rounded-md bg-cyan/10 p-2.5 sm:p-3"><p className="font-semibold">{grams.c} g</p><p className="text-[11px] sm:text-xs text-muted-foreground">Tinh bột</p></div>
+            <div className="rounded-md bg-warning/10 p-2.5 sm:p-3"><p className="font-semibold">{grams.f} g</p><p className="text-[11px] sm:text-xs text-muted-foreground">Chất béo</p></div>
           </div>
           <Field label="Nước uống (lít/ngày)"><Input type="number" defaultValue={2.5} step={0.5} /></Field>
         </Panel>
         <Panel title="Thực đơn mẫu" className="lg:col-span-2">
           <div className="space-y-3">{meals.map(([t, d]) => <Field key={t} label={t!}><Textarea rows={2} defaultValue={d!} /></Field>)}</div>
           <Field label="Ghi chú cho học viên"><Textarea rows={2} defaultValue="Hạn chế đồ chiên, nước ngọt. Ăn trước tập 60–90 phút." /></Field>
-          <div className="mt-4 flex justify-end"><Button type="submit">Lưu và gửi học viên</Button></div>
+          <div className="mt-4 flex justify-end"><Button type="submit" className="w-full sm:w-auto">Lưu và gửi học viên</Button></div>
         </Panel>
       </form>
     </OPage>
@@ -283,10 +374,10 @@ export function TrainerMilestones() {
       <Panel><p className="text-sm text-muted-foreground">Đã đạt {MILESTONES.filter((m) => m.done).length}/{MILESTONES.length} cột mốc</p><ProgressBar value={(MILESTONES.filter((m) => m.done).length / MILESTONES.length) * 100} className="mt-2" /></Panel>
       <div className="space-y-4">
         {MILESTONES.map((m) => (
-          <div key={m.id} className="card-surface grid gap-4 p-5 md:grid-cols-[1fr_1fr_1.4fr]">
+          <div key={m.id} className="card-surface grid gap-3 sm:gap-4 p-4 sm:p-5 md:grid-cols-[1fr_1fr_1.4fr]">
             <div><div className="flex items-center gap-2"><StatusBadge status={m.done ? "completed" : "processing"} label={m.done ? "Đã đạt" : "Đang tiến hành"} /></div><p className="mt-2 font-medium">{m.title}</p></div>
             <div className="grid grid-cols-2 gap-2 text-sm"><div><p className="text-xs text-muted-foreground">Mục tiêu</p><p className="font-semibold">{m.target}</p></div><div><p className="text-xs text-muted-foreground">Thực tế</p><p className="font-semibold">{m.actual}</p></div></div>
-            <div className="flex gap-2"><Textarea rows={2} placeholder="Nhận xét của HLV..." value={notes[m.id] ?? ""} onChange={(e) => setNotes((n) => ({ ...n, [m.id]: e.target.value }))} /><Button variant="outline" onClick={() => toast.success("Đã lưu nhận xét cột mốc.")}>Lưu</Button></div>
+            <div className="flex flex-col sm:flex-row gap-2"><Textarea rows={2} placeholder="Nhận xét của HLV..." value={notes[m.id] ?? ""} onChange={(e) => setNotes((n) => ({ ...n, [m.id]: e.target.value }))} className="text-xs sm:text-sm" /><Button variant="outline" className="w-full sm:w-auto shrink-0" onClick={() => toast.success("Đã lưu nhận xét cột mốc.")}>Lưu</Button></div>
           </div>
         ))}
       </div>
@@ -300,7 +391,7 @@ export function TrainerPlanVersions() {
     <OPage area="trainer" title="Lịch sử phiên bản giáo án" parent={{ label: p.name, to: `/trainer/lesson-plans/${p.id}` }}>
       <Panel>
         <Timeline items={PLAN_VERSIONS.map((v, i) => ({ title: `Phiên bản ${v.version} — ${v.status}`, time: v.date, tone: i === 0 ? "success" : "neutral", description: `${v.note} (${v.author})` }))} />
-        <div className="mt-6 flex gap-2"><Button variant="outline" onClick={() => toast.success("Đã khôi phục v2 thành bản nháp mới.")}>Khôi phục phiên bản 2</Button><ButtonLink to="/trainer/lesson-plans/$id/edit" params={{ id: p.id }}>Tạo phiên bản mới</ButtonLink></div>
+        <div className="mt-6 flex flex-col sm:flex-row gap-2"><Button variant="outline" className="w-full sm:w-auto" onClick={() => toast.success("Đã khôi phục v2 thành bản nháp mới.")}>Khôi phục phiên bản 2</Button><ButtonLink to="/trainer/lesson-plans/$id/edit" params={{ id: p.id }} className="w-full sm:w-auto">Tạo phiên bản mới</ButtonLink></div>
       </Panel>
     </OPage>
   );

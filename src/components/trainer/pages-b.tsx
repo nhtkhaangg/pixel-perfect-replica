@@ -75,7 +75,7 @@ function PlanBuilder({ initial, mode }: { initial?: LessonPlan; mode: "create" |
   return (
     <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); if (!days.some((d) => d.items.length)) return void toast.error("Giáo án cần ít nhất một bài tập."); toast.success(mode === "create" ? "Đã lưu bản nháp giáo án." : "Đã lưu thành phiên bản mới."); }}>
       <Panel title="Thông tin chung">
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Field label="Tên giáo án"><Input defaultValue={initial?.name} placeholder="VD: Giảm mỡ 8 tuần" required /></Field>
           <Field label="Học viên">
             <select defaultValue={initial?.customerId} className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm">{CUSTOMERS.map((c) => <option key={c.id} value={c.id} className="bg-card">{c.name}</option>)}</select>
@@ -86,25 +86,35 @@ function PlanBuilder({ initial, mode }: { initial?: LessonPlan; mode: "create" |
       </Panel>
       <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
         <Panel title="Các buổi trong tuần" action={<Button type="button" size="sm" variant="outline" onClick={() => { setDays((d) => [...d, { day: `Buổi ${d.length + 1}`, title: "Buổi mới", items: [] }]); setActive(days.length); }}><Plus className="size-4" /> Thêm buổi</Button>}>
-          <div className="mb-4 flex flex-wrap gap-2">
-            {days.map((d, i) => <button type="button" key={i} onClick={() => setActive(i)} className={cn("rounded-md border px-3 py-1.5 text-sm", i === active ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground")}>{d.day}</button>)}
+          <div className="mb-4 flex flex-wrap gap-1.5 sm:gap-2">
+            {days.map((d, i) => <button type="button" key={i} onClick={() => setActive(i)} className={cn("rounded-md border px-3 py-1.5 text-xs sm:text-sm font-medium transition-colors", i === active ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground hover:border-primary/40")}>{d.day}</button>)}
           </div>
           <div className="mb-4 grid gap-3 sm:grid-cols-2">
             <Field label="Ngày"><Input value={day.day} onChange={(e) => update((d) => ({ ...d, day: e.target.value }))} /></Field>
             <Field label="Chủ đề buổi"><Input value={day.title} onChange={(e) => update((d) => ({ ...d, title: e.target.value }))} /></Field>
           </div>
           {day.items.length === 0 ? <p className="rounded-md border border-dashed border-border p-6 text-center text-sm text-muted-foreground">Chưa có bài tập. Chọn từ thư viện bên phải.</p> : (
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {day.items.map((it, i) => (
-                <li key={i} className="grid grid-cols-2 items-end gap-2 rounded-md border border-border p-3 sm:grid-cols-[1fr_70px_90px_100px_auto]">
-                  <p className="col-span-2 text-sm font-medium sm:col-span-1">{findExercise(it.exerciseId).name}</p>
-                  <Field label="Hiệp"><Input type="number" value={it.sets} onChange={(e) => update((d) => ({ ...d, items: d.items.map((x, j) => (j === i ? { ...x, sets: Number(e.target.value) } : x)) }))} /></Field>
-                  <Field label="Lần lặp"><Input value={it.reps} onChange={(e) => update((d) => ({ ...d, items: d.items.map((x, j) => (j === i ? { ...x, reps: e.target.value } : x)) }))} /></Field>
-                  <Field label="Nghỉ"><Input value={it.rest} onChange={(e) => update((d) => ({ ...d, items: d.items.map((x, j) => (j === i ? { ...x, rest: e.target.value } : x)) }))} /></Field>
-                  <div className="flex gap-1">
-                    <Button type="button" size="icon" variant="ghost" aria-label="Lên" onClick={() => move(i, -1)}><ArrowUp className="size-4" /></Button>
-                    <Button type="button" size="icon" variant="ghost" aria-label="Xuống" onClick={() => move(i, 1)}><ArrowDown className="size-4" /></Button>
-                    <Button type="button" size="icon" variant="ghost" aria-label="Xoá" onClick={() => update((d) => ({ ...d, items: d.items.filter((_, j) => j !== i) }))}><Trash2 className="size-4 text-destructive" /></Button>
+                <li key={i} className="flex flex-col sm:flex-row sm:items-end gap-3 rounded-md border border-border p-3 sm:p-3.5 bg-card">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate">{findExercise(it.exerciseId).name}</p>
+                    <div className="mt-2 grid grid-cols-3 gap-2">
+                      <Field label="Hiệp">
+                        <Input type="number" className="h-8 text-xs sm:text-sm" value={it.sets} onChange={(e) => update((d) => ({ ...d, items: d.items.map((x, j) => (j === i ? { ...x, sets: Number(e.target.value) } : x)) }))} />
+                      </Field>
+                      <Field label="Lần lặp">
+                        <Input className="h-8 text-xs sm:text-sm" value={it.reps} onChange={(e) => update((d) => ({ ...d, items: d.items.map((x, j) => (j === i ? { ...x, reps: e.target.value } : x)) }))} />
+                      </Field>
+                      <Field label="Nghỉ">
+                        <Input className="h-8 text-xs sm:text-sm" value={it.rest} onChange={(e) => update((d) => ({ ...d, items: d.items.map((x, j) => (j === i ? { ...x, rest: e.target.value } : x)) }))} />
+                      </Field>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-end gap-1 self-end sm:self-center border-t sm:border-t-0 pt-2 sm:pt-0 w-full sm:w-auto">
+                    <Button type="button" size="icon" variant="ghost" className="size-8" aria-label="Lên" onClick={() => move(i, -1)}><ArrowUp className="size-4" /></Button>
+                    <Button type="button" size="icon" variant="ghost" className="size-8" aria-label="Xuống" onClick={() => move(i, 1)}><ArrowDown className="size-4" /></Button>
+                    <Button type="button" size="icon" variant="ghost" className="size-8 text-destructive hover:bg-destructive/10" aria-label="Xoá" onClick={() => update((d) => ({ ...d, items: d.items.filter((_, j) => j !== i) }))}><Trash2 className="size-4" /></Button>
                   </div>
                 </li>
               ))}
@@ -112,10 +122,10 @@ function PlanBuilder({ initial, mode }: { initial?: LessonPlan; mode: "create" |
           )}
         </Panel>
         <Panel title="Bộ chọn bài tập">
-          <Input placeholder="Tìm bài tập, nhóm cơ..." value={q} onChange={(e) => setQ(e.target.value)} />
-          <ul className="mt-3 max-h-[420px] space-y-2 overflow-y-auto">
+          <Input placeholder="Tìm bài tập, nhóm cơ..." value={q} onChange={(e) => setQ(e.target.value)} className="text-xs sm:text-sm" />
+          <ul className="mt-3 max-h-[300px] sm:max-h-[420px] space-y-2 overflow-y-auto">
             {EXERCISES.filter((e) => (e.name + e.muscle).toLowerCase().includes(q.toLowerCase())).map((e) => (
-              <li key={e.id} className="flex items-center justify-between gap-2 rounded-md border border-border p-2.5">
+              <li key={e.id} className="flex items-center justify-between gap-2 rounded-md border border-border p-2.5 hover:border-primary/40 transition-colors">
                 <div className="min-w-0"><p className="truncate text-sm font-medium">{e.name}</p><p className="text-xs text-muted-foreground">{e.muscle}</p></div>
                 <Button type="button" size="sm" variant="outline" onClick={() => update((d) => ({ ...d, items: [...d.items, { exerciseId: e.id, sets: 3, reps: "10", rest: "60 giây" }] }))}><Plus className="size-4" /></Button>
               </li>
@@ -123,7 +133,10 @@ function PlanBuilder({ initial, mode }: { initial?: LessonPlan; mode: "create" |
           </ul>
         </Panel>
       </div>
-      <div className="flex justify-end gap-2"><ButtonLink variant="outline" to="/trainer/lesson-plans">Huỷ</ButtonLink><Button type="submit">{mode === "create" ? "Lưu bản nháp" : "Lưu phiên bản mới"}</Button></div>
+      <div className="flex flex-col-reverse sm:flex-row justify-end gap-2">
+        <ButtonLink variant="outline" to="/trainer/lesson-plans" className="w-full sm:w-auto">Huỷ</ButtonLink>
+        <Button type="submit" className="w-full sm:w-auto">{mode === "create" ? "Lưu bản nháp" : "Lưu phiên bản mới"}</Button>
+      </div>
     </form>
   );
 }
@@ -190,7 +203,7 @@ function ExerciseForm({ e }: { e?: Exercise }) {
       <Panel title="Video minh hoạ">
         <Field label="Đường dẫn video"><Input placeholder="https://..." /></Field>
         <p className="mt-3 text-xs text-muted-foreground">Bài tập tuỳ chỉnh chỉ hiển thị cho học viên của bạn.</p>
-        <div className="mt-6 flex gap-2"><ButtonLink variant="outline" to="/trainer/exercises">Huỷ</ButtonLink><Button type="submit">Lưu bài tập</Button></div>
+        <div className="mt-6 flex flex-col-reverse sm:flex-row gap-2"><ButtonLink variant="outline" to="/trainer/exercises" className="w-full sm:w-auto">Huỷ</ButtonLink><Button type="submit" className="w-full sm:w-auto">Lưu bài tập</Button></div>
       </Panel>
     </form>
   );

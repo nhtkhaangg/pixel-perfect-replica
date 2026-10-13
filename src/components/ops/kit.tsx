@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { Send, Star, Upload } from "lucide-react";
+import { ArrowLeft, Send, Star, Upload } from "lucide-react";
 import { toast } from "sonner";
 
 import { Field, Panel } from "@/components/customer/common";
@@ -58,8 +58,12 @@ export function OPage({
 }
 
 export function Grid({ cols = 4, children, className }: { cols?: 2 | 3 | 4; children: ReactNode; className?: string }) {
-  const c = { 2: "sm:grid-cols-2", 3: "sm:grid-cols-2 lg:grid-cols-3", 4: "sm:grid-cols-2 lg:grid-cols-4" }[cols];
-  return <div className={cn("grid gap-4", c, className)}>{children}</div>;
+  const c = {
+    2: "grid-cols-1 sm:grid-cols-2",
+    3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+    4: "grid-cols-2 lg:grid-cols-4",
+  }[cols];
+  return <div className={cn("grid gap-3 sm:gap-4", c, className)}>{children}</div>;
 }
 
 export function Stars({ value, size = 14 }: { value: number; size?: number }) {
@@ -118,11 +122,11 @@ export function ActivityList({ items }: { items: { text: string; time: string }[
 
 export function InfoList({ items }: { items: { label: string; value: ReactNode }[] }) {
   return (
-    <dl className="grid gap-3 sm:grid-cols-2">
+    <dl className="grid gap-2.5 sm:gap-3 sm:grid-cols-2">
       {items.map((it) => (
-        <div key={it.label} className="rounded-md border border-border bg-background/40 p-3">
+        <div key={it.label} className="min-w-0 rounded-md border border-border bg-background/40 p-3">
           <dt className="text-xs text-muted-foreground">{it.label}</dt>
-          <dd className="mt-1 text-sm font-medium">{it.value}</dd>
+          <dd className="mt-1 text-sm font-medium break-words">{it.value}</dd>
         </div>
       ))}
     </dl>
@@ -260,6 +264,7 @@ export function ChatView({ contacts, threads }: { contacts: ChatContact[]; threa
   const [active, setActive] = useState(contacts[0]?.id ?? "");
   const [all, setAll] = useState(threads);
   const [text, setText] = useState("");
+  const [mobileChatOpen, setMobileChatOpen] = useState(false);
   const current = contacts.find((c) => c.id === active);
   const send = () => {
     if (!text.trim()) return;
@@ -267,20 +272,26 @@ export function ChatView({ contacts, threads }: { contacts: ChatContact[]; threa
     setText("");
   };
   return (
-    <div className="card-surface grid min-h-[560px] overflow-hidden md:grid-cols-[280px_1fr]">
-      <aside className="border-b border-border md:border-r md:border-b-0">
-        <ul className="max-h-60 overflow-y-auto md:max-h-none">
+    <div className="card-surface grid min-h-[520px] sm:min-h-[580px] overflow-hidden md:grid-cols-[280px_1fr]">
+      <aside className={cn("border-b border-border md:border-r md:border-b-0", mobileChatOpen ? "hidden md:block" : "block")}>
+        <div className="p-3 border-b border-border bg-muted/20 md:hidden">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Danh sách trò chuyện ({contacts.length})</p>
+        </div>
+        <ul className="max-h-[480px] overflow-y-auto md:max-h-none">
           {contacts.map((c) => (
             <li key={c.id}>
               <button
-                onClick={() => setActive(c.id)}
-                className={cn("flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-muted/50", c.id === active && "bg-primary/10")}
+                onClick={() => {
+                  setActive(c.id);
+                  setMobileChatOpen(true);
+                }}
+                className={cn("flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-muted/50 transition-colors", c.id === active && "bg-primary/10")}
               >
                 <Avatar name={c.name} />
                 <span className="min-w-0 flex-1">
                   <span className="flex items-center gap-2 text-sm font-medium">
-                    {c.name}
-                    {c.online ? <span className="size-2 rounded-full bg-success" /> : null}
+                    <span className="truncate">{c.name}</span>
+                    {c.online ? <span className="size-2 shrink-0 rounded-full bg-success" /> : null}
                   </span>
                   <span className="block truncate text-xs text-muted-foreground">{c.last}</span>
                 </span>
@@ -290,23 +301,36 @@ export function ChatView({ contacts, threads }: { contacts: ChatContact[]; threa
           ))}
         </ul>
       </aside>
-      <section className="flex flex-col">
-        <header className="border-b border-border px-5 py-3">
-          <p className="font-medium">{current?.name}</p>
-          <p className="text-xs text-muted-foreground">{current?.online ? "Đang trực tuyến" : "Ngoại tuyến"}</p>
+      <section className={cn("flex flex-col min-h-[450px] md:min-h-0", !mobileChatOpen ? "hidden md:flex" : "flex")}>
+        <header className="border-b border-border px-4 py-3 flex items-center gap-3 bg-card">
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="md:hidden -ml-1 size-8 shrink-0"
+            onClick={() => setMobileChatOpen(false)}
+            aria-label="Quay lại danh sách"
+          >
+            <ArrowLeft className="size-4" />
+          </Button>
+          <Avatar name={current?.name ?? ""} className="size-8 text-xs md:hidden" />
+          <div className="min-w-0 flex-1">
+            <p className="font-medium text-sm sm:text-base truncate">{current?.name}</p>
+            <p className="text-xs text-muted-foreground">{current?.online ? "Đang trực tuyến" : "Ngoại tuyến"}</p>
+          </div>
         </header>
-        <div className="flex-1 space-y-3 overflow-y-auto p-5">
+        <div className="flex-1 space-y-3 overflow-y-auto p-4 sm:p-5 max-h-[420px] md:max-h-[500px]">
           {(all[active] ?? []).map((m, i) => (
             <div key={i} className={cn("flex", m.from === "me" ? "justify-end" : "justify-start")}>
-              <div className={cn("max-w-[80%] rounded-lg px-3 py-2 text-sm", m.from === "me" ? "bg-primary text-primary-foreground" : "bg-muted")}>
-                {m.text}
-                <p className="mt-1 text-[10px] opacity-70">{m.time}</p>
+              <div className={cn("max-w-[85%] sm:max-w-[80%] rounded-lg px-3.5 py-2 text-sm", m.from === "me" ? "bg-primary text-primary-foreground" : "bg-muted")}>
+                <p className="break-words">{m.text}</p>
+                <p className="mt-1 text-[10px] opacity-70 text-right">{m.time}</p>
               </div>
             </div>
           ))}
         </div>
-        <form className="flex gap-2 border-t border-border p-3" onSubmit={(e) => { e.preventDefault(); send(); }}>
-          <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="Nhập tin nhắn..." />
+        <form className="flex gap-2 border-t border-border p-3 bg-card" onSubmit={(e) => { e.preventDefault(); send(); }}>
+          <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="Nhập tin nhắn..." className="text-sm" />
           <Button type="submit" size="icon" aria-label="Gửi"><Send className="size-4" /></Button>
         </form>
       </section>
@@ -323,24 +347,24 @@ export function NotificationList({ items }: { items: NoticeItem[] }) {
     <Panel
       title={`Thông báo (${list.filter((n) => !n.read).length} chưa đọc)`}
       action={
-        <div className="flex gap-2">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
           <Button size="sm" variant={tab === "all" ? "default" : "outline"} onClick={() => setTab("all")}>Tất cả</Button>
           <Button size="sm" variant={tab === "unread" ? "default" : "outline"} onClick={() => setTab("unread")}>Chưa đọc</Button>
-          <Button size="sm" variant="ghost" onClick={() => { setList((l) => l.map((n) => ({ ...n, read: true }))); toast.success("Đã đánh dấu tất cả là đã đọc."); }}>Đánh dấu đã đọc</Button>
+          <Button size="sm" variant="ghost" className="text-xs sm:text-sm px-2 sm:px-3" onClick={() => { setList((l) => l.map((n) => ({ ...n, read: true }))); toast.success("Đã đánh dấu tất cả là đã đọc."); }}>Đánh dấu đã đọc</Button>
         </div>
       }
     >
       <ul className="divide-y divide-border">
         {shown.map((n) => (
-          <li key={n.id} className="flex gap-3 py-4">
-            <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", n.read ? "bg-transparent" : "bg-primary")} />
+          <li key={n.id} className="flex gap-3 py-3.5 sm:py-4">
+            <span className={cn("mt-2 size-2 shrink-0 rounded-full", n.read ? "bg-transparent" : "bg-primary")} />
             <div className="min-w-0 flex-1">
-              <div className="flex flex-wrap items-center gap-2">
-                <p className="font-medium">{n.title}</p>
+              <div className="flex flex-wrap items-center justify-between gap-1.5 sm:gap-2">
+                <p className="font-medium text-sm sm:text-base break-words">{n.title}</p>
                 <StatusBadge tone="neutral" label={n.type} />
               </div>
-              <p className="mt-1 text-sm text-muted-foreground">{n.body}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{n.time}</p>
+              <p className="mt-1 text-xs sm:text-sm text-muted-foreground break-words">{n.body}</p>
+              <p className="mt-1.5 text-[11px] sm:text-xs text-muted-foreground">{n.time}</p>
             </div>
           </li>
         ))}
